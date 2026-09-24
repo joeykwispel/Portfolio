@@ -72,10 +72,15 @@
   });
 
   $effect(() => {
-    if (app.palette) {
-      query = '';
-      tick().then(() => input?.focus());
-    }
+    if (!app.palette) return;
+    query = '';
+    // On touch screens, focusing would pop up the keyboard and hide most of the list; tap the field to search.
+    if (!matchMedia('(pointer: coarse)').matches) tick().then(() => input?.focus());
+    // Keep the page behind from scrolling, so swipes scroll the list instead.
+    const root = document.documentElement;
+    const prev = root.style.overflow;
+    root.style.overflow = 'hidden';
+    return () => (root.style.overflow = prev);
   });
 
   function flash(msg: string) {
@@ -153,7 +158,7 @@
           aria-selected={i === index}
           class:active={i === index}
           use:scrollActive={i === index}
-          onpointermove={() => (index = i)}
+          onpointermove={(e) => e.pointerType === 'mouse' && (index = i)}
           onclick={() => run(cmd)}
           onkeydown={() => {}}
         >
@@ -192,6 +197,9 @@
     left: 50%;
     translate: -50% 0;
     width: min(620px, 100% - 1.5rem);
+    max-height: calc(100dvh - 14vh - 1rem);
+    display: flex;
+    flex-direction: column;
     background: var(--bg-2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -199,6 +207,7 @@
     overflow: hidden;
   }
   .search {
+    flex: none;
     display: flex;
     align-items: center;
     gap: 0.6rem;
@@ -228,7 +237,10 @@
   }
   ul {
     max-height: min(52vh, 420px);
+    min-height: 0;
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding: 0.4rem;
   }
   .group {
@@ -306,6 +318,21 @@
   }
   @media (max-width: 560px) {
     .hint {
+      display: none;
+    }
+    /* Use the full screen height on phones: the list fills whatever is left below the search field. */
+    .palette {
+      top: 0.75rem;
+      max-height: calc(100dvh - 1.5rem);
+    }
+    ul {
+      flex: 1;
+      max-height: none;
+    }
+  }
+  /* The arrow/enter/esc hints only make sense with a keyboard. */
+  @media (pointer: coarse) {
+    footer {
       display: none;
     }
   }
