@@ -9,6 +9,7 @@ export const ui = {
     insights: 'Insights',
     experience: 'Experience',
     projects: 'Projects',
+    opensource: 'Open source',
     testimonials: 'Recommendations',
     contact: 'Contact',
     skip: 'Skip to content',
@@ -82,6 +83,26 @@ export const ui = {
     visit: 'Visit project',
     role: 'Role'
   },
+  opensource: {
+    title: 'Open source',
+    intro: 'Post-quantum hardening for Dutch public-sector code. Each finding was surfaced with PQNavigator and grounded in the AIVD/CWI/TNO PQC Migration Handbook.',
+    prs: 'pull requests',
+    orgs: 'organisations',
+    lines: 'lines changed',
+    about: 'About the repo',
+    did: 'What I did',
+    open: 'Open',
+    merged: 'Merged',
+    closed: 'Closed',
+    awaiting: 'awaiting review',
+    opened: 'opened on',
+    by: 'by',
+    files: 'files changed',
+    view: 'View pull request',
+    expand: 'Show full snippet',
+    collapse: 'Show less',
+    snippet: 'Excerpt from the diff'
+  },
   testimonials: { title: 'Recommendations', prev: 'Previous', next: 'Next', pause: 'Pause', play: 'Play' },
   contact: {
     title: 'Contact',
@@ -131,6 +152,7 @@ export const ui = {
     insights: "// charts: 100% real data, 0% Excel",
     experience: "git log --author=\"Joey\" --oneline | wc -l  // a lot",
     projects: "<Joey mood=\"caffeinated\" status=\"shipping\" />",
+    opensource: 'git push --force-with-lease origin post-quantum  // politely',
     console: "Hey fellow dev! Poking around the source? I like you already. Let's talk:"
   },
   footer: {

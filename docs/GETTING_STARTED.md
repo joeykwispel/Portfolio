@@ -54,8 +54,11 @@ All content lives in `src/lib/data/`. You never need to touch the components to 
 | `shared/skills.ts`                    | Every skill and its category                               |
 | `shared/education.ts`                 | Education and courses                                      |
 | `shared/testimonials.ts`              | Recommendations (the section hides when this is empty)     |
+| `shared/contributions.ts`             | Open-source pull requests, incl. diff snippets             |
 | `cv.ts`                               | Full CV text for the `/cv` page, English and Dutch         |
 | `locales/en/*`, `locales/nl/*`        | All translated text (Dutch is type-checked against English) |
+
+When a pull request gets merged, change its `state` to `'merged'` in `shared/contributions.ts`; the badge turns purple.
 
 Good to know:
 

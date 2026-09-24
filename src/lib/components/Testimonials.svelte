@@ -26,7 +26,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num="06" slug="recommendations" title={c.ui.testimonials.title} />
+    <SectionHead num="07" slug="recommendations" title={c.ui.testimonials.title} />
     <div
       class="card glass ring"
       role="region"

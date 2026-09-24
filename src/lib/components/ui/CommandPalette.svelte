@@ -30,6 +30,7 @@
       ['insights', c.ui.nav.insights],
       ['experience', c.ui.nav.experience],
       ['projects', c.ui.nav.projects],
+      ['opensource', c.ui.nav.opensource],
       ...(testimonials.length ? [['testimonials', c.ui.nav.testimonials]] : []),
       ['contact', c.ui.nav.contact]
     ].map(([id, label]) => ({ id: `go-${id}`, group: p.goto, label, hint: `#${id}`, icon: '#', run: go(id) })),

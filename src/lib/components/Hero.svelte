@@ -575,6 +575,7 @@
     background: var(--muted);
   }
   .code {
+    font-variant-ligatures: none;
     margin: 0;
     padding: 0.8rem 0;
     font-size: clamp(0.72rem, 1.55vw, 0.85rem);

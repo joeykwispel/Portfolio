@@ -57,7 +57,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num={testimonials.length ? '07' : '06'} slug="contact" title={c.ui.contact.title} intro={c.ui.contact.intro} />
+    <SectionHead num={testimonials.length ? '08' : '07'} slug="contact" title={c.ui.contact.title} intro={c.ui.contact.intro} />
 
     <p class="cta mono" use:reveal><span class="kw">await</span> <span class="grad"><Scramble text={c.ui.contact.cta} /></span><span class="caret" aria-hidden="true"></span></p>
 

@@ -47,6 +47,8 @@
   <Quip text={ui.quips.experience} />
   <Lazy id="projects" minHeight="600px" loader={() => import('$lib/components/Projects.svelte')} />
   <Quip text={ui.quips.projects} />
+  <Lazy id="opensource" minHeight="900px" loader={() => import('$lib/components/OpenSource.svelte')} />
+  <Quip text={ui.quips.opensource} />
   {#if testimonials.length}
     <Lazy id="testimonials" minHeight="360px" loader={() => import('$lib/components/Testimonials.svelte')} />
   {/if}

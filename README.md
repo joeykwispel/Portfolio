@@ -20,7 +20,7 @@ I'm employed by [Competa IT](https://competa.com) and work on client projects.
 
 ## What this is
 
-- A single-page portfolio with about, skills, insights (charts), experience, projects, recommendations and contact
+- A single-page portfolio with about, skills, insights (charts), experience, projects, open-source contributions, recommendations and contact
 - A printable CV page (`/cv`) with "Save as PDF"
 - English and Dutch, dark and light theme
 - Built with **SvelteKit**, **TypeScript** and plain CSS, exported as a static site
@@ -31,6 +31,6 @@ Want to run it yourself? See **[docs/GETTING_STARTED.md](docs/GETTING_STARTED.md
 
 The **code** is released under the [MIT License](LICENSE), so feel free to use it for your own portfolio.
 
-Third-party parts (Lucide and Feather icon paths, the bundled Svelte libraries, and the self-hosted Inter and JetBrains Mono fonts) keep their own permissive licenses, all compatible with MIT. Their notices are in [static/THIRD-PARTY-NOTICES.txt](static/THIRD-PARTY-NOTICES.txt), which also ships with the website.
+Third-party parts (Lucide, Feather and GitHub Octicons icon paths, the bundled Svelte libraries, and the self-hosted Inter and JetBrains Mono fonts) keep their own permissive licenses, all compatible with MIT. Their notices are in [static/THIRD-PARTY-NOTICES.txt](static/THIRD-PARTY-NOTICES.txt), which also ships with the website.
 
 The **content** is not covered by that license: my CV text, work history, the recommendation quote, my name and the social preview image (`static/og.png`) remain © Joey Oosenbrug. If you fork this, replace the data in `src/lib/data/` with your own.

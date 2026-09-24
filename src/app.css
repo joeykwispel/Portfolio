@@ -41,6 +41,15 @@
   --syn-prop: #7dd3c0;
   --syn-com: #637089;
   --syn-punc: #89ddff;
+  /* GitHub-style diff colors */
+  --diff-add-bg: rgba(46, 160, 67, 0.15);
+  --diff-add-num: rgba(46, 160, 67, 0.28);
+  --diff-add-fg: #3fb950;
+  --diff-del-bg: rgba(248, 81, 73, 0.15);
+  --diff-del-num: rgba(248, 81, 73, 0.28);
+  --diff-del-fg: #f85149;
+  --diff-hunk-bg: rgba(56, 139, 253, 0.1);
+  --diff-hunk-fg: #8b9bb4;
 }
 
 :root[data-theme='light'] {
@@ -69,6 +78,14 @@
   --syn-prop: #0b6259;
   --syn-com: #7a869c;
   --syn-punc: #0e7490;
+  --diff-add-bg: #e6ffec;
+  --diff-add-num: #ccffd8;
+  --diff-add-fg: #1a7f37;
+  --diff-del-bg: #ffebe9;
+  --diff-del-num: #ffd7d5;
+  --diff-del-fg: #cf222e;
+  --diff-hunk-bg: #ddf4ff;
+  --diff-hunk-fg: #57606a;
 }
 
 *,

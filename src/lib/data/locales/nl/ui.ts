@@ -11,6 +11,7 @@ export const ui: UI = {
     insights: 'Inzichten',
     experience: 'Ervaring',
     projects: 'Projecten',
+    opensource: 'Open source',
     testimonials: 'Aanbevelingen',
     contact: 'Contact',
     skip: 'Naar de inhoud',
@@ -84,6 +85,26 @@ export const ui: UI = {
     visit: 'Bekijk project',
     role: 'Rol'
   },
+  opensource: {
+    title: 'Open source',
+    intro: 'Post-quantum hardening van open-source code van de Nederlandse overheid. Elke bevinding is gevonden met PQNavigator en onderbouwd met het PQC-migratie handboek van AIVD/CWI/TNO.',
+    prs: 'pull requests',
+    orgs: 'organisaties',
+    lines: 'regels gewijzigd',
+    about: 'Over de repo',
+    did: 'Wat ik deed',
+    open: 'Open',
+    merged: 'Gemerged',
+    closed: 'Gesloten',
+    awaiting: 'wacht op review',
+    opened: 'geopend op',
+    by: 'door',
+    files: 'bestanden gewijzigd',
+    view: 'Bekijk pull request',
+    expand: 'Toon volledig fragment',
+    collapse: 'Toon minder',
+    snippet: 'Fragment uit de diff'
+  },
   testimonials: { title: 'Aanbevelingen', prev: 'Vorige', next: 'Volgende', pause: 'Pauzeer', play: 'Afspelen' },
   contact: {
     title: 'Contact',
@@ -133,6 +154,7 @@ export const ui: UI = {
     insights: "// grafieken: 100% echte data, 0% Excel",
     experience: "git log --author=\"Joey\" --oneline | wc -l  // best veel",
     projects: "<Joey mood=\"vol-cafeïne\" status=\"shipping\" />",
+    opensource: 'git push --force-with-lease origin post-quantum  // beleefd',
     console: "Hé collega-dev! Aan het rondneuzen in de source? Nu al fan. Laten we praten:"
   },
   footer: {

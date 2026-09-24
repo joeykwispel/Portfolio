@@ -6,6 +6,8 @@ export { education } from './shared/education';
 export { spokenLanguages } from './shared/languages';
 export { contact, person, siteUrl } from './shared/contact';
 export { testimonials } from './shared/testimonials';
+export { contributions } from './shared/contributions';
+export type { Contribution, DiffRow } from './shared/contributions';
 export { getContent, locales } from './locales';
 export { cv } from './cv';
 export type { Cv, CvProject } from './cv';

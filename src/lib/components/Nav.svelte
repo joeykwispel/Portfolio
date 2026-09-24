@@ -11,6 +11,7 @@
     { id: 'insights', label: t.insights },
     { id: 'experience', label: t.experience },
     { id: 'projects', label: t.projects },
+    { id: 'opensource', label: t.opensource },
     ...(testimonials.length ? [{ id: 'testimonials', label: t.testimonials }] : []),
     { id: 'contact', label: t.contact }
   ]);
