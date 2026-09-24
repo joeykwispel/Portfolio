@@ -1,8 +1,19 @@
 {
   "name": "joey-portfolio",
   "version": "1.0.0",
+  "description": "Personal portfolio of Joey Oosenbrug, Senior Front-end & Full-Stack Developer. SvelteKit, TypeScript, static site.",
+  "author": "Joey Oosenbrug (https://github.com/joeykwispel)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeykwispel/Portfolio.git"
+  },
+  "homepage": "https://github.com/joeykwispel/Portfolio#readme",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",

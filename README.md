@@ -1,63 +1,34 @@
-# Joey Oosenbrug: portfolio
+# Joey Oosenbrug · Portfolio
 
-SvelteKit (static adapter) + TypeScript + plain CSS. No UI kit, hand-built SVG charts. NL/EN language switch and dark/light theme built in.
+My personal portfolio: a fast, static website that shows who I am, what I have built and where I have worked.
 
-## Run
+## About me
 
-```bash
-npm install
-npm run dev        # http://localhost:5173
-npm run build      # static site in ./build
-npm run preview    # serve the production build
-npm run check      # type check
-```
+I'm a **Senior Front-end & Full-Stack Developer** from Druten, the Netherlands, with over five years of experience building web applications, SaaS platforms and technical products for the public sector, real estate, media and e-health.
 
-## Edit your content
+- **Front-end:** Angular, React, Next.js, Vue.js, TypeScript
+- **Back-end & infra:** NestJS, Python, FastAPI, Kubernetes, Proxmox, CI/CD
+- **How I work:** ownership of the full chain, clean architecture, accessibility, tests, and a steady supply of coffee
 
-Everything lives in `src/lib/data/`, one file per part, so content is easy to filter and change.
+I'm employed by [Competa IT](https://competa.com) and work on client projects.
 
-```
-src/lib/data/
-  types.ts                 shared types
-  shared/                  language-neutral facts
-    roles.ts               workplaces: company, dates, location, tech stack   <- durations and charts derive from this
-    skills.ts              every skill + category
-    projects.ts            project cards (link: null = shown as placeholder)
-    education.ts           education and courses
-    languages.ts           spoken languages
-    contact.ts             email, LinkedIn, GitHub, form endpoint, photo, CV file paths
-    testimonials.ts        empty = the section is hidden
-  locales/
-    en/  profile.ts experience.ts projects.ts education.ts skills.ts languages.ts ui.ts
-    nl/  (same files, Dutch; typed against en so a missing key is a compile error)
-```
+- LinkedIn: [joey-oosenbrug](https://www.linkedin.com/in/joey-oosenbrug-3a7975171/)
+- GitHub: [@joeykwispel](https://github.com/joeykwispel)
+- Email: [joey.oosenbrug@gmail.com](mailto:joey.oosenbrug@gmail.com)
 
-- Skill "time in projects" is not stored: it is calculated from the dates of the roles whose `stack` contains the skill (overlaps counted once). Bubble size, proficiency level, bar chart, radar and growth chart all follow from that.
-- To add a role: add it to `shared/roles.ts`, then add its texts under the same id in both `locales/*/experience.ts`.
-- To add a language: copy `locales/en` to `locales/de`, translate, then register it in `locales/index.ts` and the `Locale` type.
-- CV downloads: replace the files in `static/cv/` (paths set in `shared/contact.ts`).
+## What this is
 
-## Placeholders to fill in
+- A single-page portfolio with about, skills, insights (charts), experience, projects, recommendations and contact
+- A printable CV page (`/cv`) with "Save as PDF"
+- English and Dutch, dark and light theme
+- Built with **SvelteKit**, **TypeScript** and plain CSS, exported as a static site
 
-- `shared/contact.ts`: email, GitHub URL (marked "placeholder" on the page), optional photo, optional Formspree `formEndpoint`.
-- `shared/projects.ts`: project links.
-- `locales/*/experience.ts`: the Activate role description.
-- `shared/testimonials.ts`: add recommendations to show the carousel.
+Want to run it yourself? See **[docs/GETTING_STARTED.md](docs/GETTING_STARTED.md)**.
 
-## Deploy
+## License
 
-**Netlify**: build command `npm run build`, publish directory `build`.
+The **code** is released under the [MIT License](LICENSE), so feel free to use it for your own portfolio.
 
-**Vercel**: the SvelteKit preset works out of the box, or use build `npm run build` and output `build`.
+Third-party parts (Lucide and Feather icon paths, the bundled Svelte libraries, and the Google Fonts used) keep their own permissive licenses, all compatible with MIT. Their notices are in [static/THIRD-PARTY-NOTICES.txt](static/THIRD-PARTY-NOTICES.txt), which also ships with the website.
 
-**GitHub Pages**: build with your repo name as base path and publish `build`:
-
-```bash
-BASE_PATH=/your-repo npm run build
-```
-
-Then deploy `build/` (for example with the `actions/deploy-pages` action). For a user site (`username.github.io`) leave `BASE_PATH` empty.
-
-## Easter egg
-
-Type the Konami code (up up down down left right left right b a).
+The **content** is not covered by that license: my CV text, work history, the recommendation quote, my name and the social preview image (`static/og.png`) remain © Joey Oosenbrug. If you fork this, replace the data in `src/lib/data/` with your own.

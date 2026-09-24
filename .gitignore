@@ -1,4 +1,21 @@
+# dependencies and build output
 node_modules
 .svelte-kit
 build
+
+# local AI tooling (not part of the site)
+.agents
+.claude
+skills-lock.json
+.playwright-mcp
+
+# OS / editor
 .DS_Store
+Thumbs.db
+.vscode
+.idea
+
+# env files
+.env
+.env.*
+!.env.example
