@@ -49,7 +49,14 @@
 
 <div class="quip container" bind:this={el} aria-hidden="true">
   <span class="line"></span>
-  <code class="mono"><span class="gt">&gt;</span> {#each tokens as tok, i (i)}{#if tok.c}<span class={tok.c}>{tok.t}</span>{:else}{tok.t}{/if}{/each}<span class="caret"></span></code>
+  <!-- Invisible full text reserves the space; the typed text (and caret) is drawn over it and wraps on narrow screens. -->
+  <code class="mono"
+    ><span class="gt">&gt;</span><span class="box"
+      ><span class="ghost">{text}<span class="caret"></span></span><span class="typed"
+        >{#each tokens as tok, i (i)}{#if tok.c}<span class={tok.c}>{tok.t}</span>{:else}{tok.t}{/if}{/each}<span class="caret"></span></span
+      ></span
+    ></code
+  >
   <span class="line"></span>
 </div>
 
@@ -75,13 +82,27 @@
     border: 1px dashed var(--border);
     border-radius: 999px;
     background: var(--surface);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
     max-width: calc(100% - 2rem);
   }
   .gt {
     color: var(--accent-text);
+    margin-right: 0.45rem;
+    flex: none;
+  }
+  .box {
+    display: grid;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .ghost,
+  .typed {
+    grid-area: 1 / 1;
+  }
+  .ghost {
+    visibility: hidden;
   }
   .caret {
     width: 0.45em;
@@ -96,6 +117,11 @@
     }
     .quip {
       justify-content: center;
+    }
+    /* A pill looks odd once the joke wraps onto a second line. */
+    code {
+      max-width: 100%;
+      border-radius: var(--radius-sm);
     }
   }
 </style>

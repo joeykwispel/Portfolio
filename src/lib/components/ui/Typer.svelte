@@ -49,24 +49,37 @@
   });
 </script>
 
-<span class="typer mono" aria-live="off"><span class="gt" aria-hidden="true">&gt;</span> <span class="txt">{shown}</span><span class="caret" aria-hidden="true"></span></span>
+<!-- The invisible copy of the full line reserves its space, so long lines wrap instead of getting cut off
+     and the box doesn't grow line by line while typing. The visible text (and caret) types over it. -->
+<span class="typer mono" aria-live="off"
+  ><span class="gt" aria-hidden="true">&gt;</span><span class="box"
+    ><span class="ghost" aria-hidden="true">{current}<span class="caret"></span></span><span class="txt">{shown}<span class="caret" aria-hidden="true"></span></span></span
+  ></span
+>
 
 <style>
   .typer {
     display: inline-flex;
-    align-items: center;
-    gap: 0.1rem;
+    align-items: baseline;
     min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
+    max-width: 100%;
   }
   .gt {
     color: var(--accent-text);
-    margin-right: 0.35rem;
+    margin-right: 0.45rem;
+    flex: none;
   }
+  .box {
+    display: grid;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .ghost,
   .txt {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    grid-area: 1 / 1;
+  }
+  .ghost {
+    visibility: hidden;
   }
   .caret {
     width: 0.5em;
