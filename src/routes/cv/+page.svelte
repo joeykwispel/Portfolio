@@ -1,9 +1,10 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { app } from '$lib/app.svelte';
-  import { contact, cv, getContent, locales, person, siteUrl } from '$lib/data';
+  import { contact, cv, getContent, jobTitle, locales, person } from '$lib/data';
   import { reveal } from '$lib/utils/actions';
   import Scramble from '$lib/components/ui/Scramble.svelte';
+  import Seo from '$lib/components/ui/Seo.svelte';
 
   const c = $derived(getContent(app.locale));
   const d = $derived(cv[app.locale]);
@@ -13,11 +14,7 @@
   const host = (u: string) => u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 </script>
 
-<svelte:head>
-  <title>{t.docTitle}</title>
-  <meta name="description" content={d.profile[0]} />
-  <link rel="canonical" href="{siteUrl}{base}/cv/" />
-</svelte:head>
+<Seo title="{t.docTitle} | {jobTitle}" description={d.profile[0]} path="/cv/" type="profile" />
 
 <header class="toolbar no-print">
   <div class="bar">

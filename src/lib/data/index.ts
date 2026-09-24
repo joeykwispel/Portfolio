@@ -11,3 +11,4 @@ export type { Contribution, DiffRow } from './shared/contributions';
 export { getContent, locales } from './locales';
 export { cv } from './cv';
 export type { Cv, CvProject } from './cv';
+export { cloudflareAnalyticsToken, googleSiteVerification, jobTitle, keywords, profileJsonLd } from './shared/seo';
