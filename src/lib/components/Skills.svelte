@@ -71,7 +71,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead title={c.ui.skills.title} intro={c.ui.skills.intro} />
+    <SectionHead num="02" slug="skills" title={c.ui.skills.title} intro={c.ui.skills.intro} />
 
     <div class="filters" role="group" aria-label={c.ui.skills.title}>
       <button type="button" class="f" aria-pressed={filter === 'all'} onclick={() => setFilter('all')}>{c.ui.skills.all} <small>{stats.length}</small></button>
@@ -119,8 +119,8 @@
   .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.2rem;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
   }
   .f {
     --h: 200;
@@ -129,14 +129,16 @@
     gap: 0.45rem;
     border: 1px solid var(--border);
     background: var(--surface);
-    border-radius: 999px;
-    padding: 0.4rem 0.95rem;
-    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 0.3rem 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
     transition: background 0.2s, transform 0.2s, border-color 0.2s;
   }
   .f small {
     color: var(--muted);
-    font-size: 0.78rem;
+    font-size: 0.7rem;
+    opacity: 0.8;
   }
   .f:hover {
     background: var(--surface-2);
@@ -154,7 +156,7 @@
     border-color: color-mix(in srgb, var(--accent-2) 60%, var(--border));
   }
   .stage {
-    padding: clamp(1rem, 3vw, 2rem);
+    padding: clamp(0.9rem, 2.5vw, 1.5rem);
     overflow: hidden;
   }
   .cloud {
@@ -211,12 +213,13 @@
     }
   }
   .hint {
-    margin: 1.2rem auto 0;
+    margin: 0.9rem auto 0;
+    font-family: var(--mono);
+    font-size: 0.78rem;
     text-align: center;
     color: var(--muted);
-    font-size: 0.88rem;
   }
   .play {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
 </style>

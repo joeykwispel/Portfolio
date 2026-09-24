@@ -22,7 +22,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead title={c.ui.testimonials.title} />
+    <SectionHead num="06" slug="recommendations" title={c.ui.testimonials.title} />
     <div class="carousel glass" role="region" aria-roledescription="carousel" aria-label={c.ui.testimonials.title} onpointerenter={() => (hovering = true)} onpointerleave={() => (hovering = false)} onfocusin={() => (hovering = true)} onfocusout={() => (hovering = false)}>
       {#key i}
         <figure in:fade={{ duration: app.reduced ? 0 : 300 }}>

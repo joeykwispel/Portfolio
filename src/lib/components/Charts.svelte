@@ -38,24 +38,24 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead title={c.ui.charts.title} intro={c.ui.charts.intro} />
+    <SectionHead num="03" slug="insights" title={c.ui.charts.title} intro={c.ui.charts.intro} />
     <div class="grid">
-      <article class="card glass" use:reveal>
+      <article class="card glass ring" use:reveal>
         <h3>{c.ui.charts.radarTitle}</h3>
         <p>{c.ui.charts.radarDesc}</p>
         <RadarChart labels={radarLabels} values={radarValues} tips={radarTips} label={c.ui.charts.radarTitle} />
       </article>
-      <article class="card glass" use:reveal={{ delay: 100 }}>
+      <article class="card glass ring" use:reveal={{ delay: 100 }}>
         <h3>{c.ui.charts.barsTitle}</h3>
         <p>{c.ui.charts.barsDesc}</p>
         <BarChart items={bars} label={c.ui.charts.barsTitle} />
       </article>
-      <article class="card glass" use:reveal>
+      <article class="card glass ring" use:reveal>
         <h3>{c.ui.charts.donutTitle}</h3>
         <p>{c.ui.charts.donutDesc}</p>
         <DonutChart items={donut} centerValue={fmtDuration(total, c.ui.units)} centerLabel={c.ui.charts.donutTotal} label={c.ui.charts.donutTitle} />
       </article>
-      <article class="card glass" use:reveal={{ delay: 100 }}>
+      <article class="card glass ring" use:reveal={{ delay: 100 }}>
         <h3>{c.ui.charts.growthTitle}</h3>
         <p>{c.ui.charts.growthDesc}</p>
         <AreaChart points={area} label={c.ui.charts.growthTitle} />
@@ -68,18 +68,27 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 1rem;
   }
   .card {
-    padding: clamp(1.2rem, 3vw, 1.8rem);
+    padding: clamp(1rem, 2.5vw, 1.4rem);
     display: grid;
-    gap: 0.6rem;
+    gap: 0.4rem;
     align-content: start;
+  }
+  .card h3 {
+    font-family: var(--mono);
+    font-size: 0.98rem;
+    letter-spacing: -0.02em;
+  }
+  .card h3::before {
+    content: '> ';
+    color: var(--accent-text);
   }
   .card p {
     color: var(--muted);
-    font-size: 0.95rem;
-    margin-bottom: 0.6rem;
+    font-size: 0.88rem;
+    margin-bottom: 0.4rem;
   }
   @media (max-width: 900px) {
     .grid {

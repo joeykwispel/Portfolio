@@ -1,8 +1,8 @@
 /** Contact details. Anything with placeholder: true is rendered with a visible "placeholder" badge. */
 export const contact = {
-  email: { value: 'your.email@example.com', placeholder: true },
+  email: { value: 'joey.oosenbrug@gmail.com', placeholder: false },
   linkedin: { value: 'https://www.linkedin.com/in/joey-oosenbrug-3a7975171/', placeholder: false },
-  github: { value: 'https://github.com/your-username', placeholder: true },
+  github: { value: 'https://github.com/joeykwispel', placeholder: false },
   /** Set to a Formspree URL (https://formspree.io/f/xxxx) to POST the form instead of opening a mail client. */
   formEndpoint: ''
 };

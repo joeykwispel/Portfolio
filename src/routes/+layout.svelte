@@ -2,7 +2,8 @@
   import '../app.css';
   import { onMount } from 'svelte';
   import { app } from '$lib/app.svelte';
-  import CursorGlow from '$lib/components/ui/CursorGlow.svelte';
+  import CommandPalette from '$lib/components/ui/CommandPalette.svelte';
+  import SideRails from '$lib/components/ui/SideRails.svelte';
   import Easter from '$lib/components/ui/Easter.svelte';
 
   let { children } = $props();
@@ -16,5 +17,6 @@
 </script>
 
 {@render children()}
-<CursorGlow />
+<SideRails />
+<CommandPalette />
 <Easter />

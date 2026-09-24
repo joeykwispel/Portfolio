@@ -10,13 +10,14 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead title={c.ui.projects.title} intro={c.ui.projects.intro} />
+    <SectionHead num="05" slug="projects" title={c.ui.projects.title} intro={c.ui.projects.intro} />
     <ul class="grid">
       {#each projects as p, i (p.id)}
         {@const role = roles.find((r) => r.id === p.roleId)}
         {@const txt = c.projects[p.id]}
         <li use:reveal={{ delay: (i % 3) * 90 }}>
-          <article class="card glass" use:tilt={7}>
+          <article class="card glass ring" use:tilt={7}>
+            <div class="chrome mono" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="file">~/projects/<b>{p.id}</b>.tsx</span></div>
             <div class="row">
               <span class="tag">{txt.sector}</span>
               {#if role}<span class="when">{fmtMonth(role.start, app.locale)} to {role.end ? fmtMonth(role.end, app.locale) : c.ui.timeline.present}</span>{/if}
@@ -43,7 +44,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.25rem;
+    gap: 1rem;
   }
   .grid > li {
     display: grid;
@@ -52,9 +53,9 @@
     --mx: 50%;
     --my: 0%;
     position: relative;
-    padding: 1.5rem;
+    padding: 0 1.2rem 1.2rem;
     display: grid;
-    gap: 0.8rem;
+    gap: 0.6rem;
     align-content: start;
     transition: transform 0.25s ease-out, border-color 0.3s;
     will-change: transform;
@@ -75,6 +76,50 @@
   .card:hover::before {
     opacity: 1;
   }
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0 -1.2rem 0.3rem;
+    padding: 0.45rem 0.9rem;
+    font-size: 0.68rem;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .chrome b {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .dots {
+    display: flex;
+    gap: 5px;
+    flex: none;
+  }
+  .dots i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .card:hover .dots i:nth-child(1) {
+    background: #ff5f57;
+  }
+  .card:hover .dots i:nth-child(2) {
+    background: #febc2e;
+  }
+  .card:hover .dots i:nth-child(3) {
+    background: #28c840;
+  }
+  h3 {
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    letter-spacing: -0.03em;
+  }
   .row {
     display: flex;
     justify-content: space-between;
@@ -85,11 +130,14 @@
   .when,
   .by {
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: 0.78rem;
+  }
+  .when {
+    font-family: var(--mono);
   }
   .desc {
     color: var(--muted);
-    font-size: 0.97rem;
+    font-size: 0.9rem;
   }
   .tags {
     display: flex;
@@ -97,10 +145,13 @@
     gap: 0.35rem;
   }
   .link {
+    font-family: var(--mono);
+    font-size: 0.85rem;
     font-weight: 600;
   }
   .ph {
-    font-size: 0.85rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
     color: var(--accent-2-text);
   }
   @media (max-width: 980px) {

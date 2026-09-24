@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, untrack } from 'svelte';
   import { app } from '$lib/app.svelte';
   import { getContent } from '$lib/data';
 
@@ -50,6 +50,10 @@
     tick();
   }
 
+  $effect(() => {
+    if (app.party) untrack(burst);
+  });
+
   onMount(() => {
     const key = (e: KeyboardEvent) => {
       const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
@@ -57,7 +61,7 @@
         pos++;
         if (pos === code.length) {
           pos = 0;
-          burst();
+          app.party++;
         }
       } else pos = k === code[0] ? 1 : 0;
     };

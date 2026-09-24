@@ -5,6 +5,7 @@ class AppState {
   theme = $state<'dark' | 'light'>('dark');
   reduced = $state(false);
   party = $state(0);
+  palette = $state(false);
 
   init() {
     try {

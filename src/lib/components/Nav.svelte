@@ -51,22 +51,26 @@
 <header class="nav" class:scrolled>
   <div class="progress" bind:this={bar} aria-hidden="true"></div>
   <div class="container bar">
-    <a class="logo" href="#hero" aria-label={t.home}>JO</a>
+    <a class="logo mono" href="#hero" aria-label={t.home}><span class="br">&lt;</span>JO<span class="br">/&gt;</span></a>
 
     <nav class:open aria-label="Main">
       <ul>
-        {#each items as item (item.id)}
+        {#each items as item, i (item.id)}
           <li>
-            <a href="#{item.id}" class:active={active === item.id} aria-current={active === item.id ? 'true' : undefined} onclick={() => (open = false)}>{item.label}</a>
+            <a class="mono" href="#{item.id}" class:active={active === item.id} aria-current={active === item.id ? 'true' : undefined} onclick={() => (open = false)}><span class="idx">{String(i + 1).padStart(2, '0')}.</span>{item.label}</a>
           </li>
         {/each}
       </ul>
     </nav>
 
     <div class="tools">
+      <button type="button" class="k mono" onclick={() => (app.palette = true)} aria-label={getContent(app.locale).ui.palette.open} aria-keyshortcuts="Control+K Meta+K">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+        <kbd>Ctrl K</kbd>
+      </button>
       <div class="lang" role="group" aria-label={t.language}>
         {#each locales as l (l)}
-          <button type="button" aria-pressed={app.locale === l} onclick={() => app.setLocale(l)}>{l.toUpperCase()}</button>
+          <button type="button" class="mono" aria-pressed={app.locale === l} onclick={() => app.setLocale(l)}>{l.toUpperCase()}</button>
         {/each}
       </div>
       <button type="button" class="icon" onclick={() => app.toggleTheme()} aria-label={app.theme === 'dark' ? t.toLight : t.toDark} use:magnetic={0.3}>
@@ -117,37 +121,97 @@
   }
   .logo {
     font-weight: 800;
-    letter-spacing: -0.03em;
+    font-size: 0.95rem;
+    letter-spacing: -0.04em;
     text-decoration: none;
     color: var(--text);
-    width: 40px;
-    height: 40px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
+    padding: 0.3rem 0.55rem;
+    border-radius: 9px;
     background: var(--surface);
     border: 1px solid var(--border);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .logo .br {
+    color: var(--accent-text);
+    display: inline-block;
+    transition: transform 0.35s var(--spring);
+  }
+  .logo:hover {
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+  .logo:hover .br:first-child {
+    transform: translateX(-3px);
+  }
+  .logo:hover .br:last-child {
+    transform: translateX(3px);
   }
   nav ul {
     display: flex;
-    gap: 0.25rem;
+    gap: 0.1rem;
   }
   nav a {
+    position: relative;
     display: block;
-    padding: 0.4rem 0.8rem;
-    border-radius: 999px;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
     text-decoration: none;
     color: var(--muted);
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     transition: color 0.2s, background 0.2s;
+  }
+  .idx {
+    color: var(--accent-text);
+    margin-right: 0.3rem;
+    opacity: 0.8;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: 0.1rem;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
   }
   nav a:hover {
     color: var(--text);
   }
+  nav a:hover::after,
+  nav a.active::after {
+    transform: scaleX(1);
+  }
   nav a.active {
     color: var(--text);
-    background: var(--surface-2);
-    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  .k {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    height: 36px;
+    padding: 0 0.6rem;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 0.75rem;
+    transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .k:hover {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+    box-shadow: 0 0 0 4px var(--glow);
+  }
+  .k kbd {
+    font-family: inherit;
+    font-size: 0.68rem;
+    padding: 0.05rem 0.35rem;
+    border-radius: 5px;
+    border: 1px solid var(--border);
   }
   .tools {
     display: flex;
@@ -166,7 +230,7 @@
     background: transparent;
     padding: 0.25rem 0.7rem;
     border-radius: 999px;
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--muted);
     transition: background 0.2s, color 0.2s;
@@ -176,11 +240,11 @@
     color: var(--accent-ink);
   }
   .icon {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: grid;
     place-items: center;
-    border-radius: 12px;
+    border-radius: 9px;
     border: 1px solid var(--border);
     background: var(--surface);
     transition: transform 0.2s, background 0.2s;
@@ -195,7 +259,18 @@
     display: none;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1180px) {
+    .k kbd,
+    .idx {
+      display: none;
+    }
+  }
+  @media (max-width: 960px) {
+    .idx {
+      display: inline;
+    }
+  }
+  @media (max-width: 960px) {
     .burger {
       display: grid;
     }
@@ -222,6 +297,10 @@
     }
     nav a {
       padding: 0.7rem 1rem;
+      font-size: 0.9rem;
+    }
+    nav a::after {
+      display: none;
     }
   }
 </style>

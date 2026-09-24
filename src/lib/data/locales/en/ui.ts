@@ -94,10 +94,32 @@ export const ui = {
     error: 'Sending failed. Please use the email link instead.',
     mailHint: 'This opens your email app with the message prepared.',
     placeholder: 'placeholder',
+    copy: 'Copy',
+    copied: 'Copied!',
     links: 'Find me online',
     subject: 'Portfolio contact from'
   },
-  footer: { built: 'Built with SvelteKit.', top: 'Back to top' },
+  palette: {
+    open: 'Command menu',
+    placeholder: 'Type a command or search...',
+    empty: 'No matching commands',
+    goto: 'Go to',
+    actions: 'Actions',
+    links: 'Links',
+    theme: 'Toggle light / dark theme',
+    lang: 'Switch language to Nederlands',
+    copy: 'Copy email address',
+    copied: 'Email copied to clipboard',
+    github: 'Open GitHub',
+    linkedin: 'Open LinkedIn',
+    mail: 'Send an email',
+    cv: 'Download CV',
+    party: 'Launch party mode',
+    navigate: 'navigate',
+    select: 'select',
+    close: 'close'
+  },
+  footer: { built: 'Built with SvelteKit, TypeScript and too much coffee.', top: 'Back to top', palette: 'for commands' },
   units: { year: 'yr', years: 'yrs', month: 'mo', months: 'mo' },
   easter: 'Konami code unlocked!'
 };

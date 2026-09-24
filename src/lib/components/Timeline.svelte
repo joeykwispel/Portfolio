@@ -36,7 +36,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead title={c.ui.timeline.title} intro={c.ui.timeline.intro} />
+    <SectionHead num="04" slug="experience" title={c.ui.timeline.title} intro={c.ui.timeline.intro} />
 
     <ol class="timeline" bind:this={list} style="--p:{app.reduced ? 1 : progress}">
       <div class="rail" aria-hidden="true"><span></span></div>
@@ -50,7 +50,7 @@
           {#if role}
             {@const t = c.experience[role.id]}
             {@const hasMore = t.bullets.length > 0 || role.stack.length > PREVIEW}
-            <article class="card glass">
+            <article class="card glass ring">
               <header>
                 <div>
                   <h3>{role.company}</h3>
@@ -120,7 +120,7 @@
   .timeline {
     position: relative;
     display: grid;
-    gap: 2rem;
+    gap: 1.1rem;
     padding: 0;
     margin: 0;
     list-style: none;
@@ -146,7 +146,7 @@
     position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 3.5rem;
+    column-gap: 3rem;
   }
   .item .card {
     grid-column: 1;
@@ -157,7 +157,7 @@
   .node {
     position: absolute;
     left: 50%;
-    top: 1.6rem;
+    top: 1.3rem;
     width: 16px;
     height: 16px;
     margin-left: -8px;
@@ -185,9 +185,9 @@
     box-shadow: none;
   }
   .card {
-    padding: 1.4rem 1.5rem;
+    padding: 1.1rem 1.25rem;
     display: grid;
-    gap: 0.8rem;
+    gap: 0.6rem;
     align-content: start;
   }
   .card.edu {
@@ -196,7 +196,12 @@
   }
   header {
     display: grid;
-    gap: 0.4rem;
+    gap: 0.3rem;
+  }
+  h3 {
+    font-family: var(--mono);
+    font-size: 1.05rem;
+    letter-spacing: -0.03em;
   }
   .role {
     color: var(--text);
@@ -213,7 +218,8 @@
   }
   .meta {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-family: var(--mono);
+    font-size: 0.74rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
@@ -223,7 +229,7 @@
   }
   .summary {
     color: var(--muted);
-    font-size: 0.98rem;
+    font-size: 0.93rem;
   }
   .tags {
     display: flex;
@@ -245,23 +251,21 @@
   }
   .bullets {
     display: grid;
-    gap: 0.5rem;
-    font-size: 0.96rem;
-    padding-top: 0.3rem;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    padding-top: 0.2rem;
   }
   .bullets li {
     position: relative;
     padding-left: 1.1rem;
   }
   .bullets li::before {
-    content: '';
+    content: '▸';
     position: absolute;
     left: 0;
-    top: 0.65em;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
+    top: 0;
+    color: var(--accent-text);
+    font-size: 0.85em;
   }
   .courses {
     display: grid;
@@ -285,6 +289,8 @@
     border: 0;
     background: none;
     color: var(--accent-text);
+    font-family: var(--mono);
+    font-size: 0.8rem;
     font-weight: 600;
     padding: 0.2rem 0;
   }

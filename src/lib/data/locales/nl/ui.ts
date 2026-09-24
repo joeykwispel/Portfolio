@@ -96,10 +96,32 @@ export const ui: UI = {
     error: 'Versturen mislukt. Gebruik in plaats daarvan de e-maillink.',
     mailHint: 'Dit opent je e-mailapp met het bericht al ingevuld.',
     placeholder: 'placeholder',
+    copy: 'Kopieer',
+    copied: 'Gekopieerd!',
     links: 'Vind mij online',
     subject: 'Portfolio-contact van'
   },
-  footer: { built: 'Gebouwd met SvelteKit.', top: 'Terug naar boven' },
+  palette: {
+    open: 'Commandomenu',
+    placeholder: 'Typ een commando of zoek...',
+    empty: 'Geen commando gevonden',
+    goto: 'Ga naar',
+    actions: 'Acties',
+    links: 'Links',
+    theme: 'Wissel licht / donker thema',
+    lang: 'Switch language to English',
+    copy: 'Kopieer e-mailadres',
+    copied: 'E-mailadres gekopieerd',
+    github: 'Open GitHub',
+    linkedin: 'Open LinkedIn',
+    mail: 'Stuur een e-mail',
+    cv: 'Download CV',
+    party: 'Start party mode',
+    navigate: 'navigeer',
+    select: 'kies',
+    close: 'sluit'
+  },
+  footer: { built: 'Gebouwd met SvelteKit, TypeScript en te veel koffie.', top: 'Terug naar boven', palette: "voor commando's" },
   units: { year: 'jr', years: 'jr', month: 'mnd', months: 'mnd' },
   easter: 'Konami-code ontgrendeld!'
 };
