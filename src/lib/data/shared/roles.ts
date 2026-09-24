@@ -102,15 +102,6 @@ export const roles: RoleBase[] = [
     end: '2020-01',
     location: 'Den Haag',
     stack: ['JavaScript (ES6)', 'HTML5', 'SCSS', 'CSS3', 'Twig', 'WordPress']
-  },
-  {
-    id: 'activate',
-    company: 'Activate',
-    kind: 'other',
-    start: '2018-09',
-    end: '2022-05',
-    location: 'Delft',
-    stack: []
   }
 ];
 

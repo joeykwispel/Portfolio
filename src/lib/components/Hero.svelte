@@ -26,7 +26,7 @@
     [['  stack', 'prop'], [': ['], q('Angular'), [', '], q('React'), [', '], q('Next.js'), [', '], q('Vue'), ['],']],
     [['  backend', 'prop'], [': ['], q('NestJS'), [', '], q('Python'), [', '], q('FastAPI'), ['],']],
     [['  location', 'prop'], [': '], q('Druten, NL'), [',']],
-    [['  available', 'prop'], [': '], ['true', 'num-t'], [',']],
+    [['  status', 'prop'], [': '], q('on-project'), [', '], ['// Belastingdienst, from 1 Oct', 'com']],
     [['}', 'punc'], [';']],
     [],
     [['await ', 'kw'], ['joey', 'fn'], ['.'], ['build', 'fn'], ['('], q('your-next-product'), [');']]
@@ -209,7 +209,7 @@
   <div class="container inner">
     <p class="prompt mono step" style="--i:0">
       <span class="user">joey@portfolio</span><span class="sep">:</span><span class="dir">~</span><span class="sep">$</span>
-      <span class="cmd">whoami</span>
+      <span class="cmd">Coffee break</span>
     </p>
 
     <h1 class="step" style="--i:1">
@@ -238,15 +238,15 @@
         <span class="grow"></span>
         <span>Ln {cursor.ln + 1}, Col {cursor.col + 1}</span>
         <span>UTF-8</span>
-        <span class="live"><i></i>{app.locale === 'nl' ? 'beschikbaar' : 'available'}</span>
+        <span class="live"><i></i>{app.locale === 'nl' ? 'op project · Belastingdienst vanaf 1 okt' : 'on project · Belastingdienst from 1 Oct'}</span>
       </div>
     </div>
 
     <div class="cta step" style="--i:5">
       <a class="btn btn-primary" href="#projects" use:magnetic><span aria-hidden="true">&gt;</span> {c.ui.hero.work}</a>
       <a class="btn" href="#contact" use:magnetic>{c.ui.hero.contact}<span class="punc" aria-hidden="true">()</span></a>
-      <a class="btn" href="{base}/{person.cvFiles[app.locale]}" download use:magnetic>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" /></svg>
+      <a class="btn" href="{base}/cv/" use:magnetic>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h5" /></svg>
         {c.ui.hero.cv}
       </a>
     </div>
@@ -257,7 +257,7 @@
 
   <div class="marquee mono" aria-hidden="true">
     <div class="track">
-      {#each [0, 1] as k (k)}
+      {#each [0, 1, 2, 3] as k (k)}
         <span class="set">{#each marquee as m (m)}<span class="m">{m}</span><span class="dot">◆</span>{/each}</span>
       {/each}
     </div>
@@ -272,7 +272,7 @@
     min-height: 100svh;
     display: grid;
     grid-template-rows: 1fr auto;
-    padding-top: calc(var(--nav-h) + clamp(1.25rem, 5vh, 3.5rem));
+    padding-top: calc(var(--nav-h) + clamp(1.25rem, 6vh, 6rem));
     overflow: hidden;
     isolation: isolate;
   }
@@ -312,6 +312,14 @@
     opacity: 1;
   }
 
+  /* Decorative layers must stay out of the grid flow, or they eat the 1fr row and push content down. */
+  .blobs {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+  }
   .blobs span {
     position: absolute;
     border-radius: 50%;
@@ -352,12 +360,14 @@
   }
 
   .inner {
+    grid-row: 1;
     display: grid;
     justify-items: center;
-    align-content: start;
+    /* centered in the free space, weighted towards the top by the larger bottom padding */
+    align-content: safe center;
     text-align: center;
     gap: 0.85rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: clamp(2.5rem, 9vh, 8rem);
   }
   .prompt {
     font-size: 0.9rem;
@@ -394,7 +404,7 @@
 
   h1 {
     font-family: var(--mono);
-    font-size: clamp(2.6rem, 9vw, 6.2rem);
+    font-size: clamp(2.6rem, min(9vw, 11vh), 6.2rem);
     font-weight: 800;
     letter-spacing: -0.06em;
     line-height: 0.95;
@@ -408,6 +418,10 @@
   }
   .last {
     position: relative;
+    /* gradient text only paints inside the box; the extra bottom padding keeps the descender of the "g" visible */
+    display: inline-block;
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
     background: linear-gradient(100deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent) 90%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
@@ -625,7 +639,7 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
-    color: var(--syn-str);
+    color: var(--syn-num);
   }
   .live i {
     width: 7px;
@@ -663,6 +677,7 @@
 
   /* ---------- tech marquee ---------- */
   .marquee {
+    grid-row: 2;
     border-block: 1px solid var(--border);
     background: color-mix(in srgb, var(--bg) 55%, transparent);
     backdrop-filter: blur(6px);
@@ -672,10 +687,11 @@
     -webkit-mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
     mask: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
   }
+  /* 4 identical sets; sliding by exactly one set (25%) loops seamlessly on screens up to ~5000px wide */
   .track {
     display: flex;
     width: max-content;
-    animation: scroll-x 40s linear infinite;
+    animation: scroll-x 45s linear infinite;
   }
   .marquee:hover .track {
     animation-play-state: paused;
@@ -697,7 +713,7 @@
   }
   @keyframes scroll-x {
     to {
-      transform: translateX(-50%);
+      transform: translateX(-25%);
     }
   }
 
@@ -709,6 +725,41 @@
   @media (min-width: 1280px) {
     .hero-socials {
       display: none;
+    }
+  }
+  /* Large monitors: scale the whole hero up so it fills the screen instead of floating small. */
+  @media (min-width: 1700px) and (min-height: 1000px) {
+    .inner {
+      gap: 1.1rem;
+    }
+    h1 {
+      font-size: clamp(6.2rem, min(7vw, 11vh), 9rem);
+    }
+    .prompt {
+      font-size: 1rem;
+    }
+    .role {
+      font-size: 1.3rem;
+    }
+    .tagline {
+      font-size: 1.3rem;
+    }
+    .editor {
+      width: min(860px, 100%);
+    }
+    .code {
+      font-size: 1.02rem;
+    }
+    .tabs,
+    .status {
+      font-size: 0.8rem;
+    }
+    .chrome {
+      height: 44px;
+    }
+    .cta :global(.btn) {
+      font-size: 1rem;
+      --pad: 0.8rem 1.4rem;
     }
   }
   @media (max-width: 560px) {

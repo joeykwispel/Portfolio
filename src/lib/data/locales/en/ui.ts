@@ -22,7 +22,7 @@ export const ui = {
     hello: 'Hi, I am',
     work: 'View work',
     contact: 'Contact',
-    cv: 'Download CV'
+    cv: 'View CV'
   },
   about: {
     title: 'About',
@@ -85,19 +85,18 @@ export const ui = {
   testimonials: { title: 'Recommendations', prev: 'Previous', next: 'Next', pause: 'Pause', play: 'Play' },
   contact: {
     title: 'Contact',
-    intro: 'Have a project or a question? Send a message or reach out directly.',
-    name: 'Your name',
-    email: 'Your email',
-    message: 'Message',
-    send: 'Send message',
-    sent: 'Thanks, your message was sent.',
-    error: 'Sending failed. Please use the email link instead.',
-    mailHint: 'This opens your email app with the message prepared.',
-    placeholder: 'placeholder',
+    intro: 'No forms, no captchas. Pick your favourite protocol and say hi.',
+    github: 'Browse my code and side projects',
+    linkedin: 'Career, recommendations and a quick connect',
+    email: 'The direct line, straight to my inbox',
+    githubAction: 'View profile',
+    linkedinAction: 'Connect',
+    emailAction: 'Send email',
     copy: 'Copy',
     copied: 'Copied!',
-    links: 'Find me online',
-    subject: 'Portfolio contact from'
+    location: 'Based in Druten, NL · always up for a coffee',
+    cta: "Let's build something great",
+    placeholder: 'placeholder'
   },
   palette: {
     open: 'Command menu',
@@ -113,13 +112,45 @@ export const ui = {
     github: 'Open GitHub',
     linkedin: 'Open LinkedIn',
     mail: 'Send an email',
-    cv: 'Download CV',
+    cv: 'View CV',
     party: 'Launch party mode',
     navigate: 'navigate',
     select: 'select',
     close: 'close'
   },
-  footer: { built: 'Built with SvelteKit, TypeScript and too much coffee.', top: 'Back to top', palette: 'for commands' },
+  cvPage: {
+    back: 'Back to portfolio',
+    print: 'Print / Save as PDF',
+    hint: 'Tip: pick "Save as PDF" as the printer to download it.',
+    file: 'curriculum-vitae.tsx',
+    docTitle: 'Joey Oosenbrug - CV'
+  },
+  quips: {
+    about: "if (coffee.isEmpty()) throw new Error('404: coffee not found');",
+    skills: "skills.sort((a, b) => b.years - a.years); // humble-sorted",
+    insights: "// charts: 100% real data, 0% Excel",
+    experience: "git log --author=\"Joey\" --oneline | wc -l  // a lot",
+    projects: "<Joey mood=\"caffeinated\" status=\"shipping\" />",
+    console: "Hey fellow dev! Poking around the source? I like you already. Let's talk:"
+  },
+  footer: {
+    built: "Built with TypeScript and too much coffee.",
+    quips: [
+      "404: coffee not found",
+      "// it works on my machine",
+      "git commit -m \"final-final-v2\"",
+      "while (awake) { code(); coffee(); }",
+      "// no bugs, only undocumented features",
+      "console.log('why is this undefined?')",
+      "npm install sleep --save-dev",
+      "// TODO: write better jokes",
+      "There are 10 types of people: those who get binary and those who don't",
+      "if (tired) coffee++; else coffee++;",
+      "// deployed on a Friday. Still alive.",
+      "<Joey mood=\"caffeinated\" />"
+    ],
+    away: "// come back, the build is waiting...",
+    top: 'Back to top', palette: 'for commands' },
   units: { year: 'yr', years: 'yrs', month: 'mo', months: 'mo' },
   easter: 'Konami code unlocked!'
 };

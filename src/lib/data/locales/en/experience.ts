@@ -92,10 +92,5 @@ export const experience: RoleTextMap = {
     title: 'Software Developer (internship)',
     summary: 'Supported the development of the Competa IT website using WordPress, Twig and custom JavaScript.',
     bullets: []
-  },
-  activate: {
-    title: 'Salesperson (part-time)',
-    summary: '[Placeholder: add a short description of this role.] Listed on LinkedIn; not part of the CV.',
-    bullets: []
   }
 };

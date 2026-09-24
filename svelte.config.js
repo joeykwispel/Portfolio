@@ -7,7 +7,7 @@ const base = process.env.BASE_PATH ?? '';
 export default {
   preprocess: vitePreprocess(),
   kit: {
-    adapter: adapter({ pages: 'build', assets: 'build', fallback: undefined, precompress: false, strict: true }),
+    adapter: adapter({ pages: 'build', assets: 'build', fallback: '404.html', precompress: false, strict: true }),
     paths: { base }
   }
 };

@@ -24,7 +24,7 @@ export const ui: UI = {
     hello: 'Hoi, ik ben',
     work: 'Bekijk werk',
     contact: 'Contact',
-    cv: 'Download CV'
+    cv: 'Bekijk CV'
   },
   about: {
     title: 'Over mij',
@@ -87,19 +87,18 @@ export const ui: UI = {
   testimonials: { title: 'Aanbevelingen', prev: 'Vorige', next: 'Volgende', pause: 'Pauzeer', play: 'Afspelen' },
   contact: {
     title: 'Contact',
-    intro: 'Een project of een vraag? Stuur een bericht of neem direct contact op.',
-    name: 'Je naam',
-    email: 'Je e-mail',
-    message: 'Bericht',
-    send: 'Verstuur bericht',
-    sent: 'Bedankt, je bericht is verstuurd.',
-    error: 'Versturen mislukt. Gebruik in plaats daarvan de e-maillink.',
-    mailHint: 'Dit opent je e-mailapp met het bericht al ingevuld.',
-    placeholder: 'placeholder',
+    intro: 'Geen formulieren, geen captcha’s. Kies je favoriete protocol en zeg hoi.',
+    github: 'Bekijk mijn code en zijprojecten',
+    linkedin: 'Loopbaan, aanbevelingen en snel connecten',
+    email: 'De directe lijn, rechtstreeks in mijn inbox',
+    githubAction: 'Bekijk profiel',
+    linkedinAction: 'Connect',
+    emailAction: 'Stuur e-mail',
     copy: 'Kopieer',
     copied: 'Gekopieerd!',
-    links: 'Vind mij online',
-    subject: 'Portfolio-contact van'
+    location: 'Gevestigd in Druten · altijd in voor een koffie',
+    cta: 'Laten we iets moois bouwen',
+    placeholder: 'placeholder'
   },
   palette: {
     open: 'Commandomenu',
@@ -115,13 +114,45 @@ export const ui: UI = {
     github: 'Open GitHub',
     linkedin: 'Open LinkedIn',
     mail: 'Stuur een e-mail',
-    cv: 'Download CV',
+    cv: 'Bekijk CV',
     party: 'Start party mode',
     navigate: 'navigeer',
     select: 'kies',
     close: 'sluit'
   },
-  footer: { built: 'Gebouwd met SvelteKit, TypeScript en te veel koffie.', top: 'Terug naar boven', palette: "voor commando's" },
+  cvPage: {
+    back: 'Terug naar portfolio',
+    print: 'Print / Opslaan als PDF',
+    hint: 'Tip: kies "Opslaan als PDF" als printer om hem te downloaden.',
+    file: 'curriculum-vitae.tsx',
+    docTitle: 'Joey Oosenbrug - CV'
+  },
+  quips: {
+    about: "if (koffie.isLeeg()) throw new Error('404: koffie niet gevonden');",
+    skills: "skills.sort((a, b) => b.jaren - a.jaren); // bescheiden gesorteerd",
+    insights: "// grafieken: 100% echte data, 0% Excel",
+    experience: "git log --author=\"Joey\" --oneline | wc -l  // best veel",
+    projects: "<Joey mood=\"vol-cafeïne\" status=\"shipping\" />",
+    console: "Hé collega-dev! Aan het rondneuzen in de source? Nu al fan. Laten we praten:"
+  },
+  footer: {
+    built: "Gebouwd met TypeScript en te veel koffie.",
+    quips: [
+      "404: koffie niet gevonden",
+      "// werkt op mijn machine",
+      "git commit -m \"definitief-definitief-v2\"",
+      "while (wakker) { code(); koffie(); }",
+      "// geen bugs, alleen ongedocumenteerde features",
+      "console.log('waarom is dit undefined?')",
+      "npm install slaap --save-dev",
+      "// TODO: betere grappen schrijven",
+      "Er zijn 10 soorten mensen: zij die binair snappen en zij die dat niet doen",
+      "if (moe) koffie++; else koffie++;",
+      "// op vrijdag gedeployed. Leeft nog.",
+      "<Joey mood=\"vol-cafeïne\" />"
+    ],
+    away: "// kom terug, de build wacht...",
+    top: 'Terug naar boven', palette: "voor commando's" },
   units: { year: 'jr', years: 'jr', month: 'mnd', months: 'mnd' },
   easter: 'Konami-code ontgrendeld!'
 };

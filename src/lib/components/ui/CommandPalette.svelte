@@ -3,7 +3,7 @@
   import { fade, scale } from 'svelte/transition';
   import { base } from '$app/paths';
   import { app } from '$lib/app.svelte';
-  import { contact, getContent, person, testimonials } from '$lib/data';
+  import { contact, getContent, testimonials } from '$lib/data';
 
   const c = $derived(getContent(app.locale));
   const p = $derived(c.ui.palette);
@@ -15,7 +15,11 @@
   let input = $state<HTMLInputElement>();
   let toast = $state('');
 
-  const go = (id: string) => () => document.getElementById(id)?.scrollIntoView({ behavior: app.reduced ? 'auto' : 'smooth' });
+  const go = (id: string) => () => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: app.reduced ? 'auto' : 'smooth' });
+    else location.href = `${base}/#${id}`;
+  };
   const open = (href: string) => () => window.open(href, '_blank', 'noopener');
 
   const commands = $derived<Cmd[]>([
@@ -39,7 +43,7 @@
       icon: '⧉',
       run: () => navigator.clipboard?.writeText(contact.email.value).then(() => flash(p.copied))
     },
-    { id: 'cv', group: p.actions, label: p.cv, icon: '↓', run: () => { const a = document.createElement('a'); a.href = `${base}/${person.cvFiles[app.locale]}`; a.download = ''; a.click(); } },
+    { id: 'cv', group: p.actions, label: p.cv, hint: '/cv', icon: '▤', run: () => (location.href = `${base}/cv/`) },
     { id: 'party', group: p.actions, label: p.party, hint: '↑↑↓↓←→←→BA', icon: '✦', run: () => app.party++ },
     { id: 'github', group: p.links, label: p.github, hint: 'github.com/joeykwispel', icon: '↗', run: open(contact.github.value) },
     { id: 'linkedin', group: p.links, label: p.linkedin, hint: 'linkedin.com/in/joey-oosenbrug', icon: '↗', run: open(contact.linkedin.value) },

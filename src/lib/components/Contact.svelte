@@ -1,15 +1,48 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { contact, getContent, person, testimonials } from '$lib/data';
-  import { magnetic, reveal } from '$lib/utils/actions';
+  import { contact, getContent, testimonials } from '$lib/data';
+  import { reveal, tilt } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
+  import Scramble from './ui/Scramble.svelte';
 
   const c = $derived(getContent(app.locale));
-  let name = $state('');
-  let email = $state('');
-  let message = $state('');
-  let status = $state<'idle' | 'sent' | 'error' | 'mail'>('idle');
   let copied = $state(false);
+
+  const cards = $derived([
+    {
+      id: 'github',
+      name: 'GitHub',
+      handle: '@joeykwispel',
+      cmd: 'git remote -v',
+      desc: c.ui.contact.github,
+      action: c.ui.contact.githubAction,
+      href: contact.github.value,
+      hue: 'var(--text)',
+      path: 'M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4M9 18c-4.51 2-5-2-7-2'
+    },
+    {
+      id: 'linkedin',
+      name: 'LinkedIn',
+      handle: 'in/joey-oosenbrug',
+      cmd: 'ssh joey@linkedin',
+      desc: c.ui.contact.linkedin,
+      action: c.ui.contact.linkedinAction,
+      href: contact.linkedin.value,
+      hue: '#3b8fe6',
+      path: 'M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z'
+    },
+    {
+      id: 'email',
+      name: 'Email',
+      handle: contact.email.value,
+      cmd: 'mail -s "hi" joey',
+      desc: c.ui.contact.email,
+      action: c.ui.contact.emailAction,
+      href: `mailto:${contact.email.value}`,
+      hue: 'var(--accent)',
+      path: 'M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7'
+    }
+  ]);
 
   async function copyEmail() {
     try {
@@ -20,232 +53,228 @@
       location.href = `mailto:${contact.email.value}`;
     }
   }
-
-  async function submit(e: SubmitEvent) {
-    e.preventDefault();
-    if (contact.formEndpoint) {
-      try {
-        const res = await fetch(contact.formEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ name, email, message })
-        });
-        status = res.ok ? 'sent' : 'error';
-        if (res.ok) name = email = message = '';
-      } catch {
-        status = 'error';
-      }
-      return;
-    }
-    const body = `${message}\n\n${name} (${email})`;
-    location.href = `mailto:${contact.email.value}?subject=${encodeURIComponent(`${c.ui.contact.subject} ${name}`)}&body=${encodeURIComponent(body)}`;
-    status = 'mail';
-  }
 </script>
 
 <section class="section">
   <div class="container">
     <SectionHead num={testimonials.length ? '07' : '06'} slug="contact" title={c.ui.contact.title} intro={c.ui.contact.intro} />
-    <div class="grid">
-      <form class="glass ring" onsubmit={submit} use:reveal>
-        <p class="term mono" aria-hidden="true"><span class="prop">joey@portfolio</span>:<span class="dir">~</span>$ <span>send --message</span></p>
-        <label>
-          <span><b class="mono" aria-hidden="true">--name</b> {c.ui.contact.name}</span>
-          <input type="text" bind:value={name} required autocomplete="name" />
-        </label>
-        <label>
-          <span><b class="mono" aria-hidden="true">--email</b> {c.ui.contact.email}</span>
-          <input type="email" bind:value={email} required autocomplete="email" />
-        </label>
-        <label>
-          <span><b class="mono" aria-hidden="true">--message</b> {c.ui.contact.message}</span>
-          <textarea rows="5" bind:value={message} required></textarea>
-        </label>
-        <button class="btn btn-primary" type="submit" use:magnetic>{c.ui.contact.send}</button>
-        <p class="status" role="status">
-          {#if status === 'sent'}{c.ui.contact.sent}{:else if status === 'error'}{c.ui.contact.error}{:else if status === 'mail' || !contact.formEndpoint}{c.ui.contact.mailHint}{/if}
-        </p>
-      </form>
 
-      <div class="links glass ring" use:reveal={{ delay: 120 }}>
-        <h3>{c.ui.contact.links}</h3>
-        <ul>
-          <li>
-            <a class="ic" href="mailto:{contact.email.value}">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" pathLength="1" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" pathLength="1" /></svg>
-              <span class="txt"><strong>Email</strong><small class="mono">{contact.email.value}</small></span>
-              {#if contact.email.placeholder}<em class="badge-placeholder">{c.ui.contact.placeholder}</em>{/if}
-            </a>
-            <button type="button" class="copy mono" class:done={copied} onclick={copyEmail} aria-label="{c.ui.contact.copy} {contact.email.value}">{copied ? c.ui.contact.copied : c.ui.contact.copy}</button>
-          </li>
-          <li>
-            <a class="ic" href={contact.linkedin.value} target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" pathLength="1" /><rect x="2" y="9" width="4" height="12" pathLength="1" /><circle cx="4" cy="4" r="2" pathLength="1" /></svg>
-              <span class="txt"><strong>LinkedIn</strong><small class="mono">in/joey-oosenbrug</small></span>
-            </a>
-          </li>
-          <li>
-            <a class="ic" href={contact.github.value} target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" pathLength="1" /><path d="M9 18c-4.51 2-5-2-7-2" pathLength="1" /></svg>
-              <span class="txt"><strong>GitHub</strong><small class="mono">@joeykwispel</small></span>
-              {#if contact.github.placeholder}<em class="badge-placeholder">{c.ui.contact.placeholder}</em>{/if}
-            </a>
-          </li>
-          <li class="loc mono"><span class="com">// </span>{person.location}, NL <span class="live"><i></i></span></li>
-        </ul>
-      </div>
-    </div>
+    <p class="cta mono" use:reveal><span class="kw">await</span> <span class="grad"><Scramble text={c.ui.contact.cta} /></span><span class="caret" aria-hidden="true"></span></p>
+
+    <ul class="cards">
+      {#each cards as card, i (card.id)}
+        <li use:reveal={{ delay: i * 110 }}>
+          <article class="card glass ring" style="--hue:{card.hue}" use:tilt={6}>
+            <p class="cmd mono" aria-hidden="true"><span class="ps">$</span> {card.cmd}</p>
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={card.path} /></svg>
+            </div>
+            <h3>
+              <a class="main" href={card.href} target={card.id === 'email' ? undefined : '_blank'} rel={card.id === 'email' ? undefined : 'noopener noreferrer'}>{card.name}</a>
+            </h3>
+            <p class="handle mono">{card.handle}</p>
+            <p class="desc">{card.desc}</p>
+            <div class="foot">
+              <span class="action mono">{card.action} <span class="arrow" aria-hidden="true">{card.id === 'email' ? '→' : '↗'}</span></span>
+              {#if card.id === 'email'}
+                <button type="button" class="copy mono" class:done={copied} onclick={copyEmail} aria-label="{c.ui.contact.copy} {contact.email.value}">
+                  {#if copied}
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                    {c.ui.contact.copied}
+                  {:else}
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></svg>
+                    {c.ui.contact.copy}
+                  {/if}
+                </button>
+              {/if}
+            </div>
+          </article>
+        </li>
+      {/each}
+    </ul>
+
+    <p class="loc mono" use:reveal><span class="live" aria-hidden="true"><i></i></span><span class="com">// </span>{c.ui.contact.location}</p>
   </div>
 </section>
 
 <style>
-  .grid {
+  .cta {
+    font-size: clamp(1.3rem, 3.4vw, 2.1rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    margin-bottom: 1.4rem;
+    max-width: none;
+  }
+  .grad {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2), var(--accent));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+  @keyframes shimmer {
+    to {
+      background-position: -200% 0;
+    }
+  }
+  .cta .caret {
+    width: 0.5em;
+    height: 0.95em;
+  }
+
+  .cards {
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1rem;
   }
-  form,
-  .links {
-    padding: clamp(1rem, 2.5vw, 1.5rem);
+  .cards > li {
     display: grid;
-    gap: 0.8rem;
-    align-content: start;
   }
-  .term {
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-  .dir {
-    color: var(--accent-2-text);
-  }
-  label {
-    display: grid;
-    gap: 0.3rem;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-  label b {
-    color: var(--accent-text);
-    font-weight: 600;
-    font-size: 0.78rem;
-  }
-  input,
-  textarea {
-    font: inherit;
-    color: var(--text);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 0.6rem 0.8rem;
-    font-family: var(--mono);
-    font-size: 0.88rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    resize: vertical;
-  }
-  input:focus,
-  textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px var(--glow);
-  }
-  form .btn {
-    justify-self: start;
-  }
-  .status {
-    color: var(--muted);
-    font-size: 0.88rem;
-    min-height: 1.4em;
-  }
-  .links h3 {
-    font-family: var(--mono);
-    font-size: 1rem;
-  }
-  .links ul {
-    display: grid;
-    gap: 0.35rem;
-  }
-  .links li {
+  .card {
+    --mx: 50%;
+    --my: 0%;
     position: relative;
-  }
-  .links li:first-child .ic {
-    padding-right: 5.5rem;
-  }
-  .txt {
     display: grid;
-    line-height: 1.3;
+    align-content: start;
+    gap: 0.55rem;
+    padding: 1.2rem 1.25rem 1.1rem;
+    overflow: hidden;
+    transition: transform 0.25s ease-out, border-color 0.3s;
+    will-change: transform;
   }
-  .txt strong {
-    font-size: 0.92rem;
+  /* cursor spotlight, tinted per channel */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(300px circle at var(--mx) var(--my), color-mix(in srgb, var(--hue) 18%, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
   }
-  .txt small {
+  .card:hover::before {
+    opacity: 1;
+  }
+  .cmd {
+    font-size: 0.72rem;
     color: var(--muted);
-    font-size: 0.74rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.2rem;
+    border-bottom: 1px dashed var(--border);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ps {
+    color: var(--accent-text);
+  }
+  .icon {
+    width: 54px;
+    height: 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    color: var(--hue);
+    background: color-mix(in srgb, var(--hue) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--hue) 30%, var(--border));
+    transition: transform 0.45s var(--spring), box-shadow 0.3s;
+  }
+  .card:hover .icon {
+    transform: rotate(-8deg) scale(1.08);
+    box-shadow: 0 0 28px color-mix(in srgb, var(--hue) 35%, transparent);
+  }
+  h3 {
+    font-family: var(--mono);
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    margin-top: 0.2rem;
+  }
+  /* the name link covers the whole card, so the card is one big click target */
+  .main {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+  }
+  .main:focus-visible {
+    outline: none;
+  }
+  .card:has(.main:focus-visible) {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+  .handle {
+    font-size: 0.8rem;
+    color: var(--hue);
+    overflow-wrap: anywhere;
+  }
+  .desc {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+  .action {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-text);
+  }
+  .arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--spring);
+  }
+  .card:hover .arrow {
+    transform: translate(3px, -2px);
   }
   .copy {
-    position: absolute;
-    right: 0.6rem;
-    top: 50%;
-    translate: 0 -50%;
-    font-size: 0.7rem;
-    padding: 0.2rem 0.55rem;
-    border-radius: 6px;
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    padding: 0.3rem 0.65rem;
+    border-radius: 7px;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--muted);
-    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
   }
   .copy:hover {
     color: var(--accent-text);
     border-color: var(--accent);
+  }
+  .copy:active {
+    transform: scale(0.94);
   }
   .copy.done {
     color: var(--accent-ink);
     background: var(--accent);
     border-color: var(--accent);
   }
-  .ic {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
-    padding: 0.6rem 0.8rem;
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid transparent;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
-    overflow-wrap: anywhere;
-  }
-  .ic:hover {
-    background: var(--surface-2);
-    border-color: var(--border);
-    transform: translateX(4px);
-  }
-  .ic svg {
-    color: var(--accent-text);
-    flex: none;
-  }
-  .ic:hover svg :global(path),
-  .ic:hover svg :global(rect),
-  .ic:hover svg :global(circle) {
-    stroke-dasharray: 1;
-    animation: draw 0.9s var(--ease);
-  }
-  @keyframes draw {
-    from {
-      stroke-dashoffset: 1;
-    }
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
+
   .loc {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    color: var(--muted);
+    margin: 1.4rem auto 0;
     font-size: 0.8rem;
-    padding: 0.4rem 0.8rem 0;
+    color: var(--muted);
   }
   .live i {
     display: block;
@@ -263,8 +292,9 @@
       box-shadow: 0 0 0 7px transparent;
     }
   }
+
   @media (max-width: 860px) {
-    .grid {
+    .cards {
       grid-template-columns: 1fr;
     }
   }

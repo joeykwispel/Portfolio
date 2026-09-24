@@ -411,3 +411,44 @@ svg {
     filter: none;
   }
 }
+
+/* ---------- print ---------- */
+@page {
+  size: A4;
+  margin: 14mm 14mm 16mm;
+}
+@media print {
+  :root,
+  :root[data-theme] {
+    --bg: #fff;
+    --text: #111;
+    --muted: #333;
+    --border: #ddd;
+    --surface: transparent;
+    --accent-text: #0b6259;
+    --syn-kw: #6d4fd6;
+    --syn-com: #777;
+  }
+  body {
+    background: #fff;
+    color: #111;
+    font-size: 10pt;
+  }
+  body::before,
+  .no-print,
+  .rail,
+  .palette,
+  .backdrop,
+  .toast,
+  canvas {
+    display: none !important;
+  }
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  a {
+    text-decoration: none;
+  }
+}

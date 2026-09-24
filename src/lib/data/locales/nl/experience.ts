@@ -92,10 +92,5 @@ export const experience: RoleTextMap = {
     title: 'Software Developer (stage)',
     summary: 'Ondersteunde de ontwikkeling van de website van Competa IT met WordPress, Twig en maatwerk in JavaScript.',
     bullets: []
-  },
-  activate: {
-    title: 'Verkoper (parttime)',
-    summary: '[Placeholder: voeg een korte omschrijving van deze rol toe.] Staat op LinkedIn; niet in het CV.',
-    bullets: []
   }
 };
