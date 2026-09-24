@@ -1,11 +1,14 @@
-# Builds the static site and publishes it to GitHub Pages on every push to main.
+# Deploys the site to GitHub Pages (https://joeyoosenbrug.nl) when a pull request is merged into main.
+# Merging a PR is a push to main, so this is the trigger that fires on merge. (A pull_request trigger
+# can't deploy: the github-pages environment only accepts deployments from main.)
+# Work on a feature branch and open a PR; nothing goes live until that PR is merged.
 # One-time setup: repo Settings -> Pages -> Source: "GitHub Actions", Custom domain: joeyoosenbrug.nl.
-# The site is served from the domain root, so no BASE_PATH is needed.
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+  # manual re-deploy from the Actions tab
   workflow_dispatch:
 
 permissions:
