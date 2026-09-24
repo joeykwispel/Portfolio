@@ -1,0 +1,118 @@
+import type { RoleBase } from '../types';
+
+/**
+ * Work history. Dates follow the CV (03-09-2026 version); locations come from LinkedIn.
+ * Newest first. Edit dates here and every chart, stat and skill duration updates.
+ */
+export const roles: RoleBase[] = [
+  {
+    id: 'pqnavigator',
+    company: 'PQNavigator (RVO)',
+    kind: 'work',
+    start: '2026-07',
+    end: null,
+    via: 'Competa IT',
+    stack: [
+      'Next.js', 'React', 'TypeScript', 'JavaScript (ES6)', 'HTML5', 'CSS3', 'Tailwind CSS', 'Shadcn', 'I18N', 'Vite',
+      'NestJS', 'Python', 'FastAPI', 'Pydantic', 'RESTful APIs', 'OpenAPI', 'Swagger', 'JSON', 'PostgreSQL', 'Prisma',
+      'JWT', 'ast-grep', 'Vitest', 'Jest', 'Pytest', 'ESLint', 'Turborepo', 'PNPM', 'Shell', 'Docker', 'Kubernetes',
+      'Proxmox', 'GitHub Actions', 'Git', 'WCAG 2.2', 'Stakeholder Management', 'Agile', 'Scrum'
+    ]
+  },
+  {
+    id: 'property-plan',
+    company: 'Property Plan',
+    kind: 'work',
+    start: '2025-07',
+    end: '2026-07',
+    via: 'Competa IT',
+    location: "'s-Hertogenbosch",
+    stack: [
+      'Angular', 'Ionic Framework', 'Capacitor', 'Angular Material', 'RxJS', 'TypeScript', 'JavaScript (ES6)', 'HTML5',
+      'SCSS', 'CSS3', 'RESTful APIs', 'JSON', 'Playwright', 'MCP', 'Jest', 'Vitest', 'Git', 'Azure DevOps', 'Docker',
+      'NPM', 'ESLint', 'Prettier', 'Agile', 'Scrum', 'Code Reviews'
+    ]
+  },
+  {
+    id: 'red-ocelot',
+    company: 'Red Ocelot',
+    kind: 'work',
+    start: '2023-12',
+    end: '2025-06',
+    via: 'Competa IT',
+    stack: [
+      'React', 'Next.js', 'Web Components', 'D3.js', 'Chart.js', 'TypeScript', 'JavaScript (ES6)', 'HTML5', 'SCSS',
+      'CSS3', 'SASS', 'NestJS', 'Hono', 'Python', 'Prisma', 'PostgreSQL', 'RESTful APIs', 'JSON', 'Jest', 'Vitest',
+      'React Testing Library', 'Stryker', 'Git', 'GitHub', 'GitLab', 'GitHub Actions', 'Docker', 'Sentry', 'Trello',
+      'CI/CD', 'Microservices', 'Agile', 'Scrum', 'SAFe', 'WCAG 2.1', 'Technical Leadership', 'Mentoring', 'Scrum Master'
+    ]
+  },
+  {
+    id: 'paramedia',
+    company: 'ParaMedia (MediumChat)',
+    kind: 'work',
+    start: '2023-06',
+    end: '2023-12',
+    via: 'Competa IT',
+    location: 'Purmerend',
+    stack: ['PHP', 'Zend', 'JavaScript (ES6)', 'jQuery', 'HTML5', 'CSS3', 'SCSS', 'JSON', 'XML', 'SEO', 'Trello', 'Sentry', 'Agile', 'Scrum', 'WCAG 2.1']
+  },
+  {
+    id: 'vice-media',
+    company: 'Vice Media',
+    kind: 'work',
+    start: '2022-11',
+    end: '2023-05',
+    via: 'Competa IT',
+    location: 'Amsterdam',
+    stack: ['React', 'Next.js', 'JavaScript (ES6)', 'HTML5', 'SCSS', 'CSS3', 'JSON', 'XML', 'Git', 'GitHub', 'Cypress', 'Cucumber', 'Trello', 'Jira', 'Figma', 'Agile', 'Scrum']
+  },
+  {
+    id: 'jex',
+    company: 'JEX',
+    kind: 'work',
+    start: '2022-05',
+    end: '2022-08',
+    via: 'Competa IT',
+    location: 'Rotterdam',
+    stack: ['JavaScript (ES6)', 'HTML5', 'CSS3', 'HubSpot', 'SEO', 'Trello', 'Agile', 'Scrum']
+  },
+  {
+    id: 'ehvg',
+    company: 'EHVG ehealth venture group',
+    kind: 'work',
+    start: '2021-08',
+    end: '2022-05',
+    stack: ['Vue.js', 'JavaScript (ES6)', 'HTML5', 'SCSS', 'Styled Components', 'Git', 'Agile', 'Scrum']
+  },
+  {
+    id: 'cruisereizen',
+    company: 'Cruisereizen',
+    kind: 'internship',
+    start: '2021-02',
+    end: '2021-07',
+    location: 'Rotterdam',
+    stack: ['PHP', 'Laravel', 'Twig', 'SCSS', 'CSS3', 'Google Maps API', 'Agile', 'Scrum']
+  },
+  {
+    id: 'competa-internship',
+    company: 'Competa IT',
+    kind: 'internship',
+    start: '2019-08',
+    end: '2020-01',
+    location: 'Den Haag',
+    stack: ['JavaScript (ES6)', 'HTML5', 'SCSS', 'CSS3', 'Twig', 'WordPress']
+  },
+  {
+    id: 'activate',
+    company: 'Activate',
+    kind: 'other',
+    start: '2018-09',
+    end: '2022-05',
+    location: 'Delft',
+    stack: []
+  }
+];
+
+/** Current employer, from LinkedIn ("Webontwikkelaar", Competa IT, since May 2022). */
+export const employer = { name: 'Competa IT', since: '2022-05', location: 'Rijswijk' };

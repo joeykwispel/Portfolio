@@ -1,0 +1,245 @@
+# Curriculum Vitae
+
+Joey
+
+Senior Front-End Developer | Full-Stack Developer
+
+Nijmegen, Gelderland
+
+Employed by Competa IT | Assigned to client projects
+
+projects@competa.com | +31 (0)70 427 7555
+
+—
+
+### Profile
+
+Joey is an experienced Senior Front-end & Fullstack Developer with over five years of experience building and evolving modern web applications, SaaS platforms and technical product environments across sectors including the public sector, real estate, media, e-health and professional services. He specialises in Angular, React, Next.js, Vue.js and TypeScript, complemented by strong back-end experience with NestJS, Python and FastAPI. His expertise spans front-end architecture, end-to-end application development, server infrastructure, Kubernetes, Proxmox and CI/CD.
+
+Within projects, Joey takes ownership across the full technical chain and contributes to architecture, performance, testability, accessibility and maintainability. He translates functional requirements, stakeholder feedback and UX designs into scalable solutions with a strong focus on user-centered design and reducing technical debt. He also brings experience in technical leadership, code reviews, mentoring developers, stakeholder management and collaboration with Product Owners, UX designers, engineers and public-sector organisations within Agile Scrum teams.
+
+—
+
+### Skillset
+
+**Front-End:** Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS
+
+**Back-End:** PHP, Laravel, Symfony, Zend, NestJS, Python, Hono, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, JSON, YAML, XML, XPath
+
+**DevOps ****&**** CI/CD:** Docker, Git, GitHub, GitLab, Azure DevOps, GitHub Actions, CI/CD Pipelines, Bash, Command Line, Microservices
+
+**Testing:** Playwright, Jest, Vitest, Cypress, React Testing Library, Stryker, Storybook
+
+**Platforms ****&**** Tools:** Model Context Protocol (MCP), Capacitor, Postman, Sentry, Jira, Trello, Monday, Miro, Figma, WordPress, HubSpot, Visual Studio Code, PhpStorm, JetBrains, NPM, PNPM, Yarn, Vite, ESLint, Prettier, SEO, Windows, Linux, macOS, iOS, Android
+
+**Standards ****&**** Methodologies:** Agile, Scrum, SAFe, Kanban, UX/UI Design, UX/UI Principles, WCAG 2.1, GDPR
+
+—
+
+### Project experience
+
+**PQNavigator**** - Rijksdienst voor Ondernemend Nederland (RVO)** (via Competa IT)
+
+**Senior Front-end Developer | Fullstack Developer** | July 2026 – Present
+
+As a Senior Front-end and Fullstack Developer, Joey contributes to the development of PQNavigator, a static-analysis platform that scans source repositories to build a cryptographic inventory and assess post-quantum readiness. His work focuses on the user-facing application, end-to-end application flows, server-side integration and the infrastructure required to run and deploy the platform reliably.
+
+- Develops and enhances the front-end for reviewing cryptographic findings, risks and repository scan results.
+
+- Designs and implements end-to-end application flows across front-end behaviour, back-end processing and server-side interactions.
+
+- Integrates the application with APIs and back-end services used to process and retrieve repository scan data.
+
+- Builds and maintains the server infrastructure using Proxmox and Kubernetes for application hosting and orchestration.
+
+- Manages the DevOps environment and deployment workflows required to run the platform reliably across environments.
+
+- Improves the local development setup to support efficient development, testing and debugging of the complete application stack.
+
+- Translates complex technical and cryptographic findings into clear and usable interfaces for end users.
+
+- Works with stakeholders from Dutch public-sector organisations, including ministries and other government bodies, to align functionality with operational needs.
+
+- Supports stakeholder sessions by translating requirements, feedback and technical constraints into concrete product improvements.
+
+- Contributes to the delivery and validation of PQNavigator for Dutch public-sector organisations, including MinBZK, MinBuZa, MinVWS and VNG.
+
+**Stack**: Next.js, React, TypeScript, JavaScript (ES6), HTML5, CSS3, Tailwind CSS, Shadcn, I18N, Vite, NestJS, Python, FastAPI, Pydantic, REST APIs, OpenAPI, Swagger, JSON, PostgreSQL, Prisma, JWT, ast-grep, Vitest, Jest, Pytest, ESLint, Turborepo, pnpm, Shell, Docker, Kubernetes, Proxmox, GitHub Actions, Git, WCAG 2.2, Stakeholder Management, Agile, Scrum
+
+—
+
+**Property Plan** (via Competa IT)
+
+**Senior Front-end Developer** | July 2025 – July 2026
+
+Joey is responsible for the continued development of an Angular platform for property maintenance, enabling real estate professionals to register and manage maintenance requests and damage reports. Working within an Agile Scrum team, he contributes to both the web and mobile applications while actively participating in technical decision-making.
+
+- Developing and enhancing the front-end application using Angular and TypeScript.
+
+- Implementing new functionality for registering, managing, and processing maintenance workflows.
+
+- Translating functional requirements and UX designs into scalable, user-friendly, and maintainable solutions.
+
+- Safeguarding the quality, performance, and maintainability of the front-end codebase.
+
+- Conducting code reviews with a focus on code quality, consistency, and adherence to technical standards and best practices.
+
+- Contributing to the technical architecture and making well-founded technical decisions.
+
+- Collaborating with Product Owners, UX designers, and back-end developers to deliver high-quality functionality.
+
+- Identifying and reducing technical debt while contributing to the continuous improvement of development processes.
+
+- Actively participating in refinements, sprint planning, reviews, and retrospectives within an Agile Scrum environment.
+
+- Setting up and executing automated end-to-end tests using Playwright, leveraging MCP to achieve broader test coverage and faster feedback loops.
+
+**Stack:** Angular, Ionic Framework, Capacitor, Angular Material, RxJS, TypeScript, JavaScript (ES6), HTML5, SCSS, CSS3, REST APIs, JSON, Playwright MCP, Jest, Vitest, Git, Azure DevOps, Docker, npm, ESLint, Prettier, Agile, Scrum
+
+—
+
+**Red Ocelot** (via Competa IT)
+
+**Lead Software Developer** | December 2023 – June 2025
+
+As Lead Developer, Joey was responsible for the development of Code Tuner, a greenfield SaaS platform that helps organizations gain insight into and reduce technical debt across complex software landscapes. He provided technical leadership to the development team, was responsible for both front-end and back-end development, and also fulfilled the role of Scrum Master.
+
+- Providing technical leadership and mentoring the development team.
+
+- Developing and enhancing the SaaS platform.
+
+- Designing and implementing scalable microservices and REST APIs.
+
+- Translating functional and domain-specific requirements into future-proof technical solutions.
+
+- Contributing to the software architecture and making well-founded technical design decisions.
+
+- Safeguarding the quality, performance, and maintainability of the application.
+
+- Setting up and improving testing and CI/CD processes.
+
+- Identifying and reducing technical debt.
+
+- Serving as Scrum Master within the Agile Scrum team.
+
+- Working closely with the Product Owner and domain experts.
+
+**Stack:** React, Next.js, Web Components, D3.js, Chart.js, TypeScript, JavaScript (ES6), HTML, SCSS, CSS, Sass, NestJS, Hono, Python, Prisma, PostgreSQL, REST Services, JSON, Jest, Vitest, React Testing Library, Stryker, Git, GitHub, GitLab, GitHub Actions, Docker, Sentry, Trello, CI/CD, Microservices, Agile, Scrum, SAFe, WCAG 2.1
+
+—
+
+**ParaMedia** (via Competa IT)
+
+**Software Developer** | June 2023 – December 2023
+
+Joey contributed to the continued development of MediumChat, a communication platform for healthcare professionals. As part of the development team, he was responsible for implementing new front-end functionality and contributed to the further development of the underlying APIs and integrations.
+
+- Developing new front-end functionality.
+
+- Enhancing and integrating APIs and external integrations.
+
+- Contributing to the front-end architecture.
+
+- Improving the structure and maintainability of the front-end codebase.
+
+- Collaborating with developers and Product Owners within an Agile Scrum team.
+
+**Stack:** PHP, Zend, JavaScript (ES6), jQuery, HTML, CSS/SCSS, JSON, XML, SEO, Trello, Sentry, Agile, Scrum, WCAG 2.1
+
+—
+
+**Vice Media** (via Competa IT)
+
+**Front-end Developer** | November 2022 – May 2023
+
+Joey contributed to the development of a platform for managing and publishing content across social media channels. Working within an Agile Scrum team, he developed reusable React components and templates that could be used by multiple editorial teams.
+
+- Developing reusable React components and templates.
+
+- Translating UX designs into responsive front-end solutions.
+
+- Ensuring the quality and accessibility of the front-end.
+
+- Testing and optimizing the application.
+
+- Collaborating with UX designers and developers within an Agile Scrum team.
+
+**Stack:** React, Next.js, JavaScript (ES6), HTML, SCSS/CSS, JSON, XML, Git, GitHub, Cypress, Cucumber, Trello, Jira, Figma, Agile, Scrum
+
+—
+
+**JEX** (via Competa IT)
+
+**Front-end Developer** | May 2022 – August 2022
+
+At JEX, Joey contributed to the further development of the corporate website within the HubSpot CMS, with a strong focus on pixel-perfect implementation, performance, and user experience.
+
+- Developing new pages and components within HubSpot CMS.
+
+- Translating designs into responsive front-end solutions.
+
+- Ensuring the quality and consistency of the user interface.
+
+- Optimizing performance and SEO.
+
+- Collaborating with designers and marketers within an Agile Scrum team.
+
+**Stack:** JavaScript (ES6), HTML5, CSS3, HubSpot, SEO, Trello, Agile, Scrum
+
+—
+
+**EHVG ehealth venture group**
+
+**Front-end Developer** | August 2021 – May 2022
+
+Joey contributed to the development of a healthcare platform that connects pharmacies with patients. Using Vue.js, he developed accessible and user-friendly front-end functionality with a strong emphasis on delivering an optimal user experience.
+
+Stack: Vue.js, JavaScript (ES6), HTML5, SCSS, Styled Components, Git, Agile, Scrum
+
+—
+
+**Cruisereizen** (intern)
+
+**Software Developer** | February 2021 – July 2021
+
+Joey worked on internal systems and applications using PHP and Laravel. He integrated the Google Maps API and developed a scheduling system for selecting available time slots.
+
+**Stack:** PHP, Laravel, Twig, SCSS/CSS, Google Maps API, Agile, Scrum
+
+—
+
+**Competa IT** (intern)
+
+**Software Developer** | August 2019 – January 2020
+
+Joey supported the development of the Competa IT website using WordPress, Twig, and custom JavaScript solutions.
+
+**Stack:** JavaScript (ES6), HTML, SCSS/CSS, Twig, WordPress
+
+—
+
+### Education & Certifications
+
+**Applicatie- en Media Ontwikkelaar** - mboRijnland (2018 – 2021)
+
+Additional Training:
+
+- C# for .NET Developers (2024)
+
+- Python for Everybody (2024)
+
+- Blockchain (2024)
+
+- Microservices (2024)
+
+- Lexers & Parsers – Computer Science, University of Salford, UK (2023)
+
+- Scrum/Agile (2022)
+
+- Advanced TypeScript (2022)
+
+—
+
+### Languages
+
+Dutch (native), English (professional working proficiency)

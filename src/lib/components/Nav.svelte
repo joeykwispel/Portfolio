@@ -1,0 +1,227 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { app } from '$lib/app.svelte';
+  import { getContent, testimonials, locales } from '$lib/data';
+  import { magnetic } from '$lib/utils/actions';
+
+  const t = $derived(getContent(app.locale).ui.nav);
+  const items = $derived([
+    { id: 'about', label: t.about },
+    { id: 'skills', label: t.skills },
+    { id: 'insights', label: t.insights },
+    { id: 'experience', label: t.experience },
+    { id: 'projects', label: t.projects },
+    ...(testimonials.length ? [{ id: 'testimonials', label: t.testimonials }] : []),
+    { id: 'contact', label: t.contact }
+  ]);
+
+  let active = $state('hero');
+  let open = $state(false);
+  let bar: HTMLDivElement;
+  let scrolled = $state(false);
+
+  onMount(() => {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) active = e.target.id;
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    );
+    document.querySelectorAll('[data-section]').forEach((s) => io.observe(s));
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        const max = document.documentElement.scrollHeight - innerHeight;
+        bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+        scrolled = scrollY > 12;
+      });
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      io.disconnect();
+      removeEventListener('scroll', onScroll);
+    };
+  });
+</script>
+
+<header class="nav" class:scrolled>
+  <div class="progress" bind:this={bar} aria-hidden="true"></div>
+  <div class="container bar">
+    <a class="logo" href="#hero" aria-label={t.home}>JO</a>
+
+    <nav class:open aria-label="Main">
+      <ul>
+        {#each items as item (item.id)}
+          <li>
+            <a href="#{item.id}" class:active={active === item.id} aria-current={active === item.id ? 'true' : undefined} onclick={() => (open = false)}>{item.label}</a>
+          </li>
+        {/each}
+      </ul>
+    </nav>
+
+    <div class="tools">
+      <div class="lang" role="group" aria-label={t.language}>
+        {#each locales as l (l)}
+          <button type="button" aria-pressed={app.locale === l} onclick={() => app.setLocale(l)}>{l.toUpperCase()}</button>
+        {/each}
+      </div>
+      <button type="button" class="icon" onclick={() => app.toggleTheme()} aria-label={app.theme === 'dark' ? t.toLight : t.toDark} use:magnetic={0.3}>
+        {#if app.theme === 'dark'}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+        {:else}
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+        {/if}
+      </button>
+      <button type="button" class="icon burger" aria-expanded={open} aria-label={t.menu} onclick={() => (open = !open)}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d={open ? 'M6 6l12 12M18 6L6 18' : 'M4 7h16M4 12h16M4 17h16'} /></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: var(--nav-h);
+    z-index: 50;
+    transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-color: var(--border);
+  }
+  .progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .bar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  .logo {
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: var(--text);
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  nav ul {
+    display: flex;
+    gap: 0.25rem;
+  }
+  nav a {
+    display: block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.95rem;
+    transition: color 0.2s, background 0.2s;
+  }
+  nav a:hover {
+    color: var(--text);
+  }
+  nav a.active {
+    color: var(--text);
+    background: var(--surface-2);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .lang {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px;
+    background: var(--surface);
+  }
+  .lang button {
+    border: 0;
+    background: transparent;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--muted);
+    transition: background 0.2s, color 0.2s;
+  }
+  .lang button[aria-pressed='true'] {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    transition: transform 0.2s, background 0.2s;
+  }
+  .icon:hover {
+    background: var(--surface-2);
+  }
+  .icon:active {
+    transform: scale(0.92);
+  }
+  .burger {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    .burger {
+      display: grid;
+    }
+    nav {
+      position: fixed;
+      inset: var(--nav-h) 0.75rem auto 0.75rem;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 0.6rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+    }
+    nav.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+    }
+    nav ul {
+      flex-direction: column;
+    }
+    nav a {
+      padding: 0.7rem 1rem;
+    }
+  }
+</style>
