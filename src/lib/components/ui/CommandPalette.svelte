@@ -1,9 +1,10 @@
 <script lang="ts">
   import { tick } from 'svelte';
   import { fade, scale } from 'svelte/transition';
-  import { base } from '$app/paths';
+  import { goto } from '$app/navigation';
   import { app } from '$lib/app.svelte';
-  import { contact, getContent, testimonials } from '$lib/data';
+  import { contact, getContent, visiblePosts } from '$lib/data';
+  import { sectionIds } from '$lib/sections';
 
   const c = $derived(getContent(app.locale));
   const p = $derived(c.ui.palette);
@@ -18,22 +19,19 @@
   const go = (id: string) => () => {
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: app.reduced ? 'auto' : 'smooth' });
-    else location.href = `${base}/#${id}`;
+    else location.href = `${app.href('/')}#${id}`;
   };
   const open = (href: string) => () => window.open(href, '_blank', 'noopener');
 
   const commands = $derived<Cmd[]>([
-    ...[
-      ['hero', c.ui.nav.home],
-      ['about', c.ui.nav.about],
-      ['skills', c.ui.nav.skills],
-      ['insights', c.ui.nav.insights],
-      ['experience', c.ui.nav.experience],
-      ['projects', c.ui.nav.projects],
-      ['opensource', c.ui.nav.opensource],
-      ...(testimonials.length ? [['testimonials', c.ui.nav.testimonials]] : []),
-      ['contact', c.ui.nav.contact]
-    ].map(([id, label]) => ({ id: `go-${id}`, group: p.goto, label, hint: `#${id}`, icon: '#', run: go(id) })),
+    ...[['hero', c.ui.nav.home], ...sectionIds.map((id) => [id, c.ui.nav[id]])].map(([id, label]) => ({
+      id: `go-${id}`,
+      group: p.goto,
+      label,
+      hint: `#${id}`,
+      icon: '#',
+      run: go(id)
+    })),
     { id: 'theme', group: p.actions, label: p.theme, icon: '◐', run: () => app.toggleTheme() },
     { id: 'lang', group: p.actions, label: p.lang, icon: '⇄', run: () => app.setLocale(app.locale === 'en' ? 'nl' : 'en') },
     {
@@ -44,7 +42,10 @@
       icon: '⧉',
       run: () => navigator.clipboard?.writeText(contact.email.value).then(() => flash(p.copied))
     },
-    { id: 'cv', group: p.actions, label: p.cv, hint: '/cv', icon: '▤', run: () => (location.href = `${base}/cv/`) },
+    { id: 'cv', group: p.actions, label: p.cv, hint: '/cv', icon: '▤', run: () => goto(app.href('/cv/')) },
+    ...(visiblePosts.length
+      ? [{ id: 'writing', group: p.actions, label: p.writing, hint: '/writing', icon: '✎', run: () => goto(app.href('/writing/')) }]
+      : []),
     { id: 'party', group: p.actions, label: p.party, hint: '↑↑↓↓←→←→BA', icon: '✦', run: () => app.party++ },
     { id: 'github', group: p.links, label: p.github, hint: 'github.com/joeykwispel', icon: '↗', run: open(contact.github.value) },
     { id: 'linkedin', group: p.links, label: p.linkedin, hint: 'linkedin.com/in/joey-oosenbrug', icon: '↗', run: open(contact.linkedin.value) },
@@ -203,7 +204,10 @@
     background: var(--bg-2);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: var(--shadow), 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent), 0 40px 120px -40px var(--glow);
+    box-shadow:
+      var(--shadow),
+      0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent),
+      0 40px 120px -40px var(--glow);
     overflow: hidden;
   }
   .search {

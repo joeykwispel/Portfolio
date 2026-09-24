@@ -2,11 +2,7 @@
   import { onMount } from 'svelte';
   import type { Component } from 'svelte';
 
-  let {
-    id,
-    loader,
-    minHeight = '60vh'
-  }: { id: string; loader: () => Promise<{ default: Component<any> }>; minHeight?: string } = $props();
+  let { id, loader, minHeight = '60vh' }: { id: string; loader: () => Promise<{ default: Component<any> }>; minHeight?: string } = $props();
 
   let Comp = $state<Component<any> | null>(null);
   let el: HTMLElement;

@@ -3,7 +3,8 @@ import type { ProjectText } from '../../types';
 export const projects: Record<string, ProjectText> = {
   pqnavigator: {
     sector: 'Publieke sector',
-    description: 'Static-analysis platform dat source repositories scant, een cryptografische inventaris opbouwt en de post-quantum gereedheid van Nederlandse overheidsorganisaties beoordeelt.'
+    description:
+      'Static-analysis platform dat source repositories scant, een cryptografische inventaris opbouwt en de post-quantum gereedheid van Nederlandse overheidsorganisaties beoordeelt.'
   },
   'property-plan': {
     sector: 'Vastgoed',
@@ -19,7 +20,8 @@ export const projects: Record<string, ProjectText> = {
   },
   'vice-platform': {
     sector: 'Media',
-    description: 'Platform voor het beheren en publiceren van content op socialmediakanalen, gebouwd op herbruikbare React-componenten en redactionele templates.'
+    description:
+      'Platform voor het beheren en publiceren van content op socialmediakanalen, gebouwd op herbruikbare React-componenten en redactionele templates.'
   },
   'ehvg-pharmacy': {
     sector: 'E-health',

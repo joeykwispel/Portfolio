@@ -1,6 +1,9 @@
+import { goto } from '$app/navigation';
 import type { Locale } from '$lib/data';
+import { localize, stripLocale } from '$lib/i18n';
 
 class AppState {
+  /** Set by the [[lang]] layout from the URL: / is English, /nl/ is Dutch. */
   locale = $state<Locale>('en');
   theme = $state<'dark' | 'light'>('dark');
   reduced = $state(false);
@@ -9,8 +12,6 @@ class AppState {
 
   init() {
     try {
-      const l = localStorage.getItem('lang') || navigator.language.slice(0, 2);
-      if (l === 'nl' || l === 'en') this.locale = l;
       const t = localStorage.getItem('theme');
       if (t === 'light' || t === 'dark') this.theme = t;
     } catch {
@@ -21,13 +22,28 @@ class AppState {
     mq.addEventListener('change', (e) => (this.reduced = e.matches));
   }
 
-  setLocale(l: Locale) {
-    this.locale = l;
+  /** Remembers the choice, so a later visit to the English home page sends a Dutch reader to /nl/. */
+  rememberLocale(l: Locale) {
     try {
       localStorage.setItem('lang', l);
     } catch {
       /* ignore */
     }
+  }
+
+  /** The same page in another language. */
+  hrefFor(l: Locale, pathname: string) {
+    return localize(stripLocale(pathname), l);
+  }
+
+  setLocale(l: Locale) {
+    this.rememberLocale(l);
+    goto(this.hrefFor(l, location.pathname) + location.hash, { noScroll: true, keepFocus: true });
+  }
+
+  /** Site-absolute href in the current language. */
+  href(path: string) {
+    return localize(path, this.locale);
   }
 
   toggleTheme() {

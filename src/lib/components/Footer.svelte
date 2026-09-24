@@ -19,7 +19,7 @@
       <button type="button" class="hint mono" onclick={() => (app.palette = true)}><kbd>Ctrl</kbd><kbd>K</kbd> {ui.footer.palette}</button>
       <div class="right">
         <Socials />
-        <a class="top mono" href="#hero">{ui.footer.top} ↑</a>
+        <a class="top mono" href="#main">{ui.footer.top} ↑</a>
       </div>
     </div>
   </div>
@@ -58,7 +58,6 @@
   }
   .built {
     font-size: 0.72rem;
-    opacity: 0.8;
   }
   .hint {
     border: 0;

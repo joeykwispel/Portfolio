@@ -18,12 +18,16 @@ Open http://localhost:5173.
 
 ## Scripts
 
-| Command           | What it does                                      |
-| ----------------- | ------------------------------------------------- |
-| `npm run dev`     | Start the dev server with hot reload              |
-| `npm run build`   | Build the static site into `build/`               |
-| `npm run preview` | Serve the production build locally                |
-| `npm run check`   | Type-check the project                            |
+| Command             | What it does                                                                                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`       | Start the dev server with hot reload                                                                                                                                |
+| `npm run build`     | Build the static site into `build/`                                                                                                                                 |
+| `npm run preview`   | Serve the production build locally                                                                                                                                  |
+| `npm run check`     | Type-check the project                                                                                                                                              |
+| `npm run lint`      | Check formatting (Prettier) and lint (ESLint)                                                                                                                       |
+| `npm run format`    | Format everything with Prettier                                                                                                                                     |
+| `npm run test:unit` | Unit tests (Vitest)                                                                                                                                                 |
+| `npm run test:e2e`  | End-to-end + accessibility tests against `build/` (Playwright). Run `npx playwright install chromium` once, or set `PW_CHANNEL=chrome` to use your installed Chrome |
 
 To share the preview on your local network, run `npm run preview -- --host` and open the "Network" URL it prints.
 
@@ -32,37 +36,48 @@ To share the preview on your local network, run `npm run preview -- --host` and 
 ```
 src/
   routes/
-    +page.svelte        the portfolio (single page)
-    cv/+page.svelte     the printable CV page
-    +error.svelte       404 page
+    [[lang=lang]]/            everything below exists in English (/) and Dutch (/nl/)
+      +page.svelte            the portfolio (single page)
+      cv/+page.svelte         the printable CV page
+      work/[slug]/            case studies
+      writing/, writing/[slug]/  posts
+    sitemap.xml/+server.ts    generated sitemap
+    +error.svelte             404 page
   lib/
     components/         sections (Hero, About, Skills, ...) and ui/ building blocks
     data/               all content, see below
     utils/              date helpers, derived stats, Svelte actions
 static/                 favicon, robots.txt, social preview image
+scripts/                build-time scripts (syncs PR state from GitHub)
+e2e/                    Playwright end-to-end and accessibility tests
 ```
 
 ## Editing the content
 
 All content lives in `src/lib/data/`. You never need to touch the components to change text.
 
-| File                                  | Contains                                                   |
-| ------------------------------------- | ---------------------------------------------------------- |
-| `shared/contact.ts`                   | Email, LinkedIn, GitHub, photo, public site URL            |
-| `shared/roles.ts`                     | Jobs: company, dates, location, tech stack                 |
-| `shared/projects.ts`                  | Project cards and their links                              |
-| `shared/skills.ts`                    | Every skill and its category                               |
-| `shared/education.ts`                 | Education and courses                                      |
-| `shared/testimonials.ts`              | Recommendations (the section hides when this is empty)     |
-| `shared/contributions.ts`             | Open-source pull requests, incl. diff snippets             |
-| `cv.ts`                               | Full CV text for the `/cv` page, English and Dutch         |
-| `locales/en/*`, `locales/nl/*`        | All translated text (Dutch is type-checked against English) |
+| File                           | Contains                                                              |
+| ------------------------------ | --------------------------------------------------------------------- |
+| `shared/contact.ts`            | Email, LinkedIn, GitHub, photo, public site URL                       |
+| `shared/roles.ts`              | Jobs: company, dates, location, tech stack                            |
+| `shared/projects.ts`           | Project cards and their links                                         |
+| `shared/skills.ts`             | Every skill and its category                                          |
+| `shared/education.ts`          | Education and courses                                                 |
+| `shared/testimonials.ts`       | Recommendations (the section hides when this is empty)                |
+| `shared/contributions.ts`      | Open-source pull requests, incl. diff snippets                        |
+| `shared/caseStudies.ts`        | Case studies (draft or published); text in `locales/*/caseStudies.ts` |
+| `shared/posts.ts`              | Writing (draft or published); text in `locales/*/posts.ts`            |
+| `shared/now.ts`                | Current assignment, shown in the hero                                 |
+| `cv.ts`                        | Full CV text for the `/cv` page, English and Dutch                    |
+| `locales/en/*`, `locales/nl/*` | All translated text (Dutch is type-checked against English)           |
 
-When a pull request gets merged, change its `state` to `'merged'` in `shared/contributions.ts`; the badge turns purple.
+Pull request state, stars and line counts are fetched from GitHub on every build (`scripts/sync-contributions.mjs`), so a merged PR turns purple on its own after the weekly rebuild. The values in `shared/contributions.ts` are the offline fallback.
+
+**Drafts:** case studies and posts with `status: 'draft'` only show up in `npm run dev` (with a banner) or in a build with `VITE_SHOW_DRAFTS=1`. Set `status: 'published'` to put one live.
 
 Good to know:
 
-- **Skill durations are calculated**, not typed in: each skill's "time in projects" comes from the dates of the roles whose `stack` lists it. The charts, bubble sizes and levels all follow from that.
+- **Skill durations are calculated**, not typed in: each skill's "time in projects" comes from the dates of the roles whose `stack` lists it. The charts, skill bars and levels all follow from that. The "Core stack" list is `coreSkills` in `shared/skills.ts`.
 - **Adding a job:** add it to `shared/roles.ts`, then add its text under the same id in both `locales/en/experience.ts` and `locales/nl/experience.ts`.
 - **Adding a language:** copy `locales/en` to a new folder, translate it, and register it in `locales/index.ts` and the `Locale` type in `types.ts`.
 
@@ -71,8 +86,9 @@ Good to know:
 The site builds to plain static files in `build/`, so any static host works. This repo deploys to **GitHub Pages** at **https://joeyoosenbrug.nl**.
 
 **Workflow:** work on a feature branch and open a pull request into `main`.
-- `.github/workflows/pr-check.yml` type-checks and builds every PR (nothing is deployed).
-- `.github/workflows/deploy.yml` deploys when the PR is merged into `main`.
+
+- `.github/workflows/pr-check.yml` lints, type-checks, runs the unit, end-to-end and accessibility tests, and checks Lighthouse budgets on every PR (nothing is deployed).
+- `.github/workflows/deploy.yml` deploys when the PR is merged into `main`, and rebuilds every Monday.
 
 Tip: protect `main` (Settings → Branches → add a rule requiring a pull request and the "PR check" status) so nothing reaches the live site without a PR.
 
@@ -82,16 +98,16 @@ Tip: protect `main` (Settings → Branches → add a rule requiring a pull reque
 2. **Custom domain:** in the same screen, enter `joeyoosenbrug.nl` and save.
 3. **DNS** at your domain registrar:
 
-   | Type  | Name  | Value                  |
-   | ----- | ----- | ---------------------- |
-   | A     | `@`   | `185.199.108.153`      |
-   | A     | `@`   | `185.199.109.153`      |
-   | A     | `@`   | `185.199.110.153`      |
-   | A     | `@`   | `185.199.111.153`      |
-   | AAAA  | `@`   | `2606:50c0:8000::153`  |
-   | AAAA  | `@`   | `2606:50c0:8001::153`  |
-   | AAAA  | `@`   | `2606:50c0:8002::153`  |
-   | AAAA  | `@`   | `2606:50c0:8003::153`  |
+   | Type  | Name  | Value                   |
+   | ----- | ----- | ----------------------- |
+   | A     | `@`   | `185.199.108.153`       |
+   | A     | `@`   | `185.199.109.153`       |
+   | A     | `@`   | `185.199.110.153`       |
+   | A     | `@`   | `185.199.111.153`       |
+   | AAAA  | `@`   | `2606:50c0:8000::153`   |
+   | AAAA  | `@`   | `2606:50c0:8001::153`   |
+   | AAAA  | `@`   | `2606:50c0:8002::153`   |
+   | AAAA  | `@`   | `2606:50c0:8003::153`   |
    | CNAME | `www` | `joeykwispel.github.io` |
 
 4. Once DNS has propagated (minutes to a few hours), tick **Enforce HTTPS** in Settings → Pages.

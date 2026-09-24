@@ -1,16 +1,18 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { app } from '$lib/app.svelte';
-  import { getContent, person, projects, skills, spokenLanguages } from '$lib/data';
-  import { careerMonths, employerCount } from '$lib/utils/derive';
+  import { getContent, person, projects, spokenLanguages } from '$lib/data';
+  import { careerMonths, computeSkillStats, employerCount } from '$lib/utils/derive';
   import { countUp, reveal, tilt } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
 
   const c = $derived(getContent(app.locale));
   const years = Math.floor(careerMonths() / 12);
+  /** Technologies used for at least a year in projects: a more honest number than everything ever listed. */
+  const established = computeSkillStats().filter((s) => s.months >= 12 && !['languages', 'methods', 'soft'].includes(s.category)).length;
   const stats = $derived([
     { label: c.ui.about.stats.years, to: years, suffix: '+' },
-    { label: c.ui.about.stats.tech, to: skills.filter((s) => s.category !== 'languages').length, suffix: '' },
+    { label: c.ui.about.stats.tech, to: established, suffix: '' },
     { label: c.ui.about.stats.projects, to: projects.length, suffix: '' },
     { label: c.ui.about.stats.clients, to: employerCount(), suffix: '' }
   ]);
@@ -18,7 +20,7 @@
 
 <section id="about" data-section class="section">
   <div class="container">
-    <SectionHead num="01" slug="about" title={c.ui.about.title} />
+    <SectionHead section="about" slug="about" title={c.ui.about.title} />
 
     <div class="grid" class:has-photo={!!person.photo}>
       <div class="bio" use:reveal>
@@ -38,14 +40,18 @@
             <span class="scan" aria-hidden="true"></span>
             <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
           </div>
-          <figcaption class="mono"><span class="com">// </span>{app.locale === 'nl' ? 'handgemaakt in Druten, op koffie' : 'handcrafted in Druten, runs on coffee'}</figcaption>
+          <figcaption class="mono">
+            <span class="com">// </span>{app.locale === 'nl' ? 'handgemaakt in Druten, op koffie' : 'handcrafted in Druten, runs on coffee'}
+          </figcaption>
         </figure>
       {/if}
       <div class="facts glass ring" use:reveal={{ delay: 120 }}>
         <div class="bar mono" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span>facts.json</div>
         <h3 class="sr-only">{c.ui.about.factsTitle}</h3>
         <dl class="mono">
-          {#each [...c.profile.facts, { label: c.ui.about.languages, value: spokenLanguages.map((l) => `${c.languages[l.id as 'Dutch' | 'English'].name} (${c.languages[l.id as 'Dutch' | 'English'].level.toLowerCase()})`).join(', ') }] as f, i}
+          {#each [...c.profile.facts, { label: c.ui.about.languages, value: spokenLanguages
+                .map((l) => `${c.languages[l.id as 'Dutch' | 'English'].name} (${c.languages[l.id as 'Dutch' | 'English'].level.toLowerCase()})`)
+                .join(', ') }] as f, i}
             <div style="--d:{i * 70}ms">
               <dt><span class="prop">"{f.label}"</span><span aria-hidden="true">:</span></dt>
               <dd><span class="str">"{f.value}"</span><span aria-hidden="true">,</span></dd>
@@ -114,7 +120,12 @@
     font-weight: 800;
     color: var(--accent-text);
     overflow: hidden;
-    background: conic-gradient(from var(--angle), color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent-2) 25%, transparent), color-mix(in srgb, var(--accent) 25%, transparent));
+    background: conic-gradient(
+      from var(--angle),
+      color-mix(in srgb, var(--accent) 25%, transparent),
+      color-mix(in srgb, var(--accent-2) 25%, transparent),
+      color-mix(in srgb, var(--accent) 25%, transparent)
+    );
     animation: spin-angle 6s linear infinite;
   }
   .photo {
@@ -123,7 +134,11 @@
     display: flex;
     flex-direction: column;
     background: color-mix(in srgb, var(--bg) 70%, transparent);
-    transition: opacity 0.7s var(--ease), transform 0.25s ease-out, filter 0.7s var(--ease), border-color 0.3s;
+    transition:
+      opacity 0.7s var(--ease),
+      transform 0.25s ease-out,
+      filter 0.7s var(--ease),
+      border-color 0.3s;
   }
   .dim {
     margin-left: auto;
@@ -144,14 +159,21 @@
     object-fit: cover;
     object-position: 50% 18%;
     filter: saturate(0.85) contrast(1.05);
-    transition: transform 0.8s var(--ease), filter 0.5s;
+    transition:
+      transform 0.8s var(--ease),
+      filter 0.5s;
   }
   /* subtle accent tint that fades out on hover */
   .frame::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 45%, color-mix(in srgb, var(--accent-2) 26%, transparent));
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--accent) 22%, transparent),
+      transparent 45%,
+      color-mix(in srgb, var(--accent-2) 26%, transparent)
+    );
     mix-blend-mode: soft-light;
     transition: opacity 0.5s;
     pointer-events: none;
@@ -280,7 +302,10 @@
   :global(.js) .facts dl > div {
     opacity: 0;
     translate: -8px 0;
-    transition: opacity 0.5s var(--ease), translate 0.5s var(--ease), background 0.2s;
+    transition:
+      opacity 0.5s var(--ease),
+      translate 0.5s var(--ease),
+      background 0.2s;
     transition-delay: calc(var(--d) + 350ms), calc(var(--d) + 350ms), 0s;
   }
   :global(.js) .facts:global(.in) dl > div {
@@ -304,7 +329,11 @@
     padding: 1rem 1.1rem;
     display: grid;
     gap: 0.1rem;
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease), translate 0.3s var(--ease);
+    transition:
+      opacity 0.7s var(--ease),
+      transform 0.7s var(--ease),
+      filter 0.7s var(--ease),
+      translate 0.3s var(--ease);
   }
   .stats li:hover {
     translate: 0 -3px;

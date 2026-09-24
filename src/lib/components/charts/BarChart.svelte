@@ -25,16 +25,7 @@
         <rect x="0" {y} width="600" height={ROW - 4} fill="transparent" />
         <text x={LW - 12} y={y + 20} text-anchor="end" class="lbl">{it.label}</text>
         <rect x={LW} y={y + 8} width={BW} height="14" rx="7" class="track" />
-        <rect
-          x={LW}
-          y={y + 8}
-          width={(BW * it.value) / max}
-          height="14"
-          rx="7"
-          class="bar"
-          class:on={visible}
-          style="transition-delay:{i * 70}ms"
-        />
+        <rect x={LW} y={y + 8} width={(BW * it.value) / max} height="14" rx="7" class="bar" class:on={visible} style="transition-delay:{i * 70}ms" />
         <text x={LW + BW + 12} y={y + 20} class="val">{it.display}</text>
       </g>
     {/each}

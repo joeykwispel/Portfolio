@@ -11,8 +11,8 @@
         d.classList.add('js');
         var t = localStorage.getItem('theme');
         if (t === 'light' || t === 'dark') d.dataset.theme = t;
-        var l = localStorage.getItem('lang') || (navigator.language || '').slice(0, 2);
-        if (l === 'nl' || l === 'en') d.lang = l;
+        var b = '%sveltekit.assets%';
+        if (localStorage.getItem('lang') === 'nl' && location.pathname === b + '/') location.replace(b + '/nl/' + location.hash);
       } catch (e) {}
     </script>
     %sveltekit.head%

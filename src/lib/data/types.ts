@@ -1,14 +1,6 @@
 export type Locale = 'en' | 'nl';
 
-export type CategoryId =
-  | 'frontend'
-  | 'backend'
-  | 'devops'
-  | 'testing'
-  | 'tools'
-  | 'methods'
-  | 'soft'
-  | 'languages';
+export type CategoryId = 'frontend' | 'backend' | 'devops' | 'testing' | 'tools' | 'methods' | 'soft' | 'languages';
 
 /** Language-neutral part of a work entry (dates, company, stack). Text lives in locales/<lang>/experience.ts */
 export interface RoleBase {
@@ -65,4 +57,62 @@ export interface EducationBase {
   endYear: number;
   /** Course names for certification nodes. */
   courses?: string[];
+}
+
+/** One piece of long-form content. A plain string is a paragraph. */
+export type Block =
+  | string
+  | { list: string[] }
+  | { steps: { title: string; text: string }[] }
+  | { quote: string; cite?: string }
+  | { code: string; lang?: string; caption?: string }
+  | { note: string };
+
+export interface ProseSection {
+  heading: string;
+  body: Block[];
+}
+
+/** 'draft' is only shown in `npm run dev`, with a banner; 'published' goes live. */
+export type PublishStatus = 'draft' | 'published';
+
+export interface CaseStudyBase {
+  slug: string;
+  /** Id in shared/projects.ts */
+  projectId: string;
+  status: PublishStatus;
+  /** Skill names (shared/skills.ts) worth highlighting for this case */
+  stack: string[];
+  /** Contribution ids from shared/contributions.ts shown as proof */
+  contributions?: string[];
+  /** Index in shared/testimonials.ts */
+  testimonial?: number;
+  /** Not client work: hides the client, period and project link from the spec sheet. */
+  standalone?: boolean;
+}
+
+export interface CaseStudyText {
+  title: string;
+  /** One or two sentences under the title */
+  lede: string;
+  /** Short answers for the spec sheet next to the story */
+  role: string;
+  team: string;
+  /** The problem in one line, shown on the project card */
+  teaser: string;
+  sections: ProseSection[];
+}
+
+export interface PostBase {
+  slug: string;
+  /** YYYY-MM-DD */
+  date: string;
+  status: PublishStatus;
+  tags: string[];
+}
+
+export interface PostText {
+  title: string;
+  description: string;
+  sections: ProseSection[];
 }

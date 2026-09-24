@@ -13,7 +13,12 @@
   const count = testimonials.length;
   const go = (d: number) => (i = (i + d + count) % count);
   const t = $derived(testimonials[i]);
-  const initials = (name: string) => name.split(' ').map((w) => w[0]).join('').slice(0, 2);
+  const initials = (name: string) =>
+    name
+      .split(' ')
+      .map((w) => w[0])
+      .join('')
+      .slice(0, 2);
   const date = $derived(new Date(t.date).toLocaleDateString(app.locale === 'nl' ? 'nl-NL' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }));
 
   onMount(() => {
@@ -26,7 +31,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num="07" slug="recommendations" title={c.ui.testimonials.title} />
+    <SectionHead section="testimonials" slug="recommendations" title={c.ui.testimonials.title} />
     <div
       class="card glass ring"
       role="region"
@@ -149,7 +154,12 @@
     font-weight: 800;
     color: var(--accent-text);
     border: 1px solid var(--border);
-    background: conic-gradient(from var(--angle), color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent-2) 25%, transparent), color-mix(in srgb, var(--accent) 25%, transparent));
+    background: conic-gradient(
+      from var(--angle),
+      color-mix(in srgb, var(--accent) 25%, transparent),
+      color-mix(in srgb, var(--accent-2) 25%, transparent),
+      color-mix(in srgb, var(--accent) 25%, transparent)
+    );
     animation: spin-angle 6s linear infinite;
   }
   .who {

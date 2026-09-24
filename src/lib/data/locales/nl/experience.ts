@@ -67,8 +67,7 @@ export const experience: RoleTextMap = {
   },
   jex: {
     title: 'Front-end Developer',
-    summary:
-      'Werkte aan de corporate website binnen het HubSpot CMS, met de nadruk op pixel-perfecte implementatie, performance en gebruikerservaring.',
+    summary: 'Werkte aan de corporate website binnen het HubSpot CMS, met de nadruk op pixel-perfecte implementatie, performance en gebruikerservaring.',
     bullets: [
       'Ontwikkelde nieuwe pagina’s en componenten binnen HubSpot CMS.',
       'Vertaalde ontwerpen naar responsive front-end oplossingen.',

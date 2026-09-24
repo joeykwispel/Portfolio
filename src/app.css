@@ -39,7 +39,7 @@
   --syn-num: #f78c6c;
   --syn-fn: #82aaff;
   --syn-prop: #7dd3c0;
-  --syn-com: #637089;
+  --syn-com: #7a879e;
   --syn-punc: #89ddff;
   /* GitHub-style diff colors */
   --diff-add-bg: rgba(46, 160, 67, 0.15);
@@ -76,7 +76,7 @@
   --syn-num: #c2410c;
   --syn-fn: #2459d1;
   --syn-prop: #0b6259;
-  --syn-com: #7a869c;
+  --syn-com: #5f6b80;
   --syn-punc: #0e7490;
   --diff-add-bg: #e6ffec;
   --diff-add-num: #ccffd8;
@@ -244,7 +244,9 @@ svg {
   border-radius: inherit;
   padding: 1px;
   background: conic-gradient(from var(--angle), transparent 0 55%, var(--accent) 70%, var(--accent-2) 85%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
@@ -278,7 +280,11 @@ svg {
   font-weight: 600;
   text-decoration: none;
   overflow: hidden;
-  transition: transform 0.25s var(--ease), background 0.25s, box-shadow 0.25s, border-color 0.25s;
+  transition:
+    transform 0.25s var(--ease),
+    background 0.25s,
+    box-shadow 0.25s,
+    border-color 0.25s;
 }
 .btn:hover {
   background: var(--surface-2);
@@ -319,7 +325,9 @@ svg {
   color: var(--muted);
   background: var(--surface);
   border: 1px solid var(--border);
-  transition: color 0.2s, border-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
 }
 .tag:hover {
   color: var(--accent-text);
@@ -380,7 +388,10 @@ svg {
   opacity: 0;
   transform: translateY(18px);
   filter: blur(6px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease),
+    filter 0.7s var(--ease);
 }
 .js .reveal.in {
   opacity: 1;

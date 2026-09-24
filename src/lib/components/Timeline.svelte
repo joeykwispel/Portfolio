@@ -36,7 +36,7 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num="04" slug="experience" title={c.ui.timeline.title} intro={c.ui.timeline.intro} />
+    <SectionHead section="experience" slug="experience" title={c.ui.timeline.title} intro={c.ui.timeline.intro} />
 
     <ol class="timeline" bind:this={list} style="--p:{app.reduced ? 1 : progress}">
       <div class="rail" aria-hidden="true"><span></span></div>
@@ -54,12 +54,18 @@
               <header>
                 <div>
                   <h3>{role.company}</h3>
-                  <p class="role">{t.title}{#if role.via}<span class="via">, {c.ui.timeline.via} {role.via}</span>{/if}</p>
+                  <p class="role">
+                    {t.title}{#if role.via}<span class="via">, {c.ui.timeline.via} {role.via}</span>{/if}
+                  </p>
                 </div>
                 <p class="meta">
-                  <time datetime={role.start}>{fmtMonth(role.start, app.locale)}</time> to
+                  <time datetime={role.start}>{fmtMonth(role.start, app.locale)}</time>
+                  {c.ui.timeline.to}
                   {#if role.end}<time datetime={role.end}>{fmtMonth(role.end, app.locale)}</time>{:else}{c.ui.timeline.present}{/if}
-                  <span>{fmtDuration(monthsInRange(role), c.ui.units)}{#if role.location} · {role.location}{/if}</span>
+                  <span
+                    >{fmtDuration(monthsInRange(role), c.ui.units)}{#if role.location}
+                      · {role.location}{/if}</span
+                  >
                 </p>
               </header>
               <p class="summary">{t.summary}</p>
@@ -85,9 +91,26 @@
                     {/if}
                   </div>
                 </div>
-                <button type="button" class="toggle" aria-expanded={!!open[role.id]} aria-controls="more-{role.id}" onclick={() => (open[role.id] = !open[role.id])}>
+                <button
+                  type="button"
+                  class="toggle"
+                  aria-expanded={!!open[role.id]}
+                  aria-controls="more-{role.id}"
+                  onclick={() => (open[role.id] = !open[role.id])}
+                >
                   {open[role.id] ? c.ui.timeline.collapse : c.ui.timeline.expand}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class:flip={open[role.id]}><path d="M6 9l6 6 6-6" /></svg>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    class:flip={open[role.id]}><path d="M6 9l6 6 6-6" /></svg
+                  >
                 </button>
               {/if}
             </article>
@@ -99,7 +122,7 @@
                   <h3>{edu.kind === 'education' ? c.education.mbo.title : c.education.trainingTitle}</h3>
                   {#if edu.institution}<p class="role">{edu.institution}</p>{/if}
                 </div>
-                <p class="meta">{edu.startYear === edu.endYear ? edu.startYear : `${edu.startYear} to ${edu.endYear}`}</p>
+                <p class="meta">{edu.startYear === edu.endYear ? edu.startYear : `${edu.startYear} ${c.ui.timeline.to} ${edu.endYear}`}</p>
               </header>
               {#if edu.kind === 'education'}
                 <p class="summary">{c.education.mbo.detail}</p>

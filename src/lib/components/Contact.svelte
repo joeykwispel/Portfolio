@@ -1,6 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { contact, getContent, testimonials } from '$lib/data';
+  import { contact, getContent } from '$lib/data';
   import { reveal, tilt } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
   import Scramble from './ui/Scramble.svelte';
@@ -57,9 +57,11 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num={testimonials.length ? '08' : '07'} slug="contact" title={c.ui.contact.title} intro={c.ui.contact.intro} />
+    <SectionHead section="contact" slug="contact" title={c.ui.contact.title} intro={c.ui.contact.intro} />
 
-    <p class="cta mono" use:reveal><span class="kw">await</span> <span class="grad"><Scramble text={c.ui.contact.cta} /></span><span class="caret" aria-hidden="true"></span></p>
+    <p class="cta mono" use:reveal>
+      <span class="kw">await</span> <span class="grad"><Scramble text={c.ui.contact.cta} /></span><span class="caret" aria-hidden="true"></span>
+    </p>
 
     <ul class="cards">
       {#each cards as card, i (card.id)}
@@ -67,10 +69,21 @@
           <article class="card glass ring" style="--hue:{card.hue}" use:tilt={6}>
             <p class="cmd mono" aria-hidden="true"><span class="ps">$</span> {card.cmd}</p>
             <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d={card.path} /></svg>
+              <svg
+                viewBox="0 0 24 24"
+                width="28"
+                height="28"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d={card.path} /></svg
+              >
             </div>
             <h3>
-              <a class="main" href={card.href} target={card.id === 'email' ? undefined : '_blank'} rel={card.id === 'email' ? undefined : 'noopener noreferrer'}>{card.name}</a>
+              <a class="main" href={card.href} target={card.id === 'email' ? undefined : '_blank'} rel={card.id === 'email' ? undefined : 'noopener noreferrer'}
+                >{card.name}</a
+              >
             </h3>
             <p class="handle mono">{card.handle}</p>
             <p class="desc">{card.desc}</p>
@@ -79,10 +92,31 @@
               {#if card.id === 'email'}
                 <button type="button" class="copy mono" class:done={copied} onclick={copyEmail} aria-label="{c.ui.contact.copy} {contact.email.value}">
                   {#if copied}
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="3"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg
+                    >
                     {c.ui.contact.copied}
                   {:else}
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></svg>
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      ><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></svg
+                    >
                     {c.ui.contact.copy}
                   {/if}
                 </button>
@@ -141,7 +175,9 @@
     gap: 0.55rem;
     padding: 1.2rem 1.25rem 1.1rem;
     overflow: hidden;
-    transition: transform 0.25s ease-out, border-color 0.3s;
+    transition:
+      transform 0.25s ease-out,
+      border-color 0.3s;
     will-change: transform;
   }
   /* cursor spotlight, tinted per channel */
@@ -179,7 +215,9 @@
     color: var(--hue);
     background: color-mix(in srgb, var(--hue) 12%, transparent);
     border: 1px solid color-mix(in srgb, var(--hue) 30%, var(--border));
-    transition: transform 0.45s var(--spring), box-shadow 0.3s;
+    transition:
+      transform 0.45s var(--spring),
+      box-shadow 0.3s;
   }
   .card:hover .icon {
     transform: rotate(-8deg) scale(1.08);
@@ -252,7 +290,11 @@
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--muted);
-    transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background 0.2s,
+      transform 0.15s;
   }
   .copy:hover {
     color: var(--accent-text);

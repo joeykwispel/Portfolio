@@ -1,5 +1,6 @@
 <script lang="ts">
   import { base } from '$app/paths';
+  import { page } from '$app/state';
   import { app } from '$lib/app.svelte';
   import { contact, cv, getContent, jobTitle, locales, person } from '$lib/data';
   import { reveal } from '$lib/utils/actions';
@@ -18,16 +19,35 @@
 
 <header class="toolbar no-print">
   <div class="bar">
-    <a class="back mono" href="{base}/"><span aria-hidden="true">←</span> {t.back}</a>
+    <a class="back mono" href={app.href('/')}><span aria-hidden="true">←</span> {t.back}</a>
     <span class="path mono" aria-hidden="true">~/joey/<b>{t.file}</b></span>
     <div class="tools">
       <div class="lang" role="group" aria-label={c.ui.nav.language}>
         {#each locales as l (l)}
-          <button type="button" class="mono" aria-pressed={app.locale === l} onclick={() => app.setLocale(l)}>{l.toUpperCase()}</button>
+          <a
+            class="mono"
+            href={app.hrefFor(l, page.url.pathname)}
+            hreflang={l}
+            aria-current={app.locale === l ? 'true' : undefined}
+            data-sveltekit-noscroll
+            data-sveltekit-keepfocus
+            onclick={() => app.rememberLocale(l)}>{l.toUpperCase()}</a
+          >
         {/each}
       </div>
       <button type="button" class="btn btn-primary" onclick={() => window.print()}>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect x="6" y="14" width="12" height="7" /></svg>
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          ><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect x="6" y="14" width="12" height="7" /></svg
+        >
         {t.print}
       </button>
     </div>
@@ -71,7 +91,9 @@
           {#each d.skills as s (s.label)}
             <div>
               <dt class="mono">{s.label}</dt>
-              <dd>{#each split(s.items) as item (item)}<span class="tag">{item}</span>{/each}</dd>
+              <dd>
+                {#each split(s.items) as item (item)}<span class="tag">{item}</span>{/each}
+              </dd>
             </div>
           {/each}
         </dl>
@@ -166,7 +188,8 @@
     padding: 2px;
     background: var(--surface);
   }
-  .lang button {
+  .lang a {
+    text-decoration: none;
     border: 0;
     background: transparent;
     padding: 0.25rem 0.65rem;
@@ -175,7 +198,7 @@
     font-weight: 600;
     color: var(--muted);
   }
-  .lang button[aria-pressed='true'] {
+  .lang a[aria-current='true'] {
     background: var(--accent);
     color: var(--accent-ink);
   }
@@ -253,7 +276,9 @@
     object-fit: cover;
     border-radius: 16px;
     border: 1px solid var(--border);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent), var(--shadow);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent),
+      var(--shadow);
   }
   .kicker {
     font-size: 0.72rem;
@@ -356,7 +381,11 @@
     gap: 0.45rem;
     padding-left: 1.1rem;
     border-left: 2px solid var(--border);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease), filter 0.7s var(--ease), border-color 0.3s;
+    transition:
+      opacity 0.7s var(--ease),
+      transform 0.7s var(--ease),
+      filter 0.7s var(--ease),
+      border-color 0.3s;
   }
   .proj:hover {
     border-left-color: var(--accent);

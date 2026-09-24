@@ -53,7 +53,9 @@
      and the box doesn't grow line by line while typing. The visible text (and caret) types over it. -->
 <span class="typer mono" aria-live="off"
   ><span class="gt" aria-hidden="true">&gt;</span><span class="box"
-    ><span class="ghost" aria-hidden="true">{current}<span class="caret"></span></span><span class="txt">{shown}<span class="caret" aria-hidden="true"></span></span></span
+    ><span class="ghost" aria-hidden="true">{current}<span class="caret"></span></span><span class="txt"
+      >{shown}<span class="caret" aria-hidden="true"></span></span
+    ></span
   ></span
 >
 

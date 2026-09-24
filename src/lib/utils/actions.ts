@@ -92,63 +92,11 @@ export const magnetic: Action<HTMLElement, number | undefined> = (node, strength
   };
 };
 
-/** Drag a chip around; it springs back on release. Suppresses the click if it was a drag. */
-export const springDrag: Action<HTMLElement> = (node) => {
-  let sx = 0;
-  let sy = 0;
-  let dragging = false;
-  let moved = false;
-  const down = (e: PointerEvent) => {
-    if (e.button !== 0 && e.pointerType === 'mouse') return;
-    dragging = true;
-    moved = false;
-    sx = e.clientX;
-    sy = e.clientY;
-    node.setPointerCapture(e.pointerId);
-    node.style.transition = 'none';
-  };
-  const move = (e: PointerEvent) => {
-    if (!dragging) return;
-    const dx = e.clientX - sx;
-    const dy = e.clientY - sy;
-    if (Math.abs(dx) + Math.abs(dy) > 5) moved = true;
-    if (moved) node.style.transform = `translate(${dx}px, ${dy}px)`;
-  };
-  const up = (e: PointerEvent) => {
-    if (!dragging) return;
-    dragging = false;
-    if (node.hasPointerCapture(e.pointerId)) node.releasePointerCapture(e.pointerId);
-    node.style.transition = 'transform 0.7s cubic-bezier(0.34, 1.7, 0.5, 1)';
-    node.style.transform = '';
-  };
-  const click = (e: MouseEvent) => {
-    if (moved) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      moved = false;
-    }
-  };
-  node.addEventListener('pointerdown', down);
-  node.addEventListener('pointermove', move);
-  node.addEventListener('pointerup', up);
-  node.addEventListener('pointercancel', up);
-  node.addEventListener('click', click, true);
-  return {
-    destroy() {
-      node.removeEventListener('pointerdown', down);
-      node.removeEventListener('pointermove', move);
-      node.removeEventListener('pointerup', up);
-      node.removeEventListener('pointercancel', up);
-      node.removeEventListener('click', click, true);
-    }
-  };
-};
-
 /** Counts a number up from 0 when visible. */
 export const countUp: Action<HTMLElement, { to: number; decimals?: number; duration?: number }> = (node, opts) => {
   let current = opts;
   const render = (v: number) => (node.textContent = v.toFixed(current?.decimals ?? 0));
-  render(reduced() ? current?.to ?? 0 : 0);
+  render(reduced() ? (current?.to ?? 0) : 0);
   const run = () => {
     if (reduced() || !current) return render(current?.to ?? 0);
     const start = performance.now();

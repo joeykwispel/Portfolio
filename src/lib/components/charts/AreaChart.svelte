@@ -2,10 +2,7 @@
   import { inView } from '$lib/utils/actions';
   import ChartTip from '../ui/ChartTip.svelte';
 
-  let {
-    points,
-    label = ''
-  }: { points: { year: number; total: number; sub: string }[]; label?: string } = $props();
+  let { points, label = '' }: { points: { year: number; total: number; sub: string }[]; label?: string } = $props();
 
   const W = 600;
   const H = 300;

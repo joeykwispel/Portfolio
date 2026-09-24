@@ -9,6 +9,7 @@
   import BarChart from './charts/BarChart.svelte';
   import DonutChart from './charts/DonutChart.svelte';
   import AreaChart from './charts/AreaChart.svelte';
+  import DataTable from './charts/DataTable.svelte';
 
   const c = $derived(getContent(app.locale));
   const stats = computeSkillStats();
@@ -21,7 +22,14 @@
   const radarLabels = $derived(strength.map((s) => c.categories[s.id]));
   const radarValues = strength.map((s) => s.value);
   const radarTips = $derived(strength.map((s) => ({ text: c.categories[s.id], sub: `${s.value} / 100` })));
-  const bars = $derived(top.map((s) => ({ label: c.skillLabels[s.name] ?? s.name, value: s.months, display: `${fmtYears(s.months)} ${c.ui.units.years}`, sub: fmtDuration(s.months, c.ui.units) })));
+  const bars = $derived(
+    top.map((s) => ({
+      label: c.skillLabels[s.name] ?? s.name,
+      value: s.months,
+      display: `${fmtYears(s.months)} ${c.ui.units.years}`,
+      sub: fmtDuration(s.months, c.ui.units)
+    }))
+  );
   const donut = $derived(perRole.map((r) => ({ label: r.company, value: r.months, display: fmtDuration(r.months, c.ui.units) })));
   const area = $derived(
     growth.map((g) => ({
@@ -38,27 +46,31 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num="03" slug="insights" title={c.ui.charts.title} intro={c.ui.charts.intro} />
+    <SectionHead section="insights" slug="insights" title={c.ui.charts.title} intro={c.ui.charts.intro} />
     <div class="grid">
       <article class="card glass ring" use:reveal>
         <h3>{c.ui.charts.radarTitle}</h3>
         <p>{c.ui.charts.radarDesc}</p>
         <RadarChart labels={radarLabels} values={radarValues} tips={radarTips} label={c.ui.charts.radarTitle} />
+        <DataTable caption={c.ui.charts.radarTitle} rows={strength.map((x, i) => [radarLabels[i], `${x.value} / 100`])} />
       </article>
       <article class="card glass ring" use:reveal={{ delay: 100 }}>
         <h3>{c.ui.charts.barsTitle}</h3>
         <p>{c.ui.charts.barsDesc}</p>
         <BarChart items={bars} label={c.ui.charts.barsTitle} />
+        <DataTable caption={c.ui.charts.barsTitle} rows={bars.map((b) => [b.label, b.sub])} />
       </article>
       <article class="card glass ring" use:reveal>
         <h3>{c.ui.charts.donutTitle}</h3>
         <p>{c.ui.charts.donutDesc}</p>
         <DonutChart items={donut} centerValue={fmtDuration(total, c.ui.units)} centerLabel={c.ui.charts.donutTotal} label={c.ui.charts.donutTitle} />
+        <DataTable caption={c.ui.charts.donutTitle} rows={donut.map((d) => [d.label, d.display])} />
       </article>
       <article class="card glass ring" use:reveal={{ delay: 100 }}>
         <h3>{c.ui.charts.growthTitle}</h3>
         <p>{c.ui.charts.growthDesc}</p>
         <AreaChart points={area} label={c.ui.charts.growthTitle} />
+        <DataTable caption={c.ui.charts.growthTitle} rows={area.map((a) => [String(a.year), `${a.total} ${c.ui.charts.skillsUsed}`])} />
       </article>
     </div>
   </div>

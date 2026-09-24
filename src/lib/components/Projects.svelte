@@ -1,42 +1,68 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { getContent, projects, roles } from '$lib/data';
+  import { caseStudyFor, getContent, projects, roles } from '$lib/data';
+  import type { ProjectBase } from '$lib/data';
   import { fmtMonth } from '$lib/utils/dates';
   import { reveal, tilt } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
 
   const c = $derived(getContent(app.locale));
+  // Projects with a case study come first and get a bigger card.
+  const featured = projects.filter((p) => caseStudyFor(p.id));
+  const rest = projects.filter((p) => !caseStudyFor(p.id));
 </script>
+
+{#snippet card(p: ProjectBase, i: number, big: boolean)}
+  {@const role = roles.find((r) => r.id === p.roleId)}
+  {@const txt = c.projects[p.id]}
+  {@const cs = caseStudyFor(p.id)}
+  <li use:reveal={{ delay: (i % 3) * 90 }}>
+    <article class="card glass ring" class:big use:tilt={big ? 3 : 7}>
+      <div class="chrome mono" aria-hidden="true">
+        <span class="dots"><i></i><i></i><i></i></span><span class="file">~/projects/<b>{p.id}</b>{big ? '.md' : '.tsx'}</span>
+      </div>
+      <div class="row">
+        <span class="tag">{txt.sector}</span>
+        {#if role}<span class="when"
+            >{fmtMonth(role.start, app.locale)} {c.ui.timeline.to} {role.end ? fmtMonth(role.end, app.locale) : c.ui.timeline.present}</span
+          >{/if}
+      </div>
+      <h3>{p.name}</h3>
+      {#if cs}<p class="teaser">{c.caseStudies[cs.slug].teaser}</p>{/if}
+      <p class="desc">{txt.description}</p>
+      {#if role}<p class="by">{role.company}, {c.experience[role.id]?.title}</p>{/if}
+      <ul class="tags">
+        {#each p.tags as t (t)}<li class="tag">{c.skillLabels[t] ?? t}</li>{/each}
+      </ul>
+      <div class="actions">
+        {#if cs}
+          <a class="btn btn-primary cs" href={app.href(`/work/${cs.slug}/`)}
+            >{c.ui.projects.caseStudy}{#if cs.status === 'draft'}<span class="draft mono">draft</span>{/if}</a
+          >
+        {/if}
+        {#if p.link}
+          <a class="link" href={p.link} target="_blank" rel="noopener noreferrer">{c.ui.projects.visit} <span aria-hidden="true">↗</span></a>
+        {:else}
+          <span class="ph">[{c.ui.projects.linkPlaceholder}]</span>
+        {/if}
+      </div>
+    </article>
+  </li>
+{/snippet}
 
 <section class="section">
   <div class="container">
-    <SectionHead num="05" slug="projects" title={c.ui.projects.title} intro={c.ui.projects.intro} />
-    <ul class="grid">
-      {#each projects as p, i (p.id)}
-        {@const role = roles.find((r) => r.id === p.roleId)}
-        {@const txt = c.projects[p.id]}
-        <li use:reveal={{ delay: (i % 3) * 90 }}>
-          <article class="card glass ring" use:tilt={7}>
-            <div class="chrome mono" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span><span class="file">~/projects/<b>{p.id}</b>.tsx</span></div>
-            <div class="row">
-              <span class="tag">{txt.sector}</span>
-              {#if role}<span class="when">{fmtMonth(role.start, app.locale)} to {role.end ? fmtMonth(role.end, app.locale) : c.ui.timeline.present}</span>{/if}
-            </div>
-            <h3>{p.name}</h3>
-            <p class="desc">{txt.description}</p>
-            {#if role}<p class="by">{role.company}, {c.experience[role.id]?.title}</p>{/if}
-            <ul class="tags">
-              {#each p.tags as t (t)}<li class="tag">{c.skillLabels[t] ?? t}</li>{/each}
-            </ul>
-            {#if p.link}
-              <a class="link" href={p.link} target="_blank" rel="noopener noreferrer">{c.ui.projects.visit}</a>
-            {:else}
-              <span class="ph">[{c.ui.projects.linkPlaceholder}]</span>
-            {/if}
-          </article>
-        </li>
-      {/each}
-    </ul>
+    <SectionHead section="projects" slug="projects" title={c.ui.projects.title} intro={c.ui.projects.intro} />
+    {#if featured.length}
+      <ul class="grid featured">
+        {#each featured as p, i (p.id)}{@render card(p, i, true)}{/each}
+      </ul>
+    {/if}
+    {#if rest.length}
+      <ul class="grid">
+        {#each rest as p, i (p.id)}{@render card(p, i, false)}{/each}
+      </ul>
+    {/if}
   </div>
 </section>
 
@@ -49,6 +75,40 @@
   .grid > li {
     display: grid;
   }
+  .grid + .grid {
+    margin-top: 1rem;
+  }
+  .featured {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .big {
+    padding-bottom: 1.4rem;
+  }
+  .big h3 {
+    font-size: 1.3rem;
+  }
+  .teaser {
+    font-size: 1.02rem;
+    color: var(--text);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 1.1rem;
+    margin-top: 0.3rem;
+  }
+  .cs {
+    font-size: 0.88rem;
+  }
+  .draft {
+    margin-left: 0.5rem;
+    font-size: 0.65rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 5px;
+    background: var(--accent-ink);
+    color: var(--accent-2-text);
+  }
   .card {
     --mx: 50%;
     --my: 0%;
@@ -57,7 +117,9 @@
     display: grid;
     gap: 0.6rem;
     align-content: start;
-    transition: transform 0.25s ease-out, border-color 0.3s;
+    transition:
+      transform 0.25s ease-out,
+      border-color 0.3s;
     will-change: transform;
     overflow: hidden;
   }
@@ -160,7 +222,8 @@
     }
   }
   @media (max-width: 640px) {
-    .grid {
+    .grid,
+    .featured {
       grid-template-columns: 1fr;
     }
   }
