@@ -1,5 +1,7 @@
 # Joey Oosenbrug · Portfolio
 
+[![Joey Oosenbrug portfolio: hero section with the code editor](static/og.png)](https://joeyoosenbrug.nl)
+
 My personal portfolio: a fast, static website that shows who I am, what I have built and where I have worked.
 
 **Live:** [joeyoosenbrug.nl](https://joeyoosenbrug.nl)
