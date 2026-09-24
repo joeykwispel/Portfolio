@@ -3,6 +3,7 @@
 # can't deploy: the github-pages environment only accepts deployments from main.)
 # Work on a feature branch and open a PR; nothing goes live until that PR is merged.
 # One-time setup: repo Settings -> Pages -> Source: "GitHub Actions", Custom domain: joeyoosenbrug.nl.
+# It also rebuilds every Monday, so pull request states from GitHub and the "now" status in the hero stay current.
 name: Deploy to GitHub Pages
 
 on:
@@ -10,6 +11,9 @@ on:
     branches: [main]
   # manual re-deploy from the Actions tab
   workflow_dispatch:
+  # weekly refresh (Monday 06:00 UTC)
+  schedule:
+    - cron: '0 6 * * 1'
 
 permissions:
   contents: read
@@ -35,7 +39,12 @@ jobs:
 
       - run: npm run check
 
+      - run: npm run test:unit
+
+      # prebuild fetches the live pull request states; the token raises the API rate limit
       - run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

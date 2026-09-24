@@ -1,0 +1,10 @@
+build
+.svelte-kit
+node_modules
+package-lock.json
+static
+.playwright-mcp
+test-results
+playwright-report
+.lighthouseci
+src/lib/data/shared/contributions.live.json
