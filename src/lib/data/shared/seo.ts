@@ -7,7 +7,7 @@ import { employer } from './roles';
  * Cookie-less and stores no IPs, so no consent banner is needed. Leave empty to disable the beacon.
  * The token is public by design (it ships in the page source).
  */
-export const cloudflareAnalyticsToken = '';
+export const cloudflareAnalyticsToken = '93443ec35a7445ffbfa8f1790d2bb19e';
 
 /**
  * Google Search Console "HTML tag" verification code (only the content="..." value).
