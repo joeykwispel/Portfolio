@@ -10,6 +10,7 @@
 
 <svelte:head>
   <title>404 | {nl ? 'koffie niet gevonden' : 'coffee not found'}</title>
+  <meta name="robots" content="noindex" />
 </svelte:head>
 
 <main class="wrap">

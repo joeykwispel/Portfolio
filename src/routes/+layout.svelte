@@ -4,8 +4,9 @@
   import '@fontsource-variable/jetbrains-mono';
   import '../app.css';
   import { onMount } from 'svelte';
+  import { dev } from '$app/environment';
   import { app } from '$lib/app.svelte';
-  import { contact, getContent } from '$lib/data';
+  import { cloudflareAnalyticsToken, contact, getContent, googleSiteVerification } from '$lib/data';
   import CommandPalette from '$lib/components/ui/CommandPalette.svelte';
   import SideRails from '$lib/components/ui/SideRails.svelte';
   import Easter from '$lib/components/ui/Easter.svelte';
@@ -41,6 +42,16 @@
     document.documentElement.lang = app.locale;
   });
 </script>
+
+<svelte:head>
+  {#if googleSiteVerification}
+    <meta name="google-site-verification" content={googleSiteVerification} />
+  {/if}
+  {#if cloudflareAnalyticsToken && !dev}
+    <!-- Cloudflare Web Analytics: cookie-less, no IPs stored. Also tracks client-side navigation. -->
+    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}></script>
+  {/if}
+</svelte:head>
 
 {@render children()}
 <SideRails />

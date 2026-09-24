@@ -105,6 +105,23 @@ Tip: protect `main` (Settings → Branches → add a rule requiring a pull reque
 
 If the domain changes, update `siteUrl` in `src/lib/data/shared/contact.ts` and the URLs in `static/sitemap.xml` and `static/robots.txt`.
 
+## Analytics and search engines
+
+Settings live in `src/lib/data/shared/seo.ts`.
+
+**Cloudflare Web Analytics** (free, cookie-less, stores no IPs, so no consent banner):
+
+1. In the Cloudflare dashboard go to **Analytics & Logs → Web Analytics → Add a site** and enter `joeyoosenbrug.nl`. The DNS does not have to be on Cloudflare.
+2. Copy the `token` value from the snippet it shows and paste it into `cloudflareAnalyticsToken`.
+3. Merge to `main`. The beacon is only included in production builds, not in `npm run dev`.
+
+**Google Search** (the site already ships titles, descriptions, Open Graph tags, schema.org `Person`/`ProfilePage` data, `robots.txt` and `sitemap.xml`):
+
+1. Add the site in [Google Search Console](https://search.google.com/search-console). Either verify with a DNS TXT record at your registrar (the "Domain" property), or choose "URL prefix" → **HTML tag** and paste the `content` value into `googleSiteVerification`.
+2. Under **Sitemaps**, submit `https://joeyoosenbrug.nl/sitemap.xml`.
+3. Use **URL inspection → Request indexing** for `/` and `/cv/` to speed up the first crawl.
+4. Optional: do the same in [Bing Webmaster Tools](https://www.bing.com/webmasters), which can import straight from Search Console.
+
 ## Extras
 
 - `Ctrl + K` (or `/`) opens a command menu.
