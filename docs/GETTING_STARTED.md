@@ -68,7 +68,13 @@ Good to know:
 
 ## Deploying
 
-The site builds to plain static files in `build/`, so any static host works. This repo deploys to **GitHub Pages** at **https://joeyoosenbrug.nl** through `.github/workflows/deploy.yml`, which runs on every push to `main`.
+The site builds to plain static files in `build/`, so any static host works. This repo deploys to **GitHub Pages** at **https://joeyoosenbrug.nl**.
+
+**Workflow:** work on a feature branch and open a pull request into `main`.
+- `.github/workflows/pr-check.yml` type-checks and builds every PR (nothing is deployed).
+- `.github/workflows/deploy.yml` deploys when the PR is merged into `main`.
+
+Tip: protect `main` (Settings → Branches → add a rule requiring a pull request and the "PR check" status) so nothing reaches the live site without a PR.
 
 ### GitHub Pages with a custom domain (one-time setup)
 
