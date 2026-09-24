@@ -8,6 +8,7 @@ export default {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapter({ pages: 'build', assets: 'build', fallback: '404.html', precompress: false, strict: true }),
-    paths: { base }
+    // absolute paths so `base` can be joined with siteUrl for canonical/og URLs
+    paths: { base, relative: false }
   }
 };

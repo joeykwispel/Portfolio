@@ -2,6 +2,8 @@
 
 My personal portfolio: a fast, static website that shows who I am, what I have built and where I have worked.
 
+**Live:** [joeyoosenbrug.nl](https://joeyoosenbrug.nl)
+
 ## About me
 
 I'm a **Senior Front-end & Full-Stack Developer** from Druten, the Netherlands, with over five years of experience building web applications, SaaS platforms and technical products for the public sector, real estate, media and e-health.
@@ -29,6 +31,6 @@ Want to run it yourself? See **[docs/GETTING_STARTED.md](docs/GETTING_STARTED.md
 
 The **code** is released under the [MIT License](LICENSE), so feel free to use it for your own portfolio.
 
-Third-party parts (Lucide and Feather icon paths, the bundled Svelte libraries, and the Google Fonts used) keep their own permissive licenses, all compatible with MIT. Their notices are in [static/THIRD-PARTY-NOTICES.txt](static/THIRD-PARTY-NOTICES.txt), which also ships with the website.
+Third-party parts (Lucide and Feather icon paths, the bundled Svelte libraries, and the self-hosted Inter and JetBrains Mono fonts) keep their own permissive licenses, all compatible with MIT. Their notices are in [static/THIRD-PARTY-NOTICES.txt](static/THIRD-PARTY-NOTICES.txt), which also ships with the website.
 
 The **content** is not covered by that license: my CV text, work history, the recommendation quote, my name and the social preview image (`static/og.png`) remain © Joey Oosenbrug. If you fork this, replace the data in `src/lib/data/` with your own.

@@ -1,8 +1,9 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { app } from '$lib/app.svelte';
   import { getContent, person, projects, skills, spokenLanguages } from '$lib/data';
   import { careerMonths, employerCount } from '$lib/utils/derive';
-  import { countUp, reveal } from '$lib/utils/actions';
+  import { countUp, reveal, tilt } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
 
   const c = $derived(getContent(app.locale));
@@ -19,20 +20,27 @@
   <div class="container">
     <SectionHead num="01" slug="about" title={c.ui.about.title} />
 
-    <div class="grid">
+    <div class="grid" class:has-photo={!!person.photo}>
       <div class="bio" use:reveal>
-        <div class="avatar glass" aria-hidden="true">
-          {#if person.photo}
-            <img src={person.photo} alt="" width="120" height="120" />
-          {:else}
-            <span>JO</span>
-          {/if}
-        </div>
+        {#if !person.photo}
+          <div class="avatar glass" aria-hidden="true"><span>JO</span></div>
+        {/if}
         {#each c.profile.bio as para}
           <p>{para}</p>
         {/each}
       </div>
 
+      {#if person.photo}
+        <figure class="photo glass ring" use:reveal={{ delay: 60 }} use:tilt={5}>
+          <div class="bar mono" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span>{person.photo}<span class="dim">720×900</span></div>
+          <div class="frame">
+            <img src="{base}/{person.photo}" alt={person.name} width="720" height="900" loading="lazy" decoding="async" />
+            <span class="scan" aria-hidden="true"></span>
+            <span class="corner tl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+          </div>
+          <figcaption class="mono"><span class="com">// </span>{app.locale === 'nl' ? 'handgemaakt in Druten, op koffie' : 'handcrafted in Druten, runs on coffee'}</figcaption>
+        </figure>
+      {/if}
       <div class="facts glass ring" use:reveal={{ delay: 120 }}>
         <div class="bar mono" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span>facts.json</div>
         <h3 class="sr-only">{c.ui.about.factsTitle}</h3>
@@ -66,6 +74,25 @@
     grid-template-columns: 1.25fr 1fr;
     align-items: start;
   }
+  /* With a photo: portrait on the left spanning both rows, bio + facts stacked on the right */
+  .grid.has-photo {
+    grid-template-columns: minmax(260px, 0.8fr) 1.6fr;
+    grid-template-areas:
+      'photo bio'
+      'photo facts';
+    grid-template-rows: auto 1fr;
+    align-items: stretch;
+  }
+  .has-photo .bio {
+    grid-area: bio;
+  }
+  .has-photo .photo {
+    grid-area: photo;
+  }
+  .has-photo .facts {
+    grid-area: facts;
+    align-self: start;
+  }
   .bio {
     display: grid;
     gap: 0.9rem;
@@ -90,10 +117,111 @@
     background: conic-gradient(from var(--angle), color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent-2) 25%, transparent), color-mix(in srgb, var(--accent) 25%, transparent));
     animation: spin-angle 6s linear infinite;
   }
-  .avatar img {
+  .photo {
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: color-mix(in srgb, var(--bg) 70%, transparent);
+    transition: opacity 0.7s var(--ease), transform 0.25s ease-out, filter 0.7s var(--ease), border-color 0.3s;
+  }
+  .dim {
+    margin-left: auto;
+    opacity: 0.6;
+  }
+  .frame {
+    position: relative;
+    flex: 1;
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .frame img {
+    position: absolute;
+    inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 50% 18%;
+    filter: saturate(0.85) contrast(1.05);
+    transition: transform 0.8s var(--ease), filter 0.5s;
+  }
+  /* subtle accent tint that fades out on hover */
+  .frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 22%, transparent), transparent 45%, color-mix(in srgb, var(--accent-2) 26%, transparent));
+    mix-blend-mode: soft-light;
+    transition: opacity 0.5s;
+    pointer-events: none;
+  }
+  .photo:hover .frame img {
+    transform: scale(1.05);
+    filter: none;
+  }
+  .photo:hover .frame::after {
+    opacity: 0;
+  }
+  /* one-time scan line when the card scrolls in */
+  .scan {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 18px 4px var(--glow);
+    opacity: 0;
+    pointer-events: none;
+  }
+  :global(.js) .photo:global(.in) .scan {
+    animation: scan 1.6s var(--ease) 0.4s both;
+  }
+  @keyframes scan {
+    0% {
+      top: 0;
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      top: 100%;
+      opacity: 0;
+    }
+  }
+  .corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--accent);
+    pointer-events: none;
+    transition: transform 0.4s var(--spring);
+  }
+  .tl {
+    top: 10px;
+    left: 10px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .br {
+    right: 10px;
+    bottom: 10px;
+    border-left: 0;
+    border-top: 0;
+  }
+  .photo:hover .tl {
+    transform: translate(-3px, -3px);
+  }
+  .photo:hover .br {
+    transform: translate(3px, 3px);
+  }
+  .photo figcaption {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
   }
   .facts {
     overflow: hidden;
@@ -201,12 +329,38 @@
     font-size: 0.85rem;
     line-height: 1.35;
   }
+  /* tablet: photo + bio side by side, facts full width underneath */
+  @media (max-width: 1000px) {
+    .grid.has-photo {
+      grid-template-columns: minmax(220px, 0.75fr) 1.5fr;
+      grid-template-areas:
+        'photo bio'
+        'facts facts';
+      grid-template-rows: auto auto;
+    }
+  }
   @media (max-width: 860px) {
     .grid {
       grid-template-columns: 1fr;
     }
     .stats {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  /* phone: single column, photo first with a fixed crop */
+  @media (max-width: 640px) {
+    .grid.has-photo {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'photo'
+        'bio'
+        'facts';
+    }
+    .frame {
+      flex: none;
+      min-height: 0;
+      aspect-ratio: 4 / 4.2;
+      max-height: 440px;
     }
   }
 </style>

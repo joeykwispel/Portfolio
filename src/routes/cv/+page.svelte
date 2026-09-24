@@ -1,7 +1,7 @@
 <script lang="ts">
   import { base } from '$app/paths';
   import { app } from '$lib/app.svelte';
-  import { contact, cv, getContent, locales, person } from '$lib/data';
+  import { contact, cv, getContent, locales, person, siteUrl } from '$lib/data';
   import { reveal } from '$lib/utils/actions';
   import Scramble from '$lib/components/ui/Scramble.svelte';
 
@@ -16,6 +16,7 @@
 <svelte:head>
   <title>{t.docTitle}</title>
   <meta name="description" content={d.profile[0]} />
+  <link rel="canonical" href="{siteUrl}{base}/cv/" />
 </svelte:head>
 
 <header class="toolbar no-print">
@@ -46,7 +47,10 @@
     </div>
 
     <div class="doc">
-      <header class="head">
+      <header class="head" class:with-photo={!!person.photoSquare}>
+        {#if person.photoSquare}
+          <img class="portrait" src="{base}/{person.photoSquare}" alt={person.name} width="480" height="480" />
+        {/if}
         <p class="kicker mono">{d.title}</p>
         <h1 class="mono"><Scramble text={person.name} trigger="mount" duration={800} /></h1>
         <p class="headline mono">{d.headline}</p>
@@ -235,6 +239,25 @@
     padding-bottom: 1.4rem;
     border-bottom: 1px dashed var(--border);
   }
+  .head.with-photo {
+    grid-template-columns: 1fr auto;
+    column-gap: 1.5rem;
+  }
+  .head.with-photo > :not(.portrait) {
+    grid-column: 1;
+  }
+  .portrait {
+    grid-column: 2;
+    grid-row: 1 / span 6;
+    align-self: start;
+    width: clamp(96px, 16vw, 148px);
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent), var(--shadow);
+  }
   .kicker {
     font-size: 0.72rem;
     text-transform: uppercase;
@@ -411,6 +434,18 @@
     padding-top: 0.5rem;
   }
 
+  @media (max-width: 520px) {
+    .head.with-photo {
+      grid-template-columns: 1fr;
+    }
+    .portrait {
+      grid-column: 1;
+      grid-row: auto;
+      width: 96px;
+      margin-bottom: 0.4rem;
+      order: -1;
+    }
+  }
   @media (max-width: 640px) {
     .path {
       display: none;
@@ -452,6 +487,12 @@
     }
     h1 {
       font-size: 24pt;
+    }
+    .portrait {
+      width: 30mm;
+      box-shadow: none;
+      border-color: #ccc;
+      border-radius: 3mm;
     }
     .headline {
       background: none;

@@ -11,12 +11,15 @@
 
   const ui = $derived(getContent(app.locale).ui);
   const ogImage = `${siteUrl}${base}/og.png`;
+  const pageUrl = `${siteUrl}${base}/`;
 </script>
 
 <svelte:head>
   <title>{ui.meta.title}</title>
   <meta name="description" content={ui.meta.description} />
+  <link rel="canonical" href={pageUrl} />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content={pageUrl} />
   <meta property="og:title" content={ui.meta.title} />
   <meta property="og:description" content={ui.meta.description} />
   <meta property="og:locale" content={app.locale === 'nl' ? 'nl_NL' : 'en_US'} />

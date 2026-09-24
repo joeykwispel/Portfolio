@@ -65,19 +65,36 @@ Good to know:
 
 ## Deploying
 
-The site builds to plain static files in `build/`, so any static host works.
+The site builds to plain static files in `build/`, so any static host works. This repo deploys to **GitHub Pages** at **https://joeyoosenbrug.nl** through `.github/workflows/deploy.yml`, which runs on every push to `main`.
+
+### GitHub Pages with a custom domain (one-time setup)
+
+1. **Repository:** Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+2. **Custom domain:** in the same screen, enter `joeyoosenbrug.nl` and save.
+3. **DNS** at your domain registrar:
+
+   | Type  | Name  | Value                  |
+   | ----- | ----- | ---------------------- |
+   | A     | `@`   | `185.199.108.153`      |
+   | A     | `@`   | `185.199.109.153`      |
+   | A     | `@`   | `185.199.110.153`      |
+   | A     | `@`   | `185.199.111.153`      |
+   | AAAA  | `@`   | `2606:50c0:8000::153`  |
+   | AAAA  | `@`   | `2606:50c0:8001::153`  |
+   | AAAA  | `@`   | `2606:50c0:8002::153`  |
+   | AAAA  | `@`   | `2606:50c0:8003::153`  |
+   | CNAME | `www` | `joeykwispel.github.io` |
+
+4. Once DNS has propagated (minutes to a few hours), tick **Enforce HTTPS** in Settings → Pages.
+5. Recommended: verify the domain under your GitHub account (Settings → Pages → Verified domains), so nobody else can claim it for their Pages site.
+
+### Other hosts
 
 - **Netlify:** build command `npm run build`, publish directory `build`.
 - **Vercel:** import the repo; the SvelteKit preset works as-is.
-- **GitHub Pages:** for a project site, build with the repo name as base path, then publish `build/` (for example with the `actions/deploy-pages` action):
+- **Without a custom domain** on GitHub Pages the site lives in a sub-folder, so build with `BASE_PATH=/<repo-name> npm run build`.
 
-  ```bash
-  BASE_PATH=/Portfolio npm run build
-  ```
-
-  For a user site (`username.github.io`) leave `BASE_PATH` empty.
-
-After deploying, set `siteUrl` in `src/lib/data/shared/contact.ts` to your live URL (no trailing slash). Social platforms need that absolute URL to show the preview image when the link is shared.
+If the domain changes, update `siteUrl` in `src/lib/data/shared/contact.ts` and the URLs in `static/sitemap.xml` and `static/robots.txt`.
 
 ## Extras
 

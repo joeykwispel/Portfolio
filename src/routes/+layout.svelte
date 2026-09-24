@@ -1,4 +1,7 @@
 <script lang="ts">
+  // Self-hosted fonts (no requests to Google, so no visitor IPs shared with third parties)
+  import '@fontsource-variable/inter';
+  import '@fontsource-variable/jetbrains-mono';
   import '../app.css';
   import { onMount } from 'svelte';
   import { app } from '$lib/app.svelte';

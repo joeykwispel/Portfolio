@@ -6,13 +6,15 @@ export const contact = {
 };
 
 /**
- * Public URL of the deployed site, without trailing slash (e.g. 'https://joeyoosenbrug.nl').
- * Used for the social preview image; LinkedIn/Slack/Teams need an absolute URL to show it.
+ * Public origin of the deployed site, without trailing slash.
+ * Used for canonical URLs and the social preview image (LinkedIn/Slack/Teams need an absolute URL).
  */
-export const siteUrl = '';
+export const siteUrl = 'https://joeyoosenbrug.nl';
 
 export const person = {
   name: 'Joey Oosenbrug',
   location: 'Druten',
-  photo: null as string | null // e.g. 'joey.jpg' placed in /static (placeholder: initials are shown instead)
+  /** Files in /static. Set to null to show initials instead. Metadata is stripped; keep it that way for new photos. */
+  photo: 'joey.jpg' as string | null, // 720x900 portrait, About section
+  photoSquare: 'joey-square.jpg' as string | null // 480x480, CV header
 };
