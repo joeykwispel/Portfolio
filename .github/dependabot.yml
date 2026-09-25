@@ -11,6 +11,11 @@ updates:
         dependency-type: development
         update-types: [minor, patch]
     open-pull-requests-limit: 5
+    ignore:
+      # SvelteKit, svelte-check and typescript-eslint only support TypeScript up to 6.
+      # Remove this once their peer ranges include 7.
+      - dependency-name: typescript
+        versions: ['>=7']
 
   - package-ecosystem: github-actions
     directory: /
