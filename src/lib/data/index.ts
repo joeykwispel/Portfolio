@@ -2,6 +2,8 @@ export * from './types';
 export { roles, employer } from './shared/roles';
 export { skills, categoryOrder, categoryHue, coreSkills } from './shared/skills';
 export { projects } from './shared/projects';
+export { devcity, devcityHref, devcityLayers } from './shared/devcity';
+export type { DevcityLayer } from './shared/devcity';
 export { education } from './shared/education';
 export { spokenLanguages } from './shared/languages';
 export { contact, person, siteUrl } from './shared/contact';

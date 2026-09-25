@@ -27,6 +27,7 @@ export const ui: UI = {
     work: 'Bekijk werk',
     contact: 'Contact',
     cv: 'Bekijk CV',
+    devcity: 'Verken in 3D',
     now: 'op project',
     from: 'vanaf'
   },
@@ -52,7 +53,9 @@ export const ui: UI = {
     noRoles: 'Vermeld in mijn CV, nog zonder gedateerd project.',
     close: 'Sluiten',
     proficiencyNote: 'Het niveau is afgeleid van de totale duur van de projecten waarin de skill is gebruikt.',
-    count: 'skills'
+    count: 'skills',
+    devcity: 'Loop in 3D door mijn skills',
+    devcityHint: 'Elke skill is een gebouw in DevCity'
   },
   charts: {
     title: 'Inzichten',
@@ -89,6 +92,16 @@ export const ui: UI = {
     visit: 'Bekijk project',
     role: 'Rol',
     caseStudy: 'Lees de case'
+  },
+  devcity: {
+    tag: 'Hobbyproject',
+    title: 'DevCity',
+    description:
+      'Mijn CV en GitHub-activiteit als een 3D-stad die je kunt verkennen. Skills, rollen en repositories worden gebouwen waar je tussendoor loopt, en je kunt elke publieke GitHub-repo inladen om de code als skyline te zien.',
+    open: 'Open DevCity',
+    source: 'Broncode op GitHub',
+    layersTitle: 'Ga direct naar een wijk',
+    layers: { skills: 'Mijn skills', career: 'Mijn carrière', repos: 'Mijn repos', 'any-repo': 'Elke GitHub-repo' }
   },
   caseStudy: {
     back: 'Alle projecten',
@@ -165,6 +178,7 @@ export const ui: UI = {
     mail: 'Stuur een e-mail',
     cv: 'Bekijk CV',
     writing: 'Lees mijn artikelen',
+    devcity: 'Open DevCity (3D)',
     party: 'Start party mode',
     navigate: 'navigeer',
     select: 'kies',

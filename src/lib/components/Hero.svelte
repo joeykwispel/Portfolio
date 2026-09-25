@@ -1,6 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { contact, getContent, person } from '$lib/data';
+  import { contact, devcityHref, getContent, person } from '$lib/data';
   import { magnetic } from '$lib/utils/actions';
   import Scramble from './ui/Scramble.svelte';
   import Socials from './ui/Socials.svelte';
@@ -62,6 +62,20 @@
           aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8M8 17h5" /></svg
         >
         {c.ui.hero.cv}
+      </a>
+      <a class="btn" href={devcityHref(app.locale)} target="_blank" rel="noopener noreferrer" use:magnetic>
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="M3 21h18M5 21V9l4-2v14M9 21V4l6 3v14M15 21v-9l4 2v7" /></svg
+        >
+        {c.ui.hero.devcity}
       </a>
     </div>
 

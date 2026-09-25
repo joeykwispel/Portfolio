@@ -1,6 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { categoryHue, categoryOrder, coreSkills, getContent } from '$lib/data';
+  import { categoryHue, categoryOrder, coreSkills, devcityHref, getContent } from '$lib/data';
   import type { CategoryId } from '$lib/data';
   import { computeSkillStats, proficiencyKey, type SkillStat } from '$lib/utils/derive';
   import { fmtYears } from '$lib/utils/dates';
@@ -117,6 +117,18 @@
             </li>
           {/each}
         </ul>
+        <a class="city glass ring" href={devcityHref(app.locale, 'skills')} target="_blank" rel="noopener noreferrer">
+          <span class="city-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              ><path d="M3 21h18M5 21V9l4-2v14M9 21V4l6 3v14M15 21v-9l4 2v7" /></svg
+            >
+          </span>
+          <span class="city-text">
+            <strong>{c.ui.skills.devcity}</strong>
+            <span class="city-hint mono">{c.ui.skills.devcityHint}</span>
+          </span>
+          <span class="city-arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
   </div>
@@ -344,6 +356,48 @@
   .m {
     font-size: 0.7rem;
     opacity: 0.75;
+  }
+
+  /* DevCity link */
+  .city {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+  }
+  .city:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: var(--surface-2);
+  }
+  .city-icon {
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: var(--radius-sm);
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  .city-text {
+    display: grid;
+    gap: 0.1rem;
+  }
+  .city-hint {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .city-arrow {
+    color: var(--accent);
+    transition: transform 0.2s var(--ease);
+  }
+  .city:hover .city-arrow {
+    transform: translate(2px, -2px);
   }
 
   @media (max-width: 900px) {

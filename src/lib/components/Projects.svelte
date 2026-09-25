@@ -1,6 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { caseStudyFor, getContent, projects, roles } from '$lib/data';
+  import { caseStudyFor, devcity, devcityHref, devcityLayers, getContent, projects, roles } from '$lib/data';
   import type { ProjectBase } from '$lib/data';
   import { fmtMonth } from '$lib/utils/dates';
   import { reveal, tilt } from '$lib/utils/actions';
@@ -63,6 +63,35 @@
         {#each rest as p, i (p.id)}{@render card(p, i, false)}{/each}
       </ul>
     {/if}
+
+    <article class="card glass ring hobby" use:reveal use:tilt={2}>
+      <div class="chrome mono" aria-hidden="true">
+        <span class="dots"><i></i><i></i><i></i></span><span class="file">~/hobby/<b>devcity</b>.tsx</span>
+      </div>
+      <div class="row">
+        <span class="tag">{c.ui.devcity.tag}</span>
+        <span class="when">devcity.joeyoosenbrug.nl</span>
+      </div>
+      <h3>{c.ui.devcity.title}</h3>
+      <p class="desc">{c.ui.devcity.description}</p>
+      <ul class="tags">
+        {#each devcity.stack as t (t)}<li class="tag">{c.skillLabels[t] ?? t}</li>{/each}
+      </ul>
+      <p class="by">{c.ui.devcity.layersTitle}</p>
+      <ul class="layers">
+        {#each devcityLayers as layer (layer)}
+          <li>
+            <a class="layer mono" href={devcityHref(app.locale, layer)} target="_blank" rel="noopener noreferrer"
+              >{c.ui.devcity.layers[layer]} <span aria-hidden="true">↗</span></a
+            >
+          </li>
+        {/each}
+      </ul>
+      <div class="actions">
+        <a class="btn btn-primary cs" href={devcityHref(app.locale)} target="_blank" rel="noopener noreferrer">{c.ui.devcity.open}</a>
+        <a class="link" href={devcity.repo} target="_blank" rel="noopener noreferrer">{c.ui.devcity.source} <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -83,6 +112,35 @@
   }
   .big {
     padding-bottom: 1.4rem;
+  }
+  .hobby {
+    margin-top: 1rem;
+    padding-bottom: 1.4rem;
+  }
+  .hobby h3 {
+    font-size: 1.3rem;
+  }
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .layer {
+    display: block;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+  }
+  .layer:hover {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+    background: var(--surface-2);
   }
   .big h3 {
     font-size: 1.3rem;
@@ -225,6 +283,9 @@
     .grid,
     .featured {
       grid-template-columns: 1fr;
+    }
+    .layers {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

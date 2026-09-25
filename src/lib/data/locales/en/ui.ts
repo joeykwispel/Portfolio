@@ -26,6 +26,7 @@ export const ui = {
     work: 'View work',
     contact: 'Contact',
     cv: 'View CV',
+    devcity: 'Explore in 3D',
     now: 'on project',
     from: 'from'
   },
@@ -51,7 +52,9 @@ export const ui = {
     noRoles: 'Listed on my CV without a dated project yet.',
     close: 'Close',
     proficiencyNote: 'Proficiency is derived from the total time of the projects that used the skill.',
-    count: 'skills'
+    count: 'skills',
+    devcity: 'Walk through my skills in 3D',
+    devcityHint: 'Every skill is a building in DevCity'
   },
   charts: {
     title: 'Insights',
@@ -88,6 +91,16 @@ export const ui = {
     visit: 'Visit project',
     role: 'Role',
     caseStudy: 'Read the case study'
+  },
+  devcity: {
+    tag: 'Hobby project',
+    title: 'DevCity',
+    description:
+      'My CV and GitHub activity as an explorable 3D city. Skills, roles and repositories become buildings you can walk between, and you can load any public GitHub repo to see its code as a skyline.',
+    open: 'Open DevCity',
+    source: 'Source on GitHub',
+    layersTitle: 'Jump straight to a district',
+    layers: { skills: 'My skills', career: 'My career', repos: 'My repos', 'any-repo': 'Any GitHub repo' }
   },
   caseStudy: {
     back: 'All projects',
@@ -164,6 +177,7 @@ export const ui = {
     mail: 'Send an email',
     cv: 'View CV',
     writing: 'Read my writing',
+    devcity: 'Open DevCity (3D)',
     party: 'Launch party mode',
     navigate: 'navigate',
     select: 'select',
