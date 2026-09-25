@@ -4,17 +4,18 @@ Everything a `*.joeyoosenbrug.nl` app needs to look and feel like the portfolio:
 
 **Source of truth:** the portfolio. The files here are copies of `src/app.css` and `src/lib/components/Nav.svelte`. Change the portfolio first, then copy the change here, then into the apps.
 
-| File             | What it is                                                                              |
-| ---------------- | --------------------------------------------------------------------------------------- |
-| `jo-kit.css`     | Tokens (both themes), base styles, ambient background, buttons, tags, cards             |
-| `jo-header.css`  | The header, 1:1 with the portfolio, classes prefixed `jo-nav` so nothing clashes        |
-| `header.html`    | Header markup for plain HTML or any template language                                   |
-| `jo-header.js`   | Header behaviour, no dependencies (scroll bar, blur, mobile menu, theme, Ctrl K)        |
-| `jo-header.d.ts` | Types for `jo-header.js`                                                                |
-| `JoHeader.tsx`   | The same header as a React component (DevCity, any Next.js app)                         |
-| `demo.html`      | Live preview. Serve the repo root (`npx serve .`) and open `/docs/design-kit/demo.html` |
+| File                     | What it is                                                                              |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| `jo-kit.css`             | Tokens (both themes), base styles, ambient background, buttons, tags, cards             |
+| `jo-header.css`          | The header, 1:1 with the portfolio, classes prefixed `jo-nav` so nothing clashes        |
+| `header.html`            | Header markup for plain HTML or any template language                                   |
+| `jo-header.js`           | Header behaviour, no dependencies (scroll bar, blur, mobile menu, theme, Ctrl K)        |
+| `jo-header.d.ts`         | Types for `jo-header.js`                                                                |
+| `JoHeader.tsx`           | The same header as a React component (DevCity, any Next.js app)                         |
+| `jo-header.component.ts` | The same header as an Angular component (CodeGuessr, any Angular 17+ app)               |
+| `demo.html`              | Live preview. Serve the repo root (`npx serve .`) and open `/docs/design-kit/demo.html` |
 
-The header in `demo.html` was checked against the live portfolio header in Chrome: position, size, colors, fonts, borders, blur and shadows are identical at 1600, 1440, 1280, 1000 and 390 px wide, in both themes, at the top of the page, scrolled, and with the mobile menu open. `JoHeader.tsx` was rendered with the same links and passed the same comparison, and it type-checks with `strict` against React 19.
+The header in `demo.html` was checked against the live portfolio header in Chrome: position, size, colors, fonts, borders, blur and shadows are identical at 1600, 1440, 1280, 1000 and 390 px wide, in both themes, at the top of the page, scrolled, and with the mobile menu open. `JoHeader.tsx` was rendered with the same links and passed the same comparison, and it type-checks with `strict` against React 19. `jo-header.component.ts` was built in an Angular 22 app (strict) and passed the same comparison.
 
 ---
 
@@ -95,6 +96,61 @@ The header in `demo.html` was checked against the live portfolio header in Chrom
    }
    ```
    Mark the active link with `current: true` (use `usePathname()` in a small client wrapper if the layout does not know the route). The language links should point to the same page in the other language, not to the home page.
+
+### Angular (CodeGuessr)
+
+1. Fonts, self-hosted:
+   ```sh
+   npm i @fontsource-variable/inter @fontsource-variable/jetbrains-mono
+   ```
+2. Copy `jo-kit.css`, `jo-header.css`, `jo-header.js`, `jo-header.d.ts` and `jo-header.component.ts` into `src/app/jo/`.
+3. `src/styles.css` (already listed under `styles` in `angular.json`):
+   ```css
+   @import '@fontsource-variable/inter';
+   @import '@fontsource-variable/jetbrains-mono';
+   @import './app/jo/jo-kit.css';
+   @import './app/jo/jo-header.css';
+   ```
+4. `src/index.html`: add `data-theme="dark"` to `<html>`, `<meta name="theme-color" content="#0a0e17" />`, and the theme script from the Next.js example as a `<script>` in `<head>`.
+5. In the root component:
+   ```ts
+   import { Component } from '@angular/core';
+   import { RouterOutlet } from '@angular/router';
+   import { JO_HEADER_LABELS, JoHeaderComponent } from './jo/jo-header.component';
+
+   @Component({
+     selector: 'app-root',
+     imports: [RouterOutlet, JoHeaderComponent],
+     template: `
+       <a class="skip" href="#main">Skip to content</a>
+       <jo-header [links]="links" [languages]="languages" [labels]="labels.en" />
+       <main id="main"><router-outlet /></main>
+     `
+   })
+   export class App {
+     protected readonly labels = JO_HEADER_LABELS;
+     protected readonly links = [
+       { label: 'Play', routerLink: '/en/play' },
+       { label: 'Leaderboard', routerLink: '/en/leaderboard' },
+       { label: 'How it works', routerLink: '/en/about' }
+     ];
+     protected readonly languages = [
+       { code: 'en', href: '/en/', current: true },
+       { code: 'nl', href: '/nl/' }
+     ];
+   }
+   ```
+
+| Input / output | Type                                                     | Notes                                                                            |
+| -------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `links`        | `{ label; href? ; routerLink? ; current? }[]` (required) | `routerLink` navigates inside the app without a reload; `href` for anything else |
+| `languages`    | `{ code; href; current? }[]` (required)                  | The same page in each language                                                   |
+| `labels`       | `JO_HEADER_LABELS.en` / `.nl`                            | Defaults to English                                                              |
+| `homeHref`     | `string`                                                 | Defaults to `https://joeyoosenbrug.nl/`; leave it                                |
+| `showSearch`   | `boolean`                                                | Shows the Ctrl K button and binds Ctrl/Cmd+K                                     |
+| `(search)`     | `void`                                                   | Fires on the button and on Ctrl/Cmd+K                                            |
+
+`current` is up to you. With the router, a small `computed()` over `router.url` (e.g. via `toSignal(router.events)`) keeps it in sync. The component starts its scripts in `afterNextRender`, so it is safe with SSR and prerendering, and cleans up when destroyed.
 
 ### Plain HTML, Svelte, Astro, anything else
 
