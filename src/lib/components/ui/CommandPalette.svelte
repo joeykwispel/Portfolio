@@ -5,6 +5,7 @@
   import { app } from '$lib/app.svelte';
   import { contact, getContent, liveSideProjects, sideProjectHref, visiblePosts } from '$lib/data';
   import { sectionIds } from '$lib/sections';
+  import { scrollToSection } from '$lib/utils/scroll';
 
   const c = $derived(getContent(app.locale));
   const p = $derived(c.ui.palette);
@@ -17,9 +18,8 @@
   let toast = $state('');
 
   const go = (id: string) => () => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: app.reduced ? 'auto' : 'smooth' });
-    else location.href = `${app.href('/')}#${id}`;
+    if (document.getElementById(id)) scrollToSection(id, { pushHash: true });
+    else goto(`${app.href('/')}#${id}`);
   };
   const open = (href: string) => () => window.open(href, '_blank', 'noopener');
 
