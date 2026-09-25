@@ -2,8 +2,7 @@ import type { profile as En } from '../en/profile';
 
 export const profile: typeof En = {
   title: 'Senior Front-end Developer | Full-Stack Developer',
-  tagline:
-    'Ik bouw webapplicaties van begin tot eind, van de interface tot het cluster waarop ze draaien. Op dit moment help ik Nederlandse overheidsorganisaties zich voor te bereiden op post-quantum cryptografie.',
+  tagline: 'Ik bouw webapplicaties van begin tot eind, van de interface tot het cluster waarop ze draaien.',
   bio: [
     'Ik ben senior front-end en full-stack developer met ruim vijf jaar ervaring in het bouwen van webapplicaties, SaaS-platformen en technische producten voor de publieke sector, vastgoed, media en e-health. Ik werk dagelijks met Angular, React, Next.js, Vue.js en TypeScript, met NestJS, Python en FastAPI op de server.',
     'Ik neem graag de hele keten voor mijn rekening: architectuur, performance, tests, toegankelijkheid en de infrastructuur eronder. Ik vertaal wensen, stakeholderfeedback en UX-ontwerpen naar software die later makkelijk aan te passen is, en heb onderweg teams geleid, veel code gereviewd en developers begeleid.',
