@@ -1,7 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
   import { contact, getContent, person, sideProjectHref, sideProjects } from '$lib/data';
-  import { magnetic } from '$lib/utils/actions';
   import Scramble from './ui/Scramble.svelte';
   import Socials from './ui/Socials.svelte';
   import HeroEditor from './hero/HeroEditor.svelte';
@@ -49,9 +48,9 @@
     <div class="editor-slot step" style="--i:4"><HeroEditor /></div>
 
     <div class="cta step" style="--i:5">
-      <a class="btn btn-primary" href="#projects" use:magnetic><span aria-hidden="true">&gt;</span> {c.ui.hero.work}</a>
-      <a class="btn" href="#contact" use:magnetic>{c.ui.hero.contact}<span class="punc" aria-hidden="true">()</span></a>
-      <a class="btn" href={app.href('/cv/')} use:magnetic>
+      <a class="btn btn-primary" href="#projects"><span aria-hidden="true">&gt;</span> {c.ui.hero.work}</a>
+      <a class="btn" href="#contact">{c.ui.hero.contact}<span class="punc" aria-hidden="true">()</span></a>
+      <a class="btn" href={app.href('/cv/')}>
         <svg
           width="15"
           height="15"
@@ -67,27 +66,61 @@
       </a>
     </div>
 
-    <nav class="apps mono step" style="--i:6" aria-label={c.ui.hero.apps}>
-      <span class="apps-label" aria-hidden="true"><span class="sep">$</span> {c.ui.hero.apps}</span>
-      <ul>
+    <section class="quests step" style="--i:6" aria-labelledby="quests-title">
+      <p class="quests-head mono">
+        <span id="quests-title" class="quests-title">{c.ui.hero.apps}</span>
+        <span class="quests-hint">{c.ui.hero.appsHint}</span>
+      </p>
+      <ul class="tiles">
         {#each apps as p (p.id)}
-          <li class="app" class:wip={p.status === 'wip'}>
-            {#if p.status === 'live'}
-              <a class="app-main" href={sideProjectHref(p, app.locale)} target="_blank" rel="noopener noreferrer" title={c.sideProjects[p.id].tagline}
-                ><span class="pulse" aria-hidden="true"></span>{p.name}</a
-              >
-              {#each p.links ?? [] as l (l.id)}
-                <a class="app-sub" href={sideProjectHref(p, app.locale, l.path)} target="_blank" rel="noopener noreferrer"
-                  ><span class="sr-only">{p.name}: </span>{c.sideProjects[p.id].links?.[l.id]}</a
+          {@const txt = c.sideProjects[p.id]}
+          <li class="tile" class:wip={p.status === 'wip'}>
+            <span class="tile-icon" aria-hidden="true">
+              {#if p.id === 'devcity'}
+                <svg viewBox="0 0 40 32" width="40" height="32"
+                  >{#each [14, 24, 18, 30, 12, 20] as h, i (i)}<rect
+                      class="bld"
+                      x={1 + i * 6.5}
+                      y={32 - h}
+                      width="5"
+                      height={h}
+                      rx="1"
+                      style="--i:{i}"
+                    />{/each}</svg
                 >
-              {/each}
-            {:else}
-              <span class="app-main" title={c.sideProjects[p.id].tagline}>{p.name} <span class="soon">{c.ui.hero.soon}</span></span>
-            {/if}
+              {:else}
+                <svg class="piece" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
+                  ><path d="M4 7h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H4v-4a2 2 0 1 0 0-4z" /></svg
+                >
+              {/if}
+            </span>
+            <span class="tile-body">
+              {#if p.status === 'live'}
+                <a class="tile-link" href={sideProjectHref(p, app.locale)} target="_blank" rel="noopener noreferrer"
+                  ><strong>{p.name}</strong> <span class="go" aria-hidden="true">↗</span></a
+                >
+              {:else}
+                <strong>{p.name} <span class="soon mono">{c.ui.hero.soon}</span></strong>
+              {/if}
+              <span class="tagline">{txt.tagline}</span>
+              {#if p.status === 'live' && p.links?.length}
+                <span class="districts">
+                  {#each p.links as l (l.id)}
+                    <a
+                      class="district mono"
+                      href={sideProjectHref(p, app.locale, l.path)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="{p.name}: {txt.links?.[l.id]}">{txt.links?.[l.id]}</a
+                    >
+                  {/each}
+                </span>
+              {/if}
+            </span>
           </li>
         {/each}
       </ul>
-    </nav>
+    </section>
 
     <div class="hero-socials step" style="--i:7"><Socials /></div>
     <a class="mail hero-socials mono step" style="--i:8" href="mailto:{contact.email.value}">{contact.email.value}</a>
@@ -354,95 +387,186 @@
     width: min(680px, 100%);
     margin-top: 0.4rem;
   }
-  /* quick links to the apps on subdomains */
-  .apps {
+  /* side quests: apps on their own subdomain */
+  .quests {
+    width: min(680px, 100%);
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 0.4rem;
+  }
+  .quests-head {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
-    gap: 0.5rem 0.8rem;
+    align-items: baseline;
+    gap: 0.2rem 0.6rem;
     font-size: 0.8rem;
   }
-  .apps-label {
-    color: var(--muted);
-  }
-  .apps ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  .app {
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--surface);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-  }
-  .app a,
-  .app-main {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    padding: 0.4rem 0.75rem;
-    color: var(--text);
-    text-decoration: none;
-    transition:
-      background 0.2s,
-      color 0.2s;
-  }
-  .app-main {
+  .quests-title {
+    color: var(--accent);
     font-weight: 600;
   }
-  .app-sub {
-    border-left: 1px solid var(--border);
-    color: var(--muted) !important;
+  .quests-title::before {
+    content: '// ';
+    color: var(--muted);
   }
-  .app a:hover {
-    background: var(--surface-2);
-    color: var(--accent-text) !important;
+  .quests-hint {
+    color: var(--muted);
   }
-  .pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
-    animation: pulse 2.4s infinite;
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.6rem;
+    text-align: left;
   }
-  @keyframes pulse {
+  .tile {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.8rem 0.9rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+    border-radius: var(--radius);
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    transition:
+      transform 0.25s var(--ease),
+      border-color 0.25s,
+      box-shadow 0.25s;
+  }
+  .tile:not(.wip):hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px -12px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  .tile-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent);
+  }
+  .bld {
+    fill: currentColor;
+    opacity: 0.85;
+    transform-box: fill-box;
+    transform-origin: bottom;
+  }
+  .tile:hover .bld {
+    animation: bounce 0.6s var(--ease) calc(var(--i) * 60ms);
+  }
+  @keyframes bounce {
+    40% {
+      transform: scaleY(1.35);
+    }
     70% {
-      box-shadow: 0 0 0 7px transparent;
+      transform: scaleY(0.9);
     }
+  }
+  .piece {
+    animation: wiggle 3.5s ease-in-out infinite;
+  }
+  @keyframes wiggle {
+    0%,
+    80%,
     100% {
-      box-shadow: 0 0 0 0 transparent;
+      transform: rotate(0);
     }
+    85% {
+      transform: rotate(-12deg);
+    }
+    90% {
+      transform: rotate(10deg);
+    }
+    95% {
+      transform: rotate(-5deg);
+    }
+  }
+  .tile-body {
+    display: grid;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+  .tile-body strong {
+    font-size: 1rem;
+  }
+  .tile-link {
+    color: var(--text);
+    text-decoration: none;
+  }
+  /* The whole tile is the link to the app; the district links sit on top of it. */
+  .tile-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .go {
+    display: inline-block;
+    color: var(--accent);
+    transition: transform 0.2s var(--ease);
+  }
+  .tile:hover .go {
+    transform: translate(2px, -2px);
+  }
+  .tagline {
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+  .districts {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.3rem;
+  }
+  .district {
+    padding: 0.15rem 0.55rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition:
+      color 0.2s,
+      border-color 0.2s,
+      background 0.2s;
+  }
+  .district:hover {
+    color: var(--accent-text);
+    border-color: var(--accent);
+    background: var(--surface-2);
   }
   .wip {
     border-style: dashed;
+    border-color: var(--border);
     background: transparent;
   }
-  .wip .app-main {
+  .wip .tile-icon {
     color: var(--muted);
-    font-weight: 500;
+    background: var(--surface);
   }
   .soon {
-    font-size: 0.68rem;
-    padding: 0.05rem 0.4rem;
+    margin-left: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
     border-radius: 5px;
     background: var(--accent-ink);
     color: var(--accent-2-text);
-  }
-  @media (max-width: 520px) {
-    .app-sub {
-      padding-inline: 0.55rem;
-    }
+    vertical-align: middle;
   }
   @media (prefers-reduced-motion: reduce) {
-    .pulse {
+    .tile,
+    .piece,
+    .tile:hover .bld {
       animation: none;
+      transition: none;
     }
   }
   .step {

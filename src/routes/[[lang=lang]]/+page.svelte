@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { afterNavigate } from '$app/navigation';
   import { app } from '$lib/app.svelte';
   import { getContent, profileJsonLd } from '$lib/data';
@@ -10,29 +11,33 @@
   import Footer from '$lib/components/Footer.svelte';
   import Quip from '$lib/components/ui/Quip.svelte';
   import Seo from '$lib/components/ui/Seo.svelte';
+  import { hasPendingSections, scrollToSection } from '$lib/utils/scroll';
 
   const ui = $derived(getContent(app.locale).ui);
   const has = (id: (typeof sectionIds)[number]) => sectionIds.includes(id);
 
-  /* Landing on /#writing (a back link, or a shared URL): the sections above the target load lazily
-     and change height after the jump, pushing the target away. Keep it pinned while the page
-     settles, until the reader scrolls themselves. */
+  /* Arriving on /#writing from another page or a shared link: jump once every section has loaded. */
   afterNavigate(() => {
     const id = decodeURIComponent(location.hash.slice(1));
-    const target = id ? document.getElementById(id) : null;
-    if (!target) return;
-    const land = () => target.scrollIntoView({ block: 'start', behavior: 'instant' });
-    const ro = new ResizeObserver(land);
-    const events = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const;
-    const stop = () => {
-      ro.disconnect();
-      clearTimeout(timer);
-      for (const e of events) removeEventListener(e, stop);
+    if (id) scrollToSection(id, { smooth: false });
+  });
+
+  /* In-page #links (nav, hero buttons): while sections are still loading, take over the jump so it
+     does not land short. Once everything has loaded, the browser's own anchor scroll is fine. */
+  onMount(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = (e.target as Element | null)?.closest?.('a[href]');
+      if (!(a instanceof HTMLAnchorElement) || a.target === '_blank') return;
+      const url = new URL(a.href);
+      if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return;
+      const id = decodeURIComponent(url.hash.slice(1));
+      if (!document.getElementById(id) || !hasPendingSections()) return;
+      e.preventDefault();
+      scrollToSection(id, { pushHash: true });
     };
-    for (const e of events) addEventListener(e, stop, { passive: true });
-    const timer = setTimeout(stop, 3000);
-    ro.observe(document.getElementById('main')!);
-    land();
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
   });
 </script>
 
