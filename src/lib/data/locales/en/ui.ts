@@ -26,8 +26,9 @@ export const ui = {
     work: 'View work',
     contact: 'Contact',
     cv: 'View CV',
-    apps: 'Jump into',
-    soon: 'soon',
+    apps: 'side quests',
+    appsHint: 'Things I build for fun. Go on, poke one.',
+    soon: 'coming soon',
     now: 'on project',
     from: 'from'
   },

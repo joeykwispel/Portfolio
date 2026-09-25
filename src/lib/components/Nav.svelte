@@ -5,7 +5,6 @@
   import { getContent, locales } from '$lib/data';
   import { stripLocale } from '$lib/i18n';
   import { sectionIds, sectionNum } from '$lib/sections';
-  import { magnetic } from '$lib/utils/actions';
 
   const t = $derived(getContent(app.locale).ui.nav);
   const items = $derived(sectionIds.map((id) => ({ id, label: t[id] })));
@@ -93,7 +92,7 @@
           >
         {/each}
       </div>
-      <button type="button" class="icon" onclick={() => app.toggleTheme()} aria-label={app.theme === 'dark' ? t.toLight : t.toDark} use:magnetic={0.3}>
+      <button type="button" class="icon" onclick={() => app.toggleTheme()} aria-label={app.theme === 'dark' ? t.toLight : t.toDark}>
         {#if app.theme === 'dark'}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"
             ><circle cx="12" cy="12" r="4" /><path
