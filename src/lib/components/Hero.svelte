@@ -102,7 +102,7 @@
               {:else}
                 <strong>{p.name} <span class="soon mono">{c.ui.hero.soon}</span></strong>
               {/if}
-              <span class="tagline">{txt.tagline}</span>
+              <span class="tile-text">{txt.tagline}</span>
               {#if p.status === 'live' && p.links?.length}
                 <span class="districts">
                   {#each p.links as l (l.id)}
@@ -137,7 +137,7 @@
     min-height: 100svh;
     display: grid;
     grid-template-rows: 1fr auto;
-    padding-top: calc(var(--nav-h) + clamp(1.25rem, 6vh, 6rem));
+    padding-top: calc(var(--nav-h) + clamp(0.75rem, 3vh, 3rem));
     overflow: hidden;
     isolation: isolate;
   }
@@ -224,8 +224,8 @@
     /* centered in the free space, weighted towards the top by the larger bottom padding */
     align-content: safe center;
     text-align: center;
-    gap: 0.85rem;
-    padding-bottom: clamp(2.5rem, 9vh, 8rem);
+    gap: clamp(0.5rem, 1.3vh, 0.8rem);
+    padding-bottom: clamp(1rem, 3vh, 3rem);
   }
   .prompt {
     font-size: 0.9rem;
@@ -262,7 +262,7 @@
 
   h1 {
     font-family: var(--mono);
-    font-size: clamp(2.6rem, min(9vw, 11vh), 6.2rem);
+    font-size: clamp(2.3rem, min(7.5vw, 8.5vh), 5rem);
     font-weight: 800;
     letter-spacing: -0.06em;
     line-height: 0.95;
@@ -362,8 +362,9 @@
   }
   .tagline {
     color: var(--muted);
-    font-size: clamp(0.98rem, 1.6vw, 1.1rem);
-    max-width: 56ch;
+    font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+    max-width: 64ch;
+    text-wrap: balance;
   }
 
   .cta {
@@ -371,7 +372,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.6rem;
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
   }
   .mail {
     font-size: 0.8rem;
@@ -384,15 +385,14 @@
   }
 
   .editor-slot {
-    width: min(680px, 100%);
-    margin-top: 0.4rem;
+    width: min(640px, 100%);
+    margin-top: 0.2rem;
   }
   /* side quests: apps on their own subdomain */
   .quests {
-    width: min(680px, 100%);
+    width: min(640px, 100%);
     display: grid;
-    gap: 0.6rem;
-    margin-top: 0.4rem;
+    gap: 0.45rem;
   }
   .quests-head {
     display: flex;
@@ -415,7 +415,8 @@
   }
   .tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* DevCity gets the wider column so its district links fit on one row */
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
     gap: 0.6rem;
     text-align: left;
   }
@@ -423,8 +424,8 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 0.8rem;
-    padding: 0.8rem 0.9rem;
+    gap: 0.7rem;
+    padding: 0.55rem 0.75rem;
     border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
     border-radius: var(--radius);
     background: var(--surface);
@@ -443,8 +444,8 @@
     flex: none;
     display: grid;
     place-items: center;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 12px;
     background: color-mix(in srgb, var(--accent) 12%, transparent);
     color: var(--accent);
@@ -491,7 +492,7 @@
     min-width: 0;
   }
   .tile-body strong {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
   .tile-link {
     color: var(--text);
@@ -512,24 +513,24 @@
   .tile:hover .go {
     transform: translate(2px, -2px);
   }
-  .tagline {
+  .tile-text {
     color: var(--muted);
-    font-size: 0.85rem;
-    line-height: 1.4;
+    font-size: 0.8rem;
+    line-height: 1.35;
   }
   .districts {
     position: relative;
     z-index: 1;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.3rem;
-    margin-top: 0.3rem;
+    gap: 0.25rem;
+    margin-top: 0.2rem;
   }
   .district {
-    padding: 0.15rem 0.55rem;
+    padding: 0.1rem 0.5rem;
     border: 1px solid var(--border);
     border-radius: 999px;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--muted);
     text-decoration: none;
     transition:
@@ -552,6 +553,7 @@
     background: var(--surface);
   }
   .soon {
+    white-space: nowrap;
     margin-left: 0.3rem;
     font-size: 0.65rem;
     font-weight: 600;
@@ -560,6 +562,53 @@
     background: var(--accent-ink);
     color: var(--accent-2-text);
     vertical-align: middle;
+  }
+  @media (max-width: 640px) {
+    .tiles {
+      grid-template-columns: 1fr;
+    }
+  }
+  /* Short screens (laptops): tighten spacing so the skills slider at the bottom stays in view. */
+  @media (min-width: 700px) and (max-height: 820px) {
+    .hero {
+      padding-top: calc(var(--nav-h) + 0.6rem);
+    }
+    .inner {
+      gap: 0.45rem;
+      padding-bottom: 0.75rem;
+    }
+    .prompt {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.7rem;
+    }
+    .quests-hint {
+      display: none;
+    }
+    .cta :global(.btn) {
+      --pad: 0.5rem 1rem;
+    }
+  }
+  @media (min-width: 700px) and (max-height: 740px) {
+    .hero {
+      padding-top: var(--nav-h);
+    }
+    .inner {
+      gap: 0.35rem;
+    }
+    .cta {
+      margin-top: 0;
+    }
+  }
+  @media (min-width: 700px) and (max-height: 680px) {
+    .inner {
+      gap: 0.25rem;
+    }
+    .quests-head {
+      display: none;
+    }
+    .tile {
+      padding-block: 0.4rem;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
     .tile,
@@ -585,7 +634,7 @@
       gap: 1.1rem;
     }
     h1 {
-      font-size: clamp(6.2rem, min(7vw, 11vh), 9rem);
+      font-size: clamp(5rem, min(6vw, 9vh), 7.2rem);
     }
     .prompt {
       font-size: 1rem;

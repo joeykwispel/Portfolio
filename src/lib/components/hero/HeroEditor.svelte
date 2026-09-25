@@ -131,7 +131,7 @@
     align-items: center;
     gap: 0.9rem;
     padding: 0 0.8rem;
-    height: 38px;
+    height: 34px;
     border-bottom: 1px solid var(--border);
     background: var(--surface);
   }
@@ -186,15 +186,15 @@
   .code {
     font-variant-ligatures: none;
     margin: 0;
-    padding: 0.8rem 0;
-    font-size: clamp(0.72rem, 1.55vw, 0.85rem);
-    line-height: 1.65;
+    padding: 0.5rem 0;
+    font-size: clamp(0.7rem, 1.4vw, 0.8rem);
+    line-height: 1.5;
     overflow-x: auto;
   }
   .ln {
     display: flex;
     padding-right: 1rem;
-    min-height: 1.65em;
+    min-height: 1.5em;
   }
   .ln.cur {
     background: color-mix(in srgb, var(--accent) 7%, transparent);
@@ -268,6 +268,27 @@
     }
   }
 
+  /* Short screens: a denser editor keeps the hero within one screen. */
+  @media (min-width: 700px) and (max-height: 820px) {
+    .code {
+      padding: 0.35rem 0;
+      font-size: 0.7rem;
+      line-height: 1.4;
+    }
+    .ln {
+      min-height: 1.4em;
+    }
+  }
+  @media (min-width: 700px) and (max-height: 740px) {
+    .code {
+      padding: 0.25rem 0;
+      font-size: 0.66rem;
+      line-height: 1.35;
+    }
+    .ln {
+      min-height: 1.35em;
+    }
+  }
   @media (min-width: 1700px) and (min-height: 1000px) {
     .code {
       font-size: 1.02rem;
