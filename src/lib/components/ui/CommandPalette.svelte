@@ -3,8 +3,9 @@
   import { fade, scale } from 'svelte/transition';
   import { goto } from '$app/navigation';
   import { app } from '$lib/app.svelte';
-  import { contact, getContent, visiblePosts } from '$lib/data';
+  import { contact, getContent, liveSideProjects, sideProjectHref, visiblePosts } from '$lib/data';
   import { sectionIds } from '$lib/sections';
+  import { scrollToSection } from '$lib/utils/scroll';
 
   const c = $derived(getContent(app.locale));
   const p = $derived(c.ui.palette);
@@ -17,9 +18,8 @@
   let toast = $state('');
 
   const go = (id: string) => () => {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: app.reduced ? 'auto' : 'smooth' });
-    else location.href = `${app.href('/')}#${id}`;
+    if (document.getElementById(id)) scrollToSection(id, { pushHash: true });
+    else goto(`${app.href('/')}#${id}`);
   };
   const open = (href: string) => () => window.open(href, '_blank', 'noopener');
 
@@ -48,6 +48,16 @@
       : []),
     { id: 'party', group: p.actions, label: p.party, hint: '↑↑↓↓←→←→BA', icon: '✦', run: () => app.party++ },
     { id: 'github', group: p.links, label: p.github, hint: 'github.com/joeykwispel', icon: '↗', run: open(contact.github.value) },
+    ...liveSideProjects
+      .filter((sp) => sp.id !== 'portfolio')
+      .map((sp) => ({
+        id: `app-${sp.id}`,
+        group: p.links,
+        label: p.openApp.replace('{name}', sp.name),
+        hint: sp.url.replace('https://', ''),
+        icon: '↗',
+        run: open(sideProjectHref(sp, app.locale))
+      })),
     { id: 'linkedin', group: p.links, label: p.linkedin, hint: 'linkedin.com/in/joey-oosenbrug', icon: '↗', run: open(contact.linkedin.value) },
     { id: 'mail', group: p.links, label: p.mail, hint: contact.email.value, icon: '@', run: () => (location.href = `mailto:${contact.email.value}`) }
   ]);

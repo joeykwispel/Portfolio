@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { slide } from 'svelte/transition';
   import { app } from '$lib/app.svelte';
-  import { categoryHue, categoryOrder, coreSkills, getContent } from '$lib/data';
+  import { categoryHue, categoryOrder, coreSkills, getContent, sideProjectHref, sideProjects } from '$lib/data';
   import type { CategoryId } from '$lib/data';
   import { computeSkillStats, proficiencyKey, type SkillStat } from '$lib/utils/derive';
   import { fmtYears } from '$lib/utils/dates';
@@ -15,9 +16,29 @@
 
   const core = stats.filter((s) => coreSkills.includes(s.name)).sort(byMonths);
   const groups = categoryOrder.map((id) => ({ id, skills: stats.filter((s) => s.category === id).sort(byMonths) })).filter((g) => g.skills.length);
+  const districts = groups.filter((g) => g.id !== 'languages');
+  const city = sideProjects.find((p) => p.id === 'devcity')!;
+
+  /* Mini skyline: one building per skill, a district per area, height from time in projects. */
+  const BW = 6;
+  const GAP = 10;
+  const SKY_H = 62;
+  const skyline = (() => {
+    const buildings: { x: number; h: number; hue: number }[] = [];
+    let x = 0;
+    for (const g of districts) {
+      for (const s of g.skills) {
+        buildings.push({ x, h: 6 + Math.sqrt(s.months / maxMonths) * (SKY_H - 8), hue: categoryHue[g.id] });
+        x += BW;
+      }
+      x += GAP;
+    }
+    return { buildings, width: x - GAP };
+  })();
 
   let selected = $state<{ stat: SkillStat; rect: DOMRect } | null>(null);
   let open = $state<Partial<Record<CategoryId, boolean>>>({});
+  let showList = $state(false);
 
   const label = (s: SkillStat) => c.skillLabels[s.name] ?? s.name;
   const pct = (s: SkillStat) => Math.max(2, (s.months / maxMonths) * 100);
@@ -68,11 +89,62 @@
         </ul>
       </div>
 
-      <div class="areas" use:reveal={{ delay: 80 }}>
-        <div class="areas-head">
-          <h3>{c.ui.skills.allTitle}</h3>
-          <p>{c.ui.skills.allIntro}</p>
+      <div class="city glass ring" use:reveal={{ delay: 80 }}>
+        <header class="chrome mono" aria-hidden="true"><span class="dots"><i></i><i></i><i></i></span>devcity.joeyoosenbrug.nl</header>
+        <div class="city-body">
+          <p class="kicker mono">{c.ui.skills.cityKicker.replace('{n}', String(stats.length))}</p>
+          <h3>{c.ui.skills.cityTitle}</h3>
+          <p class="city-text">{c.ui.skills.cityText}</p>
+          <svg class="skyline" viewBox="0 0 {skyline.width} {SKY_H}" preserveAspectRatio="none" aria-hidden="true">
+            {#each skyline.buildings as b, i (i)}
+              <rect x={b.x} y={SKY_H - b.h} width={BW - 1.5} height={b.h} rx="0.8" style="--hue:{b.hue};--i:{i}" />
+            {/each}
+          </svg>
+          <ul class="districts" aria-hidden="true">
+            {#each districts as g (g.id)}
+              <li style="--h:{categoryHue[g.id]}"><span class="dot"></span>{c.categories[g.id]}</li>
+            {/each}
+          </ul>
+          <a class="btn btn-primary city-cta" href={sideProjectHref(city, app.locale)} target="_blank" rel="noopener noreferrer">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"><path d="M3 21h18M5 21V9l4-2v14M9 21V4l6 3v14M15 21v-9l4 2v7" /></svg
+            >
+            {c.ui.skills.cityCta} <span aria-hidden="true">↗</span>
+          </a>
         </div>
+      </div>
+    </div>
+
+    <div class="list-toggle">
+      <button type="button" class="toggle mono" aria-expanded={showList} aria-controls="skills-list" onclick={() => (showList = !showList)}>
+        {showList ? c.ui.skills.listHide : c.ui.skills.listShow}
+        <svg
+          class="chev"
+          class:up={showList}
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg
+        >
+      </button>
+    </div>
+
+    {#if showList}
+      <div id="skills-list" class="areas" transition:slide={{ duration: app.reduced ? 0 : 260 }}>
+        <p class="areas-intro">{c.ui.skills.allIntro}</p>
         <ul class="tree glass ring">
           {#each groups as g (g.id)}
             <li style="--h:{categoryHue[g.id]}">
@@ -108,7 +180,8 @@
                         style="--w:{g.id === 'languages' ? 0 : pct(s)}%"
                       >
                         {label(s)}
-                        {#if s.months && g.id !== 'languages'}<span class="m mono">{fmtYears(s.months)}</span>{/if}
+                        {#if s.months && g.id !== 'languages'}<span class="m mono">{fmtYears(s.months)}</span>
+                        {:else if s.sideIds.length}<span class="m mono">{c.ui.skills.side}</span>{/if}
                       </button>
                     </li>
                   {/each}
@@ -118,7 +191,7 @@
           {/each}
         </ul>
       </div>
-    </div>
+    {/if}
   </div>
 </section>
 
@@ -133,23 +206,17 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
     gap: 1.25rem;
-    align-items: start;
+    align-items: stretch;
   }
   h3 {
     font-size: 1.05rem;
   }
-  .core-head p,
-  .areas-head p {
+  .core-head p {
     color: var(--muted);
     font-size: 0.9rem;
     margin-top: 0.2rem;
   }
 
-  /* core stack */
-  .core {
-    padding: 0 0 0.6rem;
-    overflow: hidden;
-  }
   .chrome {
     display: flex;
     align-items: center;
@@ -169,6 +236,12 @@
     height: 8px;
     border-radius: 50%;
     background: var(--border);
+  }
+
+  /* core stack */
+  .core {
+    padding: 0 0 0.6rem;
+    overflow: hidden;
   }
   .core-head {
     padding: 1rem 1.2rem 0.4rem;
@@ -229,10 +302,110 @@
     transform: none;
   }
 
-  /* areas */
+  /* DevCity panel */
+  .city {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+    background: radial-gradient(120% 70% at 50% 100%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%), var(--surface);
+  }
+  .city-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.3rem 1.4rem 1.4rem;
+  }
+  .city h3 {
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    letter-spacing: -0.02em;
+  }
+  .kicker {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .city-text {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .skyline {
+    width: 100%;
+    height: clamp(110px, 18vw, 170px);
+    margin-top: auto;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  }
+  .skyline rect {
+    fill: hsl(var(--hue) 65% 58% / 0.85);
+    transform-box: fill-box;
+    transform-origin: bottom;
+    transform: scaleY(0);
+    transition: transform 0.7s var(--ease) calc(var(--i) * 6ms);
+  }
+  :global(.reveal.in) .skyline rect,
+  :global(html:not(.js)) .skyline rect {
+    transform: none;
+  }
+  .districts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.9rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .districts li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .districts .dot {
+    width: 7px;
+    height: 7px;
+  }
+  .city-cta {
+    align-self: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* list toggle */
+  .list-toggle {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.1rem;
+  }
+  .toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.85rem;
+    transition:
+      color 0.2s,
+      background 0.2s;
+  }
+  .toggle:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+  .chev.up {
+    transform: rotate(180deg);
+  }
+
+  /* full list */
   .areas {
     display: grid;
     gap: 0.9rem;
+    margin-top: 0.8rem;
+  }
+  .areas-intro {
+    color: var(--muted);
+    font-size: 0.9rem;
   }
   .tree {
     display: grid;
@@ -350,20 +523,26 @@
     .layout {
       grid-template-columns: 1fr;
     }
+    /* On one column the city comes first: it is the main way in. */
+    .city {
+      order: -1;
+    }
   }
   @media (max-width: 520px) {
-    summary {
-      grid-template-columns: auto auto auto minmax(0, 1fr) auto;
-    }
     .preview {
       display: none;
     }
     .chips {
       padding-left: 0.8rem;
     }
+    .city-cta {
+      align-self: stretch;
+      justify-content: center;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .fill {
+    .fill,
+    .skyline rect {
       transition: none;
     }
     details[open] .chips {

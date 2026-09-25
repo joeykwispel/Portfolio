@@ -26,6 +26,9 @@ export const ui = {
     work: 'View work',
     contact: 'Contact',
     cv: 'View CV',
+    apps: 'side quests',
+    appsHint: 'Things I build for fun. Go on, poke one.',
+    soon: 'coming soon',
     now: 'on project',
     from: 'from'
   },
@@ -37,7 +40,7 @@ export const ui = {
   },
   skills: {
     title: 'Skills',
-    intro: 'My core stack first, then everything else grouped by area. The bars show how long I used each skill in projects.',
+    intro: 'The stack I work with every day. The full set lives in DevCity, where every skill is a building.',
     coreTitle: 'Core stack',
     coreIntro: 'What I reach for every day.',
     allTitle: 'Everything, by area',
@@ -51,7 +54,16 @@ export const ui = {
     noRoles: 'Listed on my CV without a dated project yet.',
     close: 'Close',
     proficiencyNote: 'Proficiency is derived from the total time of the projects that used the skill.',
-    count: 'skills'
+    count: 'skills',
+    cityKicker: 'All {n} skills',
+    cityTitle: 'Walk through my skills in 3D',
+    cityText:
+      'In DevCity every skill is a building. The longer I used it in real projects, the taller it stands. Grouped into districts per area, so you see at a glance where my experience is.',
+    cityCta: 'Open the skills city',
+    listShow: 'Or browse them as a list',
+    listHide: 'Hide the list',
+    side: 'side project',
+    sideIn: 'Also used in my side projects'
   },
   charts: {
     title: 'Insights',
@@ -87,7 +99,15 @@ export const ui = {
     linkPlaceholder: 'Link placeholder',
     visit: 'Visit project',
     role: 'Role',
-    caseStudy: 'Read the case study'
+    caseStudy: 'Read the case study',
+    own: 'My own products',
+    ownIntro: 'Built in my own time, open source and live on a subdomain.',
+    clients: 'Client work',
+    sideTag: 'Side project',
+    open: 'Open',
+    source: 'Source on GitHub',
+    here: 'You are looking at it',
+    jump: 'Jump straight to'
   },
   caseStudy: {
     back: 'All projects',
@@ -164,6 +184,7 @@ export const ui = {
     mail: 'Send an email',
     cv: 'View CV',
     writing: 'Read my writing',
+    openApp: 'Open {name}',
     party: 'Launch party mode',
     navigate: 'navigate',
     select: 'select',

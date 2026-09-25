@@ -27,6 +27,9 @@ export const ui: UI = {
     work: 'Bekijk werk',
     contact: 'Contact',
     cv: 'Bekijk CV',
+    apps: 'zijmissies',
+    appsHint: 'Dingen die ik voor de lol bouw. Toe maar, klik er eentje.',
+    soon: 'binnenkort',
     now: 'op project',
     from: 'vanaf'
   },
@@ -38,7 +41,7 @@ export const ui: UI = {
   },
   skills: {
     title: 'Skills',
-    intro: 'Eerst mijn kernstack, daarna de rest per gebied. De balken tonen hoe lang ik een skill in projecten gebruikte.',
+    intro: 'De stack waar ik elke dag mee werk. De volledige set staat in DevCity, waar elke skill een gebouw is.',
     coreTitle: 'Kernstack',
     coreIntro: 'Waar ik elke dag mee werk.',
     allTitle: 'Alles, per gebied',
@@ -52,7 +55,16 @@ export const ui: UI = {
     noRoles: 'Vermeld in mijn CV, nog zonder gedateerd project.',
     close: 'Sluiten',
     proficiencyNote: 'Het niveau is afgeleid van de totale duur van de projecten waarin de skill is gebruikt.',
-    count: 'skills'
+    count: 'skills',
+    cityKicker: 'Alle {n} skills',
+    cityTitle: 'Loop in 3D door mijn skills',
+    cityText:
+      'In DevCity is elke skill een gebouw. Hoe langer ik hem in echte projecten gebruikte, hoe hoger hij staat. Gegroepeerd in wijken per vakgebied, zodat je in één blik ziet waar mijn ervaring zit.',
+    cityCta: 'Open de skills-stad',
+    listShow: 'Of bekijk ze als lijst',
+    listHide: 'Verberg de lijst',
+    side: 'zijproject',
+    sideIn: 'Ook gebruikt in mijn zijprojecten'
   },
   charts: {
     title: 'Inzichten',
@@ -88,7 +100,15 @@ export const ui: UI = {
     linkPlaceholder: 'Linkplaceholder',
     visit: 'Bekijk project',
     role: 'Rol',
-    caseStudy: 'Lees de case'
+    caseStudy: 'Lees de case',
+    own: 'Mijn eigen producten',
+    ownIntro: 'Gebouwd in mijn eigen tijd, open source en live op een subdomein.',
+    clients: 'Klantwerk',
+    sideTag: 'Zijproject',
+    open: 'Open',
+    source: 'Broncode op GitHub',
+    here: 'Je kijkt ernaar',
+    jump: 'Ga direct naar'
   },
   caseStudy: {
     back: 'Alle projecten',
@@ -165,6 +185,7 @@ export const ui: UI = {
     mail: 'Stuur een e-mail',
     cv: 'Bekijk CV',
     writing: 'Lees mijn artikelen',
+    openApp: 'Open {name}',
     party: 'Start party mode',
     navigate: 'navigeer',
     select: 'kies',

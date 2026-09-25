@@ -36,7 +36,7 @@
       <p class="draft mono" role="note"><strong>draft</strong> {c.ui.writing.draft}</p>
     {/if}
     <header class="head">
-      <a class="back mono" href={app.href('/writing/')}><span aria-hidden="true">←</span> {c.ui.writing.back}</a>
+      <a class="back mono" href="{app.href('/')}#writing"><span aria-hidden="true">←</span> {c.ui.writing.back}</a>
       <p class="meta mono"><time datetime={post.date}>{date}</time> <span>{readingMinutes(text.sections)} {c.ui.writing.minutes}</span></p>
       <h1>{text.title}</h1>
       <p class="lede">{text.description}</p>

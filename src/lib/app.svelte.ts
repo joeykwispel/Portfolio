@@ -9,6 +9,8 @@ class AppState {
   reduced = $state(false);
   party = $state(0);
   palette = $state(false);
+  /** Load every lazy section now, not when it scrolls near. Set before jumping to a #section. */
+  eager = $state(false);
 
   init() {
     try {
