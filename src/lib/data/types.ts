@@ -59,8 +59,11 @@ export interface SideProject {
   repo: string | null;
   /** 'wip' is shown as coming soon, without a link */
   status: 'live' | 'wip';
-  /** true when the app has /en/ and /nl/ routes */
-  localized: boolean;
+  /**
+   * How the app routes its languages: 'prefixed' = /en/ and /nl/ (DevCity), 'dutch-prefix' = English at /
+   * and Dutch at /nl/ (Codeguessr), 'none' = one URL for both.
+   */
+  localeRoutes: 'prefixed' | 'dutch-prefix' | 'none';
   /** YYYY-MM */
   start: string;
   /** Names must match a skill name in shared/skills.ts */

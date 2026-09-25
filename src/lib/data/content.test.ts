@@ -1,5 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { caseStudies, contributions, coreSkills, getContent, posts, projects, readingMinutes, roles, sideProjects, skills, testimonials } from '$lib/data';
+import {
+  caseStudies,
+  contributions,
+  coreSkills,
+  getContent,
+  posts,
+  projects,
+  readingMinutes,
+  roles,
+  sideProjectHref,
+  sideProjects,
+  skills,
+  testimonials
+} from '$lib/data';
 
 /** All key paths of a nested object, so two translations can be compared. */
 function keys(o: unknown, prefix = ''): string[] {
@@ -51,6 +64,15 @@ describe('data integrity', () => {
       expect(en.sideProjects[p.id], p.id).toBeDefined();
       for (const l of p.links ?? []) expect(en.sideProjects[p.id].links?.[l.id], `${p.id}/${l.id}`).toBeDefined();
     }
+  });
+
+  it('side project links follow the language routes of each app', () => {
+    const app = (id: string) => sideProjects.find((p) => p.id === id)!;
+    expect(sideProjectHref(app('devcity'), 'en', 'career/')).toBe('https://devcity.joeyoosenbrug.nl/en/career/');
+    expect(sideProjectHref(app('devcity'), 'nl')).toBe('https://devcity.joeyoosenbrug.nl/nl/');
+    expect(sideProjectHref(app('codeguessr'), 'en', 'archive/')).toBe('https://codeguessr.joeyoosenbrug.nl/archive/');
+    expect(sideProjectHref(app('codeguessr'), 'nl', 'archive/')).toBe('https://codeguessr.joeyoosenbrug.nl/nl/archive/');
+    expect(sideProjectHref(app('portfolio'), 'nl')).toBe('https://joeyoosenbrug.nl/');
   });
 
   it('every core skill exists', () => {

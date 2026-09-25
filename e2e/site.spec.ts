@@ -12,10 +12,11 @@ function watchErrors(page: Page) {
 
 async function loadAll(page: Page) {
   // Lazy sections grow the page as they load; keep stepping down until the height stops changing at the bottom.
+  // A section loads within 700px of the viewport (Lazy.svelte), so each step can skip ahead that much.
   let last = 0;
   for (let i = 0; i < 200; i++) {
     const { height, atBottom } = await page.evaluate(() => {
-      window.scrollBy(0, window.innerHeight);
+      window.scrollBy(0, window.innerHeight + 1000);
       const h = document.documentElement.scrollHeight;
       return { height: h, atBottom: window.scrollY + window.innerHeight >= h - 2 };
     });
@@ -85,8 +86,8 @@ test('command palette opens with the keyboard', async ({ page, isMobile }) => {
 });
 
 test('skills section links to DevCity and keeps the full list one click away', async ({ page }) => {
+  // A #section link loads every lazy section by itself, so no need to scroll through the page first.
   await page.goto('/#skills');
-  await loadAll(page);
   await expect(page.locator('#skills a[href^="https://devcity.joeyoosenbrug.nl/en/"]')).toBeVisible();
   await expect(page.locator('#skills details')).toHaveCount(0);
   await page

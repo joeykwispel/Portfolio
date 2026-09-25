@@ -12,8 +12,10 @@ export const sideProjects: Record<string, SideProjectText> = {
     description:
       'The site you are on. A static SvelteKit site in English and Dutch where every skill duration, chart and stat is derived from the dates of my roles. Each pull request runs type checks, unit tests, end-to-end tests, accessibility scans and Lighthouse budgets before it can go live.'
   },
-  'dev-puzzle': {
-    tagline: 'A daily puzzle for developers',
-    description: 'A small coding puzzle every day. Work in progress.'
+  codeguessr: {
+    tagline: 'A daily Wordle-style puzzle for developers',
+    description:
+      'Guess the framework, language, tool or protocol of the day from six clues, starting with the vaguest. Keep your streak, share your result grid, and play every past puzzle in the archive. Works offline and without an account.',
+    links: { today: "Today's puzzle", archive: 'Archive' }
   }
 };

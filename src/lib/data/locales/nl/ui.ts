@@ -28,7 +28,7 @@ export const ui: UI = {
     contact: 'Contact',
     cv: 'Bekijk CV',
     apps: 'zijmissies',
-    appsHint: 'Dingen die ik voor de lol bouw. Toe maar, klik er eentje.',
+    appsHint: 'Voor de lol gebouwd. Toe maar, klik er eentje.',
     soon: 'binnenkort',
     now: 'op project',
     from: 'vanaf'

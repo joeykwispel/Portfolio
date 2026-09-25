@@ -13,7 +13,7 @@ export const sideProjects: SideProject[] = [
     url: 'https://devcity.joeyoosenbrug.nl',
     repo: 'https://github.com/joeykwispel/devcity',
     status: 'live',
-    localized: true,
+    localeRoutes: 'prefixed',
     start: '2026-09',
     stack: [
       'Next.js',
@@ -49,12 +49,47 @@ export const sideProjects: SideProject[] = [
     ]
   },
   {
+    id: 'codeguessr',
+    name: 'Codeguessr',
+    url: 'https://codeguessr.joeyoosenbrug.nl',
+    repo: 'https://github.com/joeykwispel/codeguessr',
+    status: 'live',
+    localeRoutes: 'dutch-prefix',
+    start: '2026-09',
+    stack: [
+      'Angular',
+      'Angular CDK',
+      'TypeScript',
+      'RxJS',
+      'PWA',
+      'I18N',
+      'Supabase',
+      'PostgreSQL',
+      'OAuth',
+      'Vitest',
+      'Angular Testing Library',
+      'Playwright',
+      'axe-core',
+      'Lighthouse CI',
+      'ESLint',
+      'Prettier',
+      'SEO',
+      'WCAG 2.2',
+      'GitHub Actions',
+      'GitHub Pages'
+    ],
+    links: [
+      { id: 'today', path: '' },
+      { id: 'archive', path: 'archive/' }
+    ]
+  },
+  {
     id: 'portfolio',
     name: 'joeyoosenbrug.nl',
     url: 'https://joeyoosenbrug.nl',
     repo: 'https://github.com/joeykwispel/Portfolio',
     status: 'live',
-    localized: false,
+    localeRoutes: 'none',
     start: '2026-09',
     stack: [
       'Svelte',
@@ -73,23 +108,15 @@ export const sideProjects: SideProject[] = [
       'GitHub Actions',
       'GitHub Pages'
     ]
-  },
-  {
-    id: 'dev-puzzle',
-    name: 'Dev Puzzle',
-    url: 'https://dev-puzzle.joeyoosenbrug.nl',
-    repo: null,
-    status: 'wip',
-    localized: false,
-    start: '2026-09',
-    stack: []
   }
 ];
 
 /** Side projects that are live, in the order they should appear. */
 export const liveSideProjects = sideProjects.filter((p) => p.status === 'live');
 
-/** Link into a side project. Localized apps (DevCity) use /en/ and /nl/ prefixes. */
+/** Link into a side project, in the reader's language where the app has one. */
 export function sideProjectHref(p: SideProject, locale: Locale, path = ''): string {
-  return p.localized ? `${p.url}/${locale}/${path}` : `${p.url}/${path}`;
+  if (p.localeRoutes === 'prefixed') return `${p.url}/${locale}/${path}`;
+  if (p.localeRoutes === 'dutch-prefix' && locale === 'nl') return `${p.url}/nl/${path}`;
+  return `${p.url}/${path}`;
 }
