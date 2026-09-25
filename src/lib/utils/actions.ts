@@ -72,26 +72,6 @@ export const tilt: Action<HTMLElement, number | undefined> = (node, max = 8) => 
   };
 };
 
-/** Button gently follows the cursor (desktop only). */
-export const magnetic: Action<HTMLElement, number | undefined> = (node, strength = 0.25) => {
-  if (!fine() || reduced()) return;
-  const move = (e: PointerEvent) => {
-    const r = node.getBoundingClientRect();
-    const x = e.clientX - (r.left + r.width / 2);
-    const y = e.clientY - (r.top + r.height / 2);
-    node.style.translate = `${x * strength}px ${y * strength}px`;
-  };
-  const leave = () => (node.style.translate = '');
-  node.addEventListener('pointermove', move);
-  node.addEventListener('pointerleave', leave);
-  return {
-    destroy() {
-      node.removeEventListener('pointermove', move);
-      node.removeEventListener('pointerleave', leave);
-    }
-  };
-};
-
 /** Counts a number up from 0 when visible. */
 export const countUp: Action<HTMLElement, { to: number; decimals?: number; duration?: number }> = (node, opts) => {
   let current = opts;

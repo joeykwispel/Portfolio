@@ -1,6 +1,5 @@
 <script lang="ts">
   import { contact } from '$lib/data';
-  import { magnetic } from '$lib/utils/actions';
 
   let { vertical = false }: { vertical?: boolean } = $props();
 
@@ -32,7 +31,6 @@
         data-tip={l.label}
         target={l.href.startsWith('http') ? '_blank' : undefined}
         rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-        use:magnetic={0.35}
       >
         <svg
           viewBox="0 0 24 24"
