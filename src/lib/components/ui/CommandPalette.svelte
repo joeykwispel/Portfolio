@@ -3,7 +3,7 @@
   import { fade, scale } from 'svelte/transition';
   import { goto } from '$app/navigation';
   import { app } from '$lib/app.svelte';
-  import { contact, devcityHref, getContent, visiblePosts } from '$lib/data';
+  import { contact, getContent, liveSideProjects, sideProjectHref, visiblePosts } from '$lib/data';
   import { sectionIds } from '$lib/sections';
 
   const c = $derived(getContent(app.locale));
@@ -48,7 +48,16 @@
       : []),
     { id: 'party', group: p.actions, label: p.party, hint: '↑↑↓↓←→←→BA', icon: '✦', run: () => app.party++ },
     { id: 'github', group: p.links, label: p.github, hint: 'github.com/joeykwispel', icon: '↗', run: open(contact.github.value) },
-    { id: 'devcity', group: p.links, label: p.devcity, hint: 'devcity.joeyoosenbrug.nl', icon: '↗', run: open(devcityHref(app.locale)) },
+    ...liveSideProjects
+      .filter((sp) => sp.id !== 'portfolio')
+      .map((sp) => ({
+        id: `app-${sp.id}`,
+        group: p.links,
+        label: p.openApp.replace('{name}', sp.name),
+        hint: sp.url.replace('https://', ''),
+        icon: '↗',
+        run: open(sideProjectHref(sp, app.locale))
+      })),
     { id: 'linkedin', group: p.links, label: p.linkedin, hint: 'linkedin.com/in/joey-oosenbrug', icon: '↗', run: open(contact.linkedin.value) },
     { id: 'mail', group: p.links, label: p.mail, hint: contact.email.value, icon: '@', run: () => (location.href = `mailto:${contact.email.value}`) }
   ]);

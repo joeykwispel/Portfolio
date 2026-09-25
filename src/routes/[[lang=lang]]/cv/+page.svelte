@@ -120,6 +120,27 @@
         </ol>
       </section>
 
+      <section>
+        <h2 class="mono"><span class="br">&lt;</span>{d.headings.sideProjects}<span class="br"> /&gt;</span></h2>
+        <ol class="projects">
+          {#each d.sideProjects as p (p.client)}
+            <li class="proj" use:reveal>
+              <div class="proj-head">
+                <h3>{p.client}</h3>
+                <p class="meta mono"><span class="role">{p.role}</span><span class="period">{p.period}</span></p>
+              </div>
+              <p class="para">{p.summary}</p>
+              {#if p.bullets.length}
+                <ul class="bullets">
+                  {#each p.bullets as b}<li>{b}</li>{/each}
+                </ul>
+              {/if}
+              <p class="stack mono"><span class="k">stack:</span> {p.stack}</p>
+            </li>
+          {/each}
+        </ol>
+      </section>
+
       <section use:reveal>
         <h2 class="mono"><span class="br">&lt;</span>{d.headings.education}<span class="br"> /&gt;</span></h2>
         <p class="degree">{d.education.degree}</p>

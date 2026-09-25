@@ -1,6 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { contact, devcityHref, getContent, person } from '$lib/data';
+  import { contact, getContent, person, sideProjectHref, sideProjects } from '$lib/data';
   import { magnetic } from '$lib/utils/actions';
   import Scramble from './ui/Scramble.svelte';
   import Socials from './ui/Socials.svelte';
@@ -10,6 +10,8 @@
 
   const c = $derived(getContent(app.locale));
   const [first, ...rest] = person.name.split(' ');
+  /** Apps on their own subdomain; this site itself is not one of the quick links. */
+  const apps = sideProjects.filter((p) => p.id !== 'portfolio');
 
   let hero: HTMLElement;
 
@@ -63,24 +65,32 @@
         >
         {c.ui.hero.cv}
       </a>
-      <a class="btn" href={devcityHref(app.locale)} target="_blank" rel="noopener noreferrer" use:magnetic>
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"><path d="M3 21h18M5 21V9l4-2v14M9 21V4l6 3v14M15 21v-9l4 2v7" /></svg
-        >
-        {c.ui.hero.devcity}
-      </a>
     </div>
 
-    <div class="hero-socials step" style="--i:6"><Socials /></div>
-    <a class="mail hero-socials mono step" style="--i:7" href="mailto:{contact.email.value}">{contact.email.value}</a>
+    <nav class="apps mono step" style="--i:6" aria-label={c.ui.hero.apps}>
+      <span class="apps-label" aria-hidden="true"><span class="sep">$</span> {c.ui.hero.apps}</span>
+      <ul>
+        {#each apps as p (p.id)}
+          <li class="app" class:wip={p.status === 'wip'}>
+            {#if p.status === 'live'}
+              <a class="app-main" href={sideProjectHref(p, app.locale)} target="_blank" rel="noopener noreferrer" title={c.sideProjects[p.id].tagline}
+                ><span class="pulse" aria-hidden="true"></span>{p.name}</a
+              >
+              {#each p.links ?? [] as l (l.id)}
+                <a class="app-sub" href={sideProjectHref(p, app.locale, l.path)} target="_blank" rel="noopener noreferrer"
+                  ><span class="sr-only">{p.name}: </span>{c.sideProjects[p.id].links?.[l.id]}</a
+                >
+              {/each}
+            {:else}
+              <span class="app-main" title={c.sideProjects[p.id].tagline}>{p.name} <span class="soon">{c.ui.hero.soon}</span></span>
+            {/if}
+          </li>
+        {/each}
+      </ul>
+    </nav>
+
+    <div class="hero-socials step" style="--i:7"><Socials /></div>
+    <a class="mail hero-socials mono step" style="--i:8" href="mailto:{contact.email.value}">{contact.email.value}</a>
   </div>
 
   <Marquee />
@@ -343,6 +353,97 @@
   .editor-slot {
     width: min(680px, 100%);
     margin-top: 0.4rem;
+  }
+  /* quick links to the apps on subdomains */
+  .apps {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  .apps-label {
+    color: var(--muted);
+  }
+  .apps ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .app {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+  }
+  .app a,
+  .app-main {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.75rem;
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  .app-main {
+    font-weight: 600;
+  }
+  .app-sub {
+    border-left: 1px solid var(--border);
+    color: var(--muted) !important;
+  }
+  .app a:hover {
+    background: var(--surface-2);
+    color: var(--accent-text) !important;
+  }
+  .pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse {
+    70% {
+      box-shadow: 0 0 0 7px transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  .wip {
+    border-style: dashed;
+    background: transparent;
+  }
+  .wip .app-main {
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .soon {
+    font-size: 0.68rem;
+    padding: 0.05rem 0.4rem;
+    border-radius: 5px;
+    background: var(--accent-ink);
+    color: var(--accent-2-text);
+  }
+  @media (max-width: 520px) {
+    .app-sub {
+      padding-inline: 0.55rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pulse {
+      animation: none;
+    }
   }
   .step {
     animation: fade-up 0.9s var(--ease) both;

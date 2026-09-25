@@ -1,4 +1,4 @@
-import { roles, skills, categoryOrder, education } from '$lib/data';
+import { roles, sideProjects, skills, categoryOrder, education } from '$lib/data';
 import type { CategoryId, RoleBase } from '$lib/data';
 import { monthsInRange, nowIdx, rangeOf, unionMonths } from './dates';
 
@@ -8,6 +8,8 @@ export interface SkillStat {
   months: number;
   years: number;
   roleIds: string[];
+  /** Side projects that use the skill. They don't add to `months`, which counts paid work only. */
+  sideIds: string[];
   firstIdx: number | null;
 }
 
@@ -18,6 +20,8 @@ export function computeSkillStats(): SkillStat[] {
   const known = new Set(skills.map((s) => s.name));
   if (import.meta.env.DEV) {
     for (const r of roles) for (const n of r.stack) if (!known.has(n)) console.warn(`[data] "${n}" in role "${r.id}" is missing from shared/skills.ts`);
+    for (const p of sideProjects)
+      for (const n of p.stack) if (!known.has(n)) console.warn(`[data] "${n}" in side project "${p.id}" is missing from shared/skills.ts`);
   }
   return skills.map((s) => {
     const ids = new Set<string>(s.roles ?? []);
@@ -31,6 +35,7 @@ export function computeSkillStats(): SkillStat[] {
       months,
       years: months / 12,
       roleIds: used.sort((a, b) => b.start.localeCompare(a.start)).map((r) => r.id),
+      sideIds: sideProjects.filter((p) => p.status === 'live' && p.stack.includes(s.name)).map((p) => p.id),
       firstIdx: ranges.length ? Math.min(...ranges.map((r) => r[0])) : null
     };
   });

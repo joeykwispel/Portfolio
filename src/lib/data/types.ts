@@ -49,6 +49,34 @@ export interface ProjectText {
   sector: string;
 }
 
+/** A product I build on my own, hosted under a joeyoosenbrug.nl subdomain. Text lives in locales/<lang>/sideProjects.ts */
+export interface SideProject {
+  id: string;
+  name: string;
+  /** Origin without trailing slash */
+  url: string;
+  /** null = private or not published yet */
+  repo: string | null;
+  /** 'wip' is shown as coming soon, without a link */
+  status: 'live' | 'wip';
+  /** true when the app has /en/ and /nl/ routes */
+  localized: boolean;
+  /** YYYY-MM */
+  start: string;
+  /** Names must match a skill name in shared/skills.ts */
+  stack: string[];
+  /** Deep links into the app, relative to its (locale) root. Labels live in the locale text. */
+  links?: { id: string; path: string }[];
+}
+
+export interface SideProjectText {
+  /** One line, used in the hero quick links */
+  tagline: string;
+  description: string;
+  /** Label per link id */
+  links?: Record<string, string>;
+}
+
 export interface EducationBase {
   id: string;
   kind: 'education' | 'certification';

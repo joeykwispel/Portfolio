@@ -1,7 +1,7 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { caseStudyFor, devcity, devcityHref, devcityLayers, getContent, projects, roles } from '$lib/data';
-  import type { ProjectBase } from '$lib/data';
+  import { caseStudyFor, getContent, liveSideProjects, projects, roles, sideProjectHref } from '$lib/data';
+  import type { ProjectBase, SideProject } from '$lib/data';
   import { fmtMonth } from '$lib/utils/dates';
   import { reveal, tilt } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
@@ -10,6 +10,7 @@
   // Projects with a case study come first and get a bigger card.
   const featured = projects.filter((p) => caseStudyFor(p.id));
   const rest = projects.filter((p) => !caseStudyFor(p.id));
+  const STACK_SHOWN = 8;
 </script>
 
 {#snippet card(p: ProjectBase, i: number, big: boolean)}
@@ -50,9 +51,67 @@
   </li>
 {/snippet}
 
+{#snippet side(p: SideProject, i: number)}
+  {@const txt = c.sideProjects[p.id]}
+  {@const isHere = p.id === 'portfolio'}
+  <li use:reveal={{ delay: (i % 2) * 90 }}>
+    <article class="card glass ring big own" use:tilt={3}>
+      <div class="chrome mono" aria-hidden="true">
+        <span class="dots"><i></i><i></i><i></i></span><span class="file">~/side/<b>{p.id}</b>{p.id === 'devcity' ? '.tsx' : '.svelte'}</span>
+      </div>
+      <div class="row">
+        <span class="tag side-tag">{c.ui.projects.sideTag}</span>
+        <span class="when">{p.url.replace('https://', '')}</span>
+      </div>
+      <h3>{p.name}</h3>
+      <p class="desc">{txt.description}</p>
+      <ul class="tags">
+        {#each p.stack.slice(0, STACK_SHOWN) as t (t)}<li class="tag">{c.skillLabels[t] ?? t}</li>{/each}
+        {#if p.stack.length > STACK_SHOWN}<li class="tag more">+{p.stack.length - STACK_SHOWN}</li>{/if}
+      </ul>
+      {#if p.links?.length}
+        <p class="by">{c.ui.projects.jump}</p>
+        <ul class="layers">
+          {#each p.links as l (l.id)}
+            <li>
+              <a class="layer mono" href={sideProjectHref(p, app.locale, l.path)} target="_blank" rel="noopener noreferrer"
+                >{txt.links?.[l.id]} <span aria-hidden="true">↗</span></a
+              >
+            </li>
+          {/each}
+        </ul>
+      {/if}
+      <div class="actions">
+        {#if isHere}
+          <span class="here mono">{c.ui.projects.here}</span>
+        {:else}
+          <a class="btn btn-primary cs" href={sideProjectHref(p, app.locale)} target="_blank" rel="noopener noreferrer"
+            >{c.ui.projects.open} {p.name} <span aria-hidden="true">↗</span></a
+          >
+        {/if}
+        {#if p.repo}
+          <a class="link" href={p.repo} target="_blank" rel="noopener noreferrer">{c.ui.projects.source} <span aria-hidden="true">↗</span></a>
+        {/if}
+      </div>
+    </article>
+  </li>
+{/snippet}
+
 <section class="section">
   <div class="container">
     <SectionHead section="projects" slug="projects" title={c.ui.projects.title} intro={c.ui.projects.intro} />
+
+    <div class="group-head">
+      <h3 class="group mono">{c.ui.projects.own}</h3>
+      <p>{c.ui.projects.ownIntro}</p>
+    </div>
+    <ul class="grid featured">
+      {#each liveSideProjects as p, i (p.id)}{@render side(p, i)}{/each}
+    </ul>
+
+    <div class="group-head">
+      <h3 class="group mono">{c.ui.projects.clients}</h3>
+    </div>
     {#if featured.length}
       <ul class="grid featured">
         {#each featured as p, i (p.id)}{@render card(p, i, true)}{/each}
@@ -63,35 +122,6 @@
         {#each rest as p, i (p.id)}{@render card(p, i, false)}{/each}
       </ul>
     {/if}
-
-    <article class="card glass ring hobby" use:reveal use:tilt={2}>
-      <div class="chrome mono" aria-hidden="true">
-        <span class="dots"><i></i><i></i><i></i></span><span class="file">~/hobby/<b>devcity</b>.tsx</span>
-      </div>
-      <div class="row">
-        <span class="tag">{c.ui.devcity.tag}</span>
-        <span class="when">devcity.joeyoosenbrug.nl</span>
-      </div>
-      <h3>{c.ui.devcity.title}</h3>
-      <p class="desc">{c.ui.devcity.description}</p>
-      <ul class="tags">
-        {#each devcity.stack as t (t)}<li class="tag">{c.skillLabels[t] ?? t}</li>{/each}
-      </ul>
-      <p class="by">{c.ui.devcity.layersTitle}</p>
-      <ul class="layers">
-        {#each devcityLayers as layer (layer)}
-          <li>
-            <a class="layer mono" href={devcityHref(app.locale, layer)} target="_blank" rel="noopener noreferrer"
-              >{c.ui.devcity.layers[layer]} <span aria-hidden="true">↗</span></a
-            >
-          </li>
-        {/each}
-      </ul>
-      <div class="actions">
-        <a class="btn btn-primary cs" href={devcityHref(app.locale)} target="_blank" rel="noopener noreferrer">{c.ui.devcity.open}</a>
-        <a class="link" href={devcity.repo} target="_blank" rel="noopener noreferrer">{c.ui.devcity.source} <span aria-hidden="true">↗</span></a>
-      </div>
-    </article>
   </div>
 </section>
 
@@ -113,25 +143,53 @@
   .big {
     padding-bottom: 1.4rem;
   }
-  .hobby {
-    margin-top: 1rem;
-    padding-bottom: 1.4rem;
+  .group-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 0.9rem;
+    margin: 0 0 0.9rem;
   }
-  .hobby h3 {
-    font-size: 1.3rem;
+  .grid + .group-head {
+    margin-top: 2.2rem;
+  }
+  .group {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .group-head p {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  .own {
+    border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+  }
+  .side-tag {
+    color: var(--accent);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  }
+  .more {
+    color: var(--muted);
+  }
+  .here {
+    font-size: 0.85rem;
+    color: var(--muted);
   }
   .layers {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
   }
   .layer {
-    display: block;
-    padding: 0.6rem 0.8rem;
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
     background: var(--surface);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none;
     transition:
@@ -283,9 +341,6 @@
     .grid,
     .featured {
       grid-template-columns: 1fr;
-    }
-    .layers {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

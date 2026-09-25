@@ -17,10 +17,12 @@ export interface Cv {
   title: string;
   headline: string;
   employment: string;
-  headings: { profile: string; skills: string; projects: string; education: string; languages: string };
+  headings: { profile: string; skills: string; projects: string; sideProjects: string; education: string; languages: string };
   profile: string[];
   skills: { label: string; items: string }[];
   projects: CvProject[];
+  /** Own products, listed after client work. */
+  sideProjects: CvProject[];
   education: { degree: string; trainingLabel: string; courses: string[] };
   languages: string;
 }
@@ -34,6 +36,7 @@ export const cv: Record<'en' | 'nl', Cv> = {
       profile: 'Profile',
       skills: 'Skillset',
       projects: 'Project experience',
+      sideProjects: 'Side projects',
       education: 'Education & Certifications',
       languages: 'Languages'
     },
@@ -45,19 +48,19 @@ export const cv: Record<'en' | 'nl', Cv> = {
       {
         label: 'Front-End',
         items:
-          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS'
+          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Svelte, SvelteKit, Three.js, React Three Fiber, TanStack Query, Zustand'
       },
       {
         label: 'Back-End',
-        items: 'PHP, Laravel, Symfony, Zend, NestJS, Python, Hono, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, JSON, YAML, XML, XPath'
+        items: 'PHP, Laravel, Symfony, Zend, NestJS, Python, Hono, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, JSON, YAML, XML, XPath, Zod'
       },
       {
         label: 'DevOps & CI/CD',
-        items: 'Docker, Git, GitHub, GitLab, Azure DevOps, GitHub Actions, CI/CD Pipelines, Bash, Command Line, Microservices'
+        items: 'Docker, Git, GitHub, GitLab, Azure DevOps, GitHub Actions, GitHub Pages, Cloudflare Workers, CI/CD Pipelines, Bash, Command Line, Microservices'
       },
       {
         label: 'Testing',
-        items: 'Playwright, Jest, Vitest, Cypress, React Testing Library, Stryker, Storybook'
+        items: 'Playwright, Jest, Vitest, Cypress, React Testing Library, Stryker, Storybook, axe-core, Lighthouse CI'
       },
       {
         label: 'Platforms & Tools',
@@ -205,6 +208,36 @@ export const cv: Record<'en' | 'nl', Cv> = {
         stack: 'JavaScript (ES6), HTML, SCSS/CSS, Twig, WordPress'
       }
     ],
+    sideProjects: [
+      {
+        client: 'DevCity - devcity.joeyoosenbrug.nl',
+        role: 'Creator',
+        period: 'September 2026 – Present',
+        summary:
+          'An open-source web app that renders Joey’s CV and GitHub activity as an explorable 3D city. Skills, roles and repositories become buildings sized by real usage, and visitors can load any public GitHub repository to explore its code as a skyline.',
+        bullets: [
+          'Built a Turborepo monorepo with a Next.js static export, a framework-free layout engine and a typed GitHub client.',
+          'Rendered the city in Three.js with React Three Fiber, with a list view as an accessible alternative to the 3D scene.',
+          'Added a Hono edge proxy on Cloudflare Workers that keeps the GitHub token server-side and caches responses.',
+          'Set up CI with unit, end-to-end and accessibility tests, and deploys to GitHub Pages in English and Dutch.'
+        ],
+        stack:
+          'Next.js, React, TypeScript, Three.js, React Three Fiber, D3.js, Tailwind CSS, Shadcn, TanStack Query, Zustand, Zod, I18N, Hono, Cloudflare Workers, Turborepo, pnpm, Vitest, Playwright, axe-core, Storybook, ESLint, Prettier, GitHub Actions, GitHub Pages'
+      },
+      {
+        client: 'Portfolio - joeyoosenbrug.nl',
+        role: 'Creator',
+        period: 'September 2026 – Present',
+        summary:
+          'Joey’s bilingual portfolio and CV. Every skill duration, chart and statistic is derived from the dates of his roles, so the site stays accurate as the CV changes.',
+        bullets: [
+          'Built as a static SvelteKit site with English and Dutch routes, structured data and a printable CV.',
+          'Every pull request runs type checks, unit tests, end-to-end tests, axe accessibility scans and Lighthouse budgets.'
+        ],
+        stack:
+          'Svelte, SvelteKit, TypeScript, Vite, I18N, Vitest, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
+      }
+    ],
     education: {
       degree: 'Applicatie- en Media Ontwikkelaar - mboRijnland (2018 – 2021)',
       trainingLabel: 'Additional Training',
@@ -228,6 +261,7 @@ export const cv: Record<'en' | 'nl', Cv> = {
       profile: 'Profiel',
       skills: 'Skillset',
       projects: 'Projectervaring',
+      sideProjects: 'Zijprojecten',
       education: 'Educatie & Training',
       languages: 'Talen'
     },
@@ -239,21 +273,21 @@ export const cv: Record<'en' | 'nl', Cv> = {
       {
         label: 'Front-end',
         items:
-          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Shadcn, I18N'
+          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Shadcn, I18N, Svelte, SvelteKit, Three.js, React Three Fiber, TanStack Query, Zustand'
       },
       {
         label: 'Back-end',
         items:
-          'PHP, Laravel, Symfony, Zend, NestJS, Python, FastAPI, Hono, Pydantic, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, OpenAPI, Swagger, JSON, YAML, XML, XPath, JWT'
+          'PHP, Laravel, Symfony, Zend, NestJS, Python, FastAPI, Hono, Pydantic, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, OpenAPI, Swagger, JSON, YAML, XML, XPath, JWT, Zod'
       },
       {
         label: 'DevOps & CI/CD',
         items:
-          'Docker, Kubernetes, Proxmox, Nginx, Git, GitHub, GitLab, Azure DevOps, GitHub Actions, CI/CD pipelines, Bash, Shell, Command Line, Microservices'
+          'Docker, Kubernetes, Proxmox, Nginx, Git, GitHub, GitLab, Azure DevOps, GitHub Actions, GitHub Pages, Cloudflare Workers, CI/CD pipelines, Bash, Shell, Command Line, Microservices'
       },
       {
         label: 'Testing',
-        items: 'Playwright, Jest, Vitest, Pytest, Cypress, React Testing Library, Stryker, Storybook, ast-grep'
+        items: 'Playwright, Jest, Vitest, Pytest, Cypress, React Testing Library, Stryker, Storybook, ast-grep, axe-core, Lighthouse CI'
       },
       {
         label: 'Platforms & Tools',
@@ -399,6 +433,36 @@ export const cv: Record<'en' | 'nl', Cv> = {
         role: 'Software Developer',
         period: 'augustus 2019 – januari 2020',
         stack: 'JavaScript (ES6), HTML, SCSS/CSS, Twig, WordPress'
+      }
+    ],
+    sideProjects: [
+      {
+        client: 'DevCity - devcity.joeyoosenbrug.nl',
+        role: 'Maker',
+        period: 'september 2026 – heden',
+        summary:
+          'Een open-source webapplicatie die het CV en de GitHub-activiteit van Joey weergeeft als een 3D-stad die je kunt verkennen. Skills, rollen en repositories worden gebouwen op basis van echt gebruik, en bezoekers kunnen elke publieke GitHub-repository inladen om de code als skyline te bekijken.',
+        bullets: [
+          'Opgezet als Turborepo-monorepo met een statische Next.js-export, een framework-onafhankelijke layout-engine en een getypeerde GitHub-client.',
+          'De stad gerenderd in Three.js met React Three Fiber, met een lijstweergave als toegankelijk alternatief voor de 3D-scène.',
+          'Een Hono-edgeproxy op Cloudflare Workers toegevoegd die het GitHub-token server-side houdt en responses cachet.',
+          'CI ingericht met unit-, end-to-end- en toegankelijkheidstests, met deployment naar GitHub Pages in het Nederlands en Engels.'
+        ],
+        stack:
+          'Next.js, React, TypeScript, Three.js, React Three Fiber, D3.js, Tailwind CSS, Shadcn, TanStack Query, Zustand, Zod, I18N, Hono, Cloudflare Workers, Turborepo, pnpm, Vitest, Playwright, axe-core, Storybook, ESLint, Prettier, GitHub Actions, GitHub Pages'
+      },
+      {
+        client: 'Portfolio - joeyoosenbrug.nl',
+        role: 'Maker',
+        period: 'september 2026 – heden',
+        summary:
+          'Het tweetalige portfolio en CV van Joey. Elke skillduur, grafiek en statistiek wordt berekend uit de data van zijn rollen, zodat de site klopt zodra het CV verandert.',
+        bullets: [
+          'Gebouwd als statische SvelteKit-site met Nederlandse en Engelse routes, structured data en een printbaar CV.',
+          'Elke pull request doorloopt typechecks, unittests, end-to-end tests, axe-toegankelijkheidsscans en Lighthouse-budgetten.'
+        ],
+        stack:
+          'Svelte, SvelteKit, TypeScript, Vite, I18N, Vitest, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
       }
     ],
     education: {
