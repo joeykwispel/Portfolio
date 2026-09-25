@@ -5,12 +5,7 @@
   import { fmtDuration } from '$lib/utils/dates';
   import { proficiencyKey, type SkillStat } from '$lib/utils/derive';
 
-  let {
-    stat,
-    anchor,
-    maxMonths,
-    onclose
-  }: { stat: SkillStat; anchor: DOMRect; maxMonths: number; onclose: () => void } = $props();
+  let { stat, anchor, maxMonths, onclose }: { stat: SkillStat; anchor: DOMRect; maxMonths: number; onclose: () => void } = $props();
 
   const c = $derived(getContent(app.locale));
   const W = 320;
@@ -26,21 +21,16 @@
   onMount(() => el.focus({ preventScroll: true }));
 </script>
 
-<div
-  bind:this={el}
-  class="pop glass"
-  role="dialog"
-  aria-label={c.skillLabels[stat.name] ?? stat.name}
-  tabindex="-1"
-  style="left:{left}px;{pos};--w:{W}px"
->
+<div bind:this={el} class="pop glass" role="dialog" aria-label={c.skillLabels[stat.name] ?? stat.name} tabindex="-1" style="left:{left}px;{pos};--w:{W}px">
   <div class="top">
     <div>
       <h3>{c.skillLabels[stat.name] ?? stat.name}</h3>
       <span class="tag">{c.categories[stat.category]}</span>
     </div>
     <button type="button" class="x" onclick={onclose} aria-label={c.ui.skills.close}>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"
+        ><path d="M6 6l12 12M18 6L6 18" /></svg
+      >
     </button>
   </div>
 

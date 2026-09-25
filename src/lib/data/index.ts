@@ -1,6 +1,6 @@
 export * from './types';
 export { roles, employer } from './shared/roles';
-export { skills, categoryOrder, categoryHue } from './shared/skills';
+export { skills, categoryOrder, categoryHue, coreSkills } from './shared/skills';
 export { projects } from './shared/projects';
 export { education } from './shared/education';
 export { spokenLanguages } from './shared/languages';
@@ -9,6 +9,10 @@ export { testimonials } from './shared/testimonials';
 export { contributions } from './shared/contributions';
 export type { Contribution, DiffRow } from './shared/contributions';
 export { getContent, locales } from './locales';
+export { caseStudies } from './shared/caseStudies';
+export { posts } from './shared/posts';
+export { now } from './shared/now';
+export { caseStudyFor, isVisible, readingMinutes, visibleCaseStudies, visiblePosts } from './content';
 export { cv } from './cv';
 export type { Cv, CvProject } from './cv';
 export { cloudflareAnalyticsToken, googleSiteVerification, jobTitle, keywords, profileJsonLd } from './shared/seo';

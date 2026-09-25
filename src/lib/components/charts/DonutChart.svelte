@@ -89,7 +89,9 @@
     height: auto;
   }
   .seg {
-    transition: stroke-dasharray 1s var(--ease), stroke-width 0.2s;
+    transition:
+      stroke-dasharray 1s var(--ease),
+      stroke-width 0.2s;
   }
   .big {
     fill: var(--text);

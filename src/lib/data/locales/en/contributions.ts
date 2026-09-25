@@ -19,7 +19,8 @@ export const contributions: Record<string, ContributionText> = {
   },
   'fundament-424': {
     org: 'Fundament (open-source community)',
-    about: 'A Go project with a Kubernetes operator for OpenFSC, used to federate services between organisations. Its group CA is a real production trust root.',
+    about:
+      'A Go project with a Kubernetes operator for OpenFSC, used to federate services between organisations. Its group CA is a real production trust root.',
     did: 'Found the longest-lived RSA artifact in the repo: a self-signed RSA-4096 CA valid for 10 years. Cut its lifetime to 3 years with a 90-day renewal window, which bounds how long everything it signs stays quantum-vulnerable, and documented why cert-manager cannot move to ML-DSA yet.',
     highlights: [
       'CA lifetime 10 years → 3 years, renewal 1 year → 90 days',
@@ -30,7 +31,8 @@ export const contributions: Record<string, ContributionText> = {
   },
   'brp-amsterdam-195': {
     org: 'City of Amsterdam',
-    about: 'An authorization proxy between the city’s services and the national population register (BRP) at RvIG, handling citizen service numbers (BSN) and address data.',
+    about:
+      'An authorization proxy between the city’s services and the national population register (BRP) at RvIG, handling citizen service numbers (BSN) and address data.',
     did: 'Protected long-lived citizen data against “harvest now, decrypt later”. Added opt-in hybrid post-quantum TLS (X25519MLKEM768) on the outbound connection to RvIG, and upgraded BSN encryption from Fernet (AES-128) to AES-256-GCM.',
     highlights: [
       'Hybrid ML-KEM key exchange (NIST FIPS 203) on TLS 1.3',

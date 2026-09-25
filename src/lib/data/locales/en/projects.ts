@@ -3,7 +3,8 @@ import type { ProjectText } from '../../types';
 export const projects: Record<string, ProjectText> = {
   pqnavigator: {
     sector: 'Public sector',
-    description: 'Static-analysis platform that scans source repositories, builds a cryptographic inventory and assesses post-quantum readiness for Dutch government organisations.'
+    description:
+      'Static-analysis platform that scans source repositories, builds a cryptographic inventory and assesses post-quantum readiness for Dutch government organisations.'
   },
   'property-plan': {
     sector: 'Real estate',

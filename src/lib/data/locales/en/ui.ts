@@ -1,7 +1,8 @@
 export const ui = {
   meta: {
     title: 'Joey Oosenbrug | Senior Front-end & Full-Stack Developer',
-    description: 'Portfolio of Joey Oosenbrug: senior front-end and full-stack developer working with Angular, React, Next.js, Vue.js, TypeScript, NestJS and Python.'
+    description:
+      'Portfolio of Joey Oosenbrug: senior front-end and full-stack developer working with Angular, React, Next.js, Vue.js, TypeScript, NestJS and Python.'
   },
   nav: {
     about: 'About',
@@ -10,6 +11,7 @@ export const ui = {
     experience: 'Experience',
     projects: 'Projects',
     opensource: 'Open source',
+    writing: 'Writing',
     testimonials: 'Recommendations',
     contact: 'Contact',
     skip: 'Skip to content',
@@ -23,20 +25,25 @@ export const ui = {
     hello: 'Hi, I am',
     work: 'View work',
     contact: 'Contact',
-    cv: 'View CV'
+    cv: 'View CV',
+    now: 'on project',
+    from: 'from'
   },
   about: {
     title: 'About',
     languages: 'Languages',
     factsTitle: 'Key facts',
-    stats: { years: 'Years in development', tech: 'Technologies', projects: 'Projects', clients: 'Employers and clients' }
+    stats: { years: 'Years in development', tech: 'Technologies used 1+ year', projects: 'Projects', clients: 'Employers and clients' }
   },
   skills: {
     title: 'Skills',
-    intro: 'Every tool, framework and method from my CV. Bigger bubbles mean more time spent on projects that used them. Drag, hover or click a bubble.',
-    all: 'All',
-    shuffle: 'Shuffle',
-    hint: 'Tip: drag a bubble, it springs back.',
+    intro: 'My core stack first, then everything else grouped by area. The bars show how long I used each skill in projects.',
+    coreTitle: 'Core stack',
+    coreIntro: 'What I reach for every day.',
+    allTitle: 'Everything, by area',
+    allIntro: 'Open an area to see all its skills. Select a skill for details.',
+    more: 'Show all {n}',
+    less: 'Show fewer',
     years: 'Time in projects',
     level: 'Proficiency',
     levels: { listed: 'Listed', familiar: 'Familiar', working: 'Working knowledge', proficient: 'Proficient', advanced: 'Advanced' },
@@ -44,9 +51,6 @@ export const ui = {
     noRoles: 'Listed on my CV without a dated project yet.',
     close: 'Close',
     proficiencyNote: 'Proficiency is derived from the total time of the projects that used the skill.',
-    playgroundTitle: 'Skill playground',
-    playgroundIntro: 'Pick a category and watch the radar morph. Each axis is one of the top skills in that category, measured in years.',
-    axisEmpty: 'No further skills',
     count: 'skills'
   },
   charts: {
@@ -70,6 +74,7 @@ export const ui = {
     expand: 'Show details',
     collapse: 'Hide details',
     present: 'Present',
+    to: 'to',
     via: 'via',
     stack: 'Stack',
     education: 'Education',
@@ -78,14 +83,38 @@ export const ui = {
   },
   projects: {
     title: 'Projects',
-    intro: 'A selection of products I worked on, taken from my CV.',
+    intro: 'Products I worked on. The ones with a case study tell the full story: the problem, what I did and what I learned.',
     linkPlaceholder: 'Link placeholder',
     visit: 'Visit project',
-    role: 'Role'
+    role: 'Role',
+    caseStudy: 'Read the case study'
+  },
+  caseStudy: {
+    back: 'All projects',
+    client: 'Client',
+    role: 'My role',
+    team: 'Team',
+    period: 'Period',
+    stack: 'Stack',
+    visit: 'Visit the project',
+    proof: 'The pull requests',
+    quote: 'From the Product Owner',
+    next: 'Next case study',
+    draft: 'Draft, only visible in development. Set its status to published in shared/caseStudies.ts to put it live.'
+  },
+  writing: {
+    title: 'Writing',
+    intro: 'Notes on things I built and what I learned from them.',
+    all: 'All writing',
+    back: 'All writing',
+    minutes: 'min read',
+    empty: 'Nothing published yet.',
+    draft: 'Draft, only visible in development. Set its status to published in shared/posts.ts to put it live.'
   },
   opensource: {
     title: 'Open source',
-    intro: 'Post-quantum hardening for Dutch public-sector code. Each finding was surfaced with PQNavigator and grounded in the AIVD/CWI/TNO PQC Migration Handbook.',
+    intro:
+      'Post-quantum hardening for Dutch public-sector code. Each finding was surfaced with PQNavigator and grounded in the AIVD/CWI/TNO PQC Migration Handbook.',
     prs: 'pull requests',
     orgs: 'organisations',
     lines: 'lines changed',
@@ -134,6 +163,7 @@ export const ui = {
     linkedin: 'Open LinkedIn',
     mail: 'Send an email',
     cv: 'View CV',
+    writing: 'Read my writing',
     party: 'Launch party mode',
     navigate: 'navigate',
     select: 'select',
@@ -148,51 +178,50 @@ export const ui = {
   },
   quips: {
     about: "if (coffee.isEmpty()) throw new Error('404: coffee not found');",
-    skills: "skills.sort((a, b) => b.years - a.years); // humble-sorted",
-    insights: "// charts: 100% real data, 0% Excel",
-    experience: "git log --author=\"Joey\" --oneline | wc -l  // a lot",
-    projects: "<Joey mood=\"caffeinated\" status=\"shipping\" />",
+    insights: '// charts: 100% real data, 0% Excel',
     opensource: 'git push --force-with-lease origin post-quantum  // politely',
     console: "Hey fellow dev! Poking around the source? I like you already. Let's talk:"
   },
   footer: {
-    built: "Built with TypeScript and too much coffee.",
+    built: 'Built with TypeScript and too much coffee.',
     quips: [
-      "404: coffee not found",
-      "// it works on my machine",
-      "git commit -m \"final-final-v2\"",
-      "while (awake) { code(); coffee(); }",
-      "// no bugs, only undocumented features",
+      '404: coffee not found',
+      '// it works on my machine',
+      'git commit -m "final-final-v2"',
+      'while (awake) { code(); coffee(); }',
+      '// no bugs, only undocumented features',
       "console.log('why is this undefined?')",
-      "npm install sleep --save-dev",
-      "// TODO: write better jokes",
+      'npm install sleep --save-dev',
+      '// TODO: write better jokes',
       "There are 10 types of people: those who get binary and those who don't",
-      "if (tired) coffee++; else coffee++;",
-      "// deployed on a Friday. Still alive.",
-      "<Joey mood=\"caffeinated\" />",
+      'if (tired) coffee++; else coffee++;',
+      '// deployed on a Friday. Still alive.',
+      '<Joey mood="caffeinated" />',
       "// it's not a bug, it's a feature request from the future",
-      "git push --force // and pray",
-      "Works in dev. Prod had other plans.",
-      "rm -rf node_modules && npm install // the ancient ritual",
-      "// the heaviest object in the universe: node_modules",
-      "Two hard things in CS: cache invalidation, naming things and off-by-one errors",
-      "try { sleep(); } catch (e) { coffee(); }",
-      "// magic. do not touch.",
-      "SELECT * FROM users WHERE clue > 0; // 0 rows returned",
+      'git push --force // and pray',
+      'Works in dev. Prod had other plans.',
+      'rm -rf node_modules && npm install // the ancient ritual',
+      '// the heaviest object in the universe: node_modules',
+      'Two hard things in CS: cache invalidation, naming things and off-by-one errors',
+      'try { sleep(); } catch (e) { coffee(); }',
+      '// magic. do not touch.',
+      'SELECT * FROM users WHERE clue > 0; // 0 rows returned',
       "!false // it's funny because it's true",
-      "git blame // oh. it was me.",
-      "A QA engineer walks into a bar. Orders -1 beers.",
-      "CSS: centering a div since 1996",
-      "// 99 little bugs in the code... patch one... 127 little bugs in the code",
-      "const life = await coffee(); // unhandled promise: sleep",
+      'git blame // oh. it was me.',
+      'A QA engineer walks into a bar. Orders -1 beers.',
+      'CSS: centering a div since 1996',
+      '// 99 little bugs in the code... patch one... 127 little bugs in the code',
+      'const life = await coffee(); // unhandled promise: sleep',
       "Debugging: being the detective in a crime movie where you're also the murderer",
       "I don't always test my code, but when I do, I do it in production",
-      "// estimated time: 2 hours. actual time: 2 sprints.",
+      '// estimated time: 2 hours. actual time: 2 sprints.',
       "typeof NaN === 'number' // JavaScript, everybody",
-      "Real programmers count from 0"
+      'Real programmers count from 0'
     ],
-    away: "// come back, the build is waiting...",
-    top: 'Back to top', palette: 'for commands' },
+    away: '// come back, the build is waiting...',
+    top: 'Back to top',
+    palette: 'for commands'
+  },
   units: { year: 'yr', years: 'yrs', month: 'mo', months: 'mo' },
   easter: 'Konami code unlocked!'
 };

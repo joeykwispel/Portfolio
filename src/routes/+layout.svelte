@@ -49,7 +49,11 @@
   {/if}
   {#if cloudflareAnalyticsToken && !dev}
     <!-- Cloudflare Web Analytics: cookie-less, no IPs stored. Also tracks client-side navigation. -->
-    <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}></script>
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}
+    ></script>
   {/if}
 </svelte:head>
 

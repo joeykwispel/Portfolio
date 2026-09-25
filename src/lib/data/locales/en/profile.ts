@@ -1,9 +1,11 @@
 export const profile = {
   title: 'Senior Front-end Developer | Full-Stack Developer',
-  tagline: 'I build modern web applications, SaaS platforms and technical products, from the interface down to the infrastructure.',
+  tagline:
+    'I build web applications end to end, from the interface down to the cluster it runs on. Right now I help Dutch government organisations get ready for post-quantum cryptography.',
   bio: [
-    'Joey is an experienced Senior Front-end & Fullstack Developer with over five years of experience building and evolving modern web applications, SaaS platforms and technical product environments across the public sector, real estate, media, e-health and professional services. He specialises in Angular, React, Next.js, Vue.js and TypeScript, complemented by strong back-end experience with NestJS, Python and FastAPI.',
-    'Within projects, Joey takes ownership across the full technical chain and contributes to architecture, performance, testability, accessibility and maintainability. He translates functional requirements, stakeholder feedback and UX designs into scalable solutions, and brings experience in technical leadership, code reviews, mentoring developers and collaboration with Product Owners, UX designers and public-sector organisations within Agile Scrum teams.'
+    "I'm a senior front-end and full-stack developer with more than five years of experience building web applications, SaaS platforms and technical products for the public sector, real estate, media and e-health. My daily tools are Angular, React, Next.js, Vue.js and TypeScript, backed by NestJS, Python and FastAPI on the server.",
+    'I like owning the whole chain: architecture, performance, tests, accessibility and the infrastructure underneath. I turn requirements, stakeholder feedback and UX designs into software that is easy to change later, and I have led teams, reviewed a lot of code and mentored developers along the way.',
+    'Lately that has meant post-quantum cryptography. At PQNavigator I help ministries find where their code depends on encryption that quantum computers will break, and I contribute fixes to public-sector open source.'
   ],
   facts: [
     { label: 'Based in', value: 'Druten, Netherlands' },

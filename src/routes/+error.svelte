@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { base } from '$app/paths';
   import { page } from '$app/state';
-  import { app } from '$lib/app.svelte';
+  import { localeOf, localize } from '$lib/i18n';
   import Scramble from '$lib/components/ui/Scramble.svelte';
 
-  const nl = $derived(app.locale === 'nl');
+  // The error page renders outside the [[lang]] layout, so read the language from the URL.
+  const locale = $derived(localeOf(page.url.pathname));
+  const nl = $derived(locale === 'nl');
   const path = $derived(page.url.pathname);
 </script>
 
@@ -21,12 +22,15 @@
 <span class="err">Uncaught Error: {nl ? 'koffie niet gevonden' : 'coffee not found'}</span>
 <span class="com">    at Joey.brew (kitchen.ts:404)
     at Morning.start (life.ts:7)
-    at {nl ? 'Pagina' : 'Page'}.render ({path})</span>
+    at {nl ? 'Pagina' : 'Page'}.render ({path})</span
+      >
 
 <span class="com">// {nl ? 'Deze pagina bestaat niet, of hij is weggerefactord.' : 'This page does not exist, or it got refactored away.'}</span>
 <span class="prop">joey@portfolio</span>:<span class="dir">~</span>$ <span class="caret"></span></pre>
   </div>
-  <a class="btn btn-primary" href="{base}/"><span aria-hidden="true">&gt;</span> cd ~ <span class="sub">({nl ? 'terug naar home' : 'back home'})</span></a>
+  <a class="btn btn-primary" href={localize('/', locale)}
+    ><span aria-hidden="true">&gt;</span> cd ~ <span class="sub">({nl ? 'terug naar home' : 'back home'})</span></a
+  >
 </main>
 
 <style>

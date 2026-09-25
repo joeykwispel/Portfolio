@@ -1,6 +1,6 @@
 <script lang="ts">
   import { app } from '$lib/app.svelte';
-  import { contributions, getContent } from '$lib/data';
+  import { contributions, getContent, visibleCaseStudies } from '$lib/data';
   import type { Contribution, DiffRow } from '$lib/data';
   import { reveal } from '$lib/utils/actions';
   import SectionHead from './ui/SectionHead.svelte';
@@ -8,6 +8,7 @@
   const c = $derived(getContent(app.locale));
   const t = $derived(c.ui.opensource);
   const COLLAPSED_ROWS = 16;
+  const story = visibleCaseStudies.find((cs) => cs.standalone && cs.contributions?.length);
 
   let expanded = $state<Record<string, boolean>>({});
 
@@ -18,8 +19,7 @@
     deletions: contributions.reduce((n, p) => n + p.deletions, 0)
   };
 
-  const date = (iso: string) =>
-    new Date(iso).toLocaleDateString(app.locale === 'nl' ? 'nl-NL' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  const date = (iso: string) => new Date(iso).toLocaleDateString(app.locale === 'nl' ? 'nl-NL' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
   /** GitHub's 5-block diffstat. */
   const blocks = (p: Contribution) => {
@@ -27,7 +27,11 @@
     return Array.from({ length: 5 }, (_, i) => (i < green ? 'add' : 'del'));
   };
 
-  const initials = (owner: string) => owner.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase();
+  const initials = (owner: string) =>
+    owner
+      .replace(/[^A-Za-z]/g, '')
+      .slice(0, 2)
+      .toUpperCase();
 
   const splitPath = (path: string) => {
     const i = path.lastIndexOf('/');
@@ -36,7 +40,9 @@
 
   /* ---- tiny syntax highlighter for the diff snippets (Python + Go) ---- */
   const KW = new Set(
-    'def class return if else elif try except import from as not in is None True False self global raise with for while lambda func package var const map any type struct nil'.split(' ')
+    'def class return if else elif try except import from as not in is None True False self global raise with for while lambda func package var const map any type struct nil'.split(
+      ' '
+    )
   );
   type Tok = { t: string; c?: string };
   function highlight(src: string, lang: string): Tok[] {
@@ -63,13 +69,19 @@
 
 <section class="section">
   <div class="container">
-    <SectionHead num="06" slug="open-source" title={t.title} intro={t.intro} />
+    <SectionHead section="opensource" slug="open-source" title={t.title} intro={t.intro} />
 
     <ul class="totals mono" use:reveal>
       <li><strong>{totals.prs}</strong> {t.prs}</li>
       <li><strong>{totals.orgs}</strong> {t.orgs}</li>
       <li><strong class="plus">+{totals.additions}</strong> <strong class="minus">−{totals.deletions}</strong> {t.lines}</li>
     </ul>
+    {#if story}
+      <a class="story mono" href={app.href(`/work/${story.slug}/`)}
+        >{c.ui.projects.caseStudy}: {c.caseStudies[story.slug].title}{#if story.status === 'draft'}
+          (draft){/if}</a
+      >
+    {/if}
 
     <ol class="list">
       {#each contributions as p, idx (p.id)}
@@ -97,9 +109,13 @@
                   <span class="state {p.state}">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                       {#if p.state === 'merged'}
-                        <path d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z" />
+                        <path
+                          d="M5.45 5.154A4.25 4.25 0 0 0 9.25 7.5h1.378a2.251 2.251 0 1 1 0 1.5H9.25A5.734 5.734 0 0 1 5 7.123v3.505a2.25 2.25 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.95-.218ZM4.25 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm8.5-4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM5 3.25a.75.75 0 1 0 0 .005V3.25Z"
+                        />
                       {:else}
-                        <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z" />
+                        <path
+                          d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"
+                        />
                       {/if}
                     </svg>
                     {t[p.state]}
@@ -113,7 +129,9 @@
                 <p class="stat mono">
                   <span class="plus">+{p.additions}</span>
                   <span class="minus">−{p.deletions}</span>
-                  <span class="blocks" aria-hidden="true">{#each blocks(p) as b, i (i)}<i class={b}></i>{/each}</span>
+                  <span class="blocks" aria-hidden="true"
+                    >{#each blocks(p) as b, i (i)}<i class={b}></i>{/each}</span
+                  >
                   <span class="files">{p.files} {t.files}</span>
                 </p>
 
@@ -137,11 +155,17 @@
 
               <figure class="diff-card" class:long class:open={expanded[p.id]}>
                 <figcaption class="file mono">
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z" /></svg>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
+                    ><path
+                      d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"
+                    /></svg
+                  >
                   <span class="path"><span class="dir">{path.dir}</span><strong>{path.base}</strong></span>
                   <span class="fstat"><span class="plus">+{p.diff.additions}</span> <span class="minus">−{p.diff.deletions}</span></span>
                 </figcaption>
-                <div class="scroll">
+                <!-- scrollable code must be reachable by keyboard -->
+                <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+                <div class="scroll" tabindex="0" role="region" aria-label="{t.snippet}: {p.diff.file}">
                   <table class="diff mono" aria-label="{t.snippet}: {p.diff.file}">
                     <tbody>
                       {#each p.diff.rows as r, i (i)}
@@ -156,7 +180,9 @@
                             <td class="ln">{r.o ?? ''}</td>
                             <td class="ln">{r.n ?? ''}</td>
                             <td class="sign" aria-hidden="true">{r.k === ' ' ? '' : r.k}</td>
-                            <td class="code">{#each highlight(r.t, lang) as tok, j (j)}{#if tok.c}<span class={tok.c}>{tok.t}</span>{:else}{tok.t}{/if}{/each}</td>
+                            <td class="code"
+                              >{#each highlight(r.t, lang) as tok, j (j)}{#if tok.c}<span class={tok.c}>{tok.t}</span>{:else}{tok.t}{/if}{/each}</td
+                            >
                           {/if}
                         </tr>
                       {/each}
@@ -166,7 +192,18 @@
                 {#if long}
                   <button type="button" class="more mono" aria-expanded={!!expanded[p.id]} onclick={() => (expanded[p.id] = !expanded[p.id])}>
                     {expanded[p.id] ? t.collapse : t.expand}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class:flip={expanded[p.id]}><path d="M6 9l6 6 6-6" /></svg>
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      class:flip={expanded[p.id]}><path d="M6 9l6 6 6-6" /></svg
+                    >
                   </button>
                 {/if}
               </figure>
@@ -179,6 +216,12 @@
 </section>
 
 <style>
+  .story {
+    display: inline-block;
+    margin: 0 0 1.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
   .totals {
     display: flex;
     flex-wrap: wrap;
@@ -274,7 +317,10 @@
     padding: 0.3rem 0.65rem;
     border-radius: 7px;
     border: 1px solid var(--border);
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      background 0.2s;
   }
   .view:hover {
     border-color: var(--accent);
@@ -520,7 +566,9 @@
   :global(.js) .pr tr {
     opacity: 0;
     translate: -6px 0;
-    transition: opacity 0.35s var(--ease), translate 0.35s var(--ease);
+    transition:
+      opacity 0.35s var(--ease),
+      translate 0.35s var(--ease);
     transition-delay: calc(var(--i) * 22ms + 250ms);
   }
   :global(.js) :global(.in) .pr tr {

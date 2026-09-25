@@ -1,7 +1,9 @@
 <script lang="ts">
   import { reveal } from '$lib/utils/actions';
+  import { sectionNum, type SectionId } from '$lib/sections';
   import Scramble from './Scramble.svelte';
-  let { title, intro = '', num = '', slug = '' }: { title: string; intro?: string; num?: string; slug?: string } = $props();
+  let { title, intro = '', section, slug = '' }: { title: string; intro?: string; section?: SectionId; slug?: string } = $props();
+  const num = $derived(section ? sectionNum(section) : '');
 </script>
 
 <header class="section-head" use:reveal>

@@ -3,7 +3,13 @@
   import { app } from '$lib/app.svelte';
 
   /** Decodes `text` from random glyphs, on mount or when scrolled into view. Hovering replays it. */
-  let { text, trigger = 'view', duration = 900, delay = 0, hover = true }: { text: string; trigger?: 'mount' | 'view'; duration?: number; delay?: number; hover?: boolean } = $props();
+  let {
+    text,
+    trigger = 'view',
+    duration = 900,
+    delay = 0,
+    hover = true
+  }: { text: string; trigger?: 'mount' | 'view'; duration?: number; delay?: number; hover?: boolean } = $props();
 
   const GLYPHS = '!<>-_\\/[]{}=+*^?#01$%&';
   let p = $state(1);
@@ -62,7 +68,9 @@
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<span class="scramble" bind:this={el} onpointerenter={() => hover && p >= 1 && run()}><span class="sr-only">{text}</span><span aria-hidden="true">{shown}</span></span>
+<span class="scramble" bind:this={el} onpointerenter={() => hover && p >= 1 && run()}
+  ><span class="sr-only">{text}</span><span aria-hidden="true">{shown}</span></span
+>
 
 <style>
   .scramble {

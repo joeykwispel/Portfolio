@@ -19,3 +19,11 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# fetched from GitHub at build time
+src/lib/data/shared/contributions.live.json
+
+# test output
+test-results
+playwright-report
+.lighthouseci

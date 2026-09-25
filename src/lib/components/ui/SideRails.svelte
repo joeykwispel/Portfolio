@@ -42,7 +42,9 @@
     color: var(--muted);
     text-decoration: none;
     padding: 0.4rem 0;
-    transition: color 0.2s, translate 0.25s var(--ease);
+    transition:
+      color 0.2s,
+      translate 0.25s var(--ease);
   }
   .mail:hover {
     color: var(--accent-text);
