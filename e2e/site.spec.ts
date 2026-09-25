@@ -72,9 +72,13 @@ test('theme toggle switches and persists', async ({ page }) => {
 test('command palette opens with the keyboard', async ({ page, isMobile }) => {
   test.skip(isMobile, 'keyboard shortcut');
   await page.goto('/');
-  await page.keyboard.press('Control+k');
   const dialog = page.getByRole('dialog', { name: /command/i });
-  await expect(dialog).toBeVisible();
+  // A key pressed before the page has hydrated is lost, so keep trying until the shortcut is live.
+  // Only press while closed: the shortcut toggles, and a second press would close it again.
+  await expect(async () => {
+    if (!(await dialog.isVisible())) await page.keyboard.press('Control+k');
+    await expect(dialog).toBeVisible({ timeout: 1000 });
+  }).toPass();
   await page.keyboard.type('cv');
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/cv\/$/);
