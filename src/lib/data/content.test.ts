@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { caseStudies, contributions, coreSkills, getContent, posts, projects, readingMinutes, roles, skills, testimonials } from '$lib/data';
+import { caseStudies, contributions, coreSkills, getContent, posts, projects, readingMinutes, roles, sideProjects, skills, testimonials } from '$lib/data';
 
 /** All key paths of a nested object, so two translations can be compared. */
 function keys(o: unknown, prefix = ''): string[] {
@@ -15,7 +15,7 @@ const en = getContent('en');
 const nl = getContent('nl');
 
 describe('translations', () => {
-  for (const part of ['ui', 'experience', 'projects', 'contributions', 'categories', 'languages', 'profile'] as const) {
+  for (const part of ['ui', 'experience', 'projects', 'sideProjects', 'contributions', 'categories', 'languages', 'profile'] as const) {
     it(`nl has the same ${part} keys as en`, () => {
       expect(structural(nl[part])).toEqual(structural(en[part]));
     });
@@ -40,6 +40,17 @@ describe('data integrity', () => {
 
   it('every skill in a role stack exists', () => {
     for (const r of roles) for (const s of r.stack) expect(skillNames.has(s), `${s} in ${r.id}`).toBe(true);
+  });
+
+  it('every skill in a side project stack exists', () => {
+    for (const p of sideProjects) for (const s of p.stack) expect(skillNames.has(s), `${s} in ${p.id}`).toBe(true);
+  });
+
+  it('every side project has text and a label for each link', () => {
+    for (const p of sideProjects) {
+      expect(en.sideProjects[p.id], p.id).toBeDefined();
+      for (const l of p.links ?? []) expect(en.sideProjects[p.id].links?.[l.id], `${p.id}/${l.id}`).toBeDefined();
+    }
   });
 
   it('every core skill exists', () => {

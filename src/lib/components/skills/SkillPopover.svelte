@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { app } from '$lib/app.svelte';
-  import { getContent, roles, spokenLanguages } from '$lib/data';
+  import { getContent, roles, sideProjects, spokenLanguages } from '$lib/data';
   import { fmtDuration } from '$lib/utils/dates';
   import { proficiencyKey, type SkillStat } from '$lib/utils/derive';
 
@@ -40,7 +40,7 @@
     <dl>
       <div>
         <dt>{c.ui.skills.level}</dt>
-        <dd>{c.ui.skills.levels[level]}</dd>
+        <dd>{!stat.months && stat.sideIds.length ? c.ui.skills.side : c.ui.skills.levels[level]}</dd>
       </div>
       <div>
         <dt>{c.ui.skills.years}</dt>
@@ -56,8 +56,17 @@
           {#if r}<li><strong>{r.company}</strong> <span>{c.experience[id]?.title}</span></li>{/if}
         {/each}
       </ul>
-    {:else}
+    {:else if !stat.sideIds.length}
       <p class="note">{c.ui.skills.noRoles}</p>
+    {/if}
+    {#if stat.sideIds.length}
+      <p class="used">{c.ui.skills.sideIn}</p>
+      <ul>
+        {#each stat.sideIds as id (id)}
+          {@const p = sideProjects.find((x) => x.id === id)}
+          {#if p}<li><strong>{p.name}</strong> <span>{c.sideProjects[id]?.tagline}</span></li>{/if}
+        {/each}
+      </ul>
     {/if}
     <p class="foot">{c.ui.skills.proficiencyNote}</p>
   {/if}

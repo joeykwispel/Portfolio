@@ -80,9 +80,15 @@ test('command palette opens with the keyboard', async ({ page, isMobile }) => {
   await expect(page).toHaveURL(/\/cv\/$/);
 });
 
-test('skills section groups skills in collapsible areas', async ({ page }) => {
+test('skills section links to DevCity and keeps the full list one click away', async ({ page }) => {
   await page.goto('/#skills');
   await loadAll(page);
+  await expect(page.locator('#skills a[href^="https://devcity.joeyoosenbrug.nl/en/"]')).toBeVisible();
+  await expect(page.locator('#skills details')).toHaveCount(0);
+  await page
+    .locator('#skills')
+    .getByRole('button', { name: /browse them as a list/i })
+    .click();
   const area = page.locator('#skills details').first();
   await expect(area).not.toHaveAttribute('open', '');
   await area.locator('summary').click();
@@ -128,4 +134,16 @@ test('published case studies and posts open from the home page', async ({ page }
     expect(res?.status(), href).toBe(200);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   }
+});
+
+test('back link from a post returns to the writing section on the home page', async ({ page }) => {
+  await page.goto('/');
+  await loadAll(page);
+  const post = page.locator('#writing a[href*="/writing/"]').first();
+  test.skip((await post.count()) === 0, 'no published posts');
+  await post.click();
+  await page.locator('a.back').click();
+  await expect(page).toHaveURL(/\/#writing$/);
+  await expect(page.locator('#writing h2')).toBeInViewport();
+  await expect(page.locator('#hero')).toBeAttached();
 });

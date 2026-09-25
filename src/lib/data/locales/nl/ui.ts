@@ -27,7 +27,8 @@ export const ui: UI = {
     work: 'Bekijk werk',
     contact: 'Contact',
     cv: 'Bekijk CV',
-    devcity: 'Verken in 3D',
+    apps: 'Spring naar',
+    soon: 'binnenkort',
     now: 'op project',
     from: 'vanaf'
   },
@@ -39,7 +40,7 @@ export const ui: UI = {
   },
   skills: {
     title: 'Skills',
-    intro: 'Eerst mijn kernstack, daarna de rest per gebied. De balken tonen hoe lang ik een skill in projecten gebruikte.',
+    intro: 'De stack waar ik elke dag mee werk. De volledige set staat in DevCity, waar elke skill een gebouw is.',
     coreTitle: 'Kernstack',
     coreIntro: 'Waar ik elke dag mee werk.',
     allTitle: 'Alles, per gebied',
@@ -54,8 +55,15 @@ export const ui: UI = {
     close: 'Sluiten',
     proficiencyNote: 'Het niveau is afgeleid van de totale duur van de projecten waarin de skill is gebruikt.',
     count: 'skills',
-    devcity: 'Loop in 3D door mijn skills',
-    devcityHint: 'Elke skill is een gebouw in DevCity'
+    cityKicker: 'Alle {n} skills',
+    cityTitle: 'Loop in 3D door mijn skills',
+    cityText:
+      'In DevCity is elke skill een gebouw. Hoe langer ik hem in echte projecten gebruikte, hoe hoger hij staat. Gegroepeerd in wijken per vakgebied, zodat je in één blik ziet waar mijn ervaring zit.',
+    cityCta: 'Open de skills-stad',
+    listShow: 'Of bekijk ze als lijst',
+    listHide: 'Verberg de lijst',
+    side: 'zijproject',
+    sideIn: 'Ook gebruikt in mijn zijprojecten'
   },
   charts: {
     title: 'Inzichten',
@@ -91,17 +99,15 @@ export const ui: UI = {
     linkPlaceholder: 'Linkplaceholder',
     visit: 'Bekijk project',
     role: 'Rol',
-    caseStudy: 'Lees de case'
-  },
-  devcity: {
-    tag: 'Hobbyproject',
-    title: 'DevCity',
-    description:
-      'Mijn CV en GitHub-activiteit als een 3D-stad die je kunt verkennen. Skills, rollen en repositories worden gebouwen waar je tussendoor loopt, en je kunt elke publieke GitHub-repo inladen om de code als skyline te zien.',
-    open: 'Open DevCity',
+    caseStudy: 'Lees de case',
+    own: 'Mijn eigen producten',
+    ownIntro: 'Gebouwd in mijn eigen tijd, open source en live op een subdomein.',
+    clients: 'Klantwerk',
+    sideTag: 'Zijproject',
+    open: 'Open',
     source: 'Broncode op GitHub',
-    layersTitle: 'Ga direct naar een wijk',
-    layers: { skills: 'Mijn skills', career: 'Mijn carrière', repos: 'Mijn repos', 'any-repo': 'Elke GitHub-repo' }
+    here: 'Je kijkt ernaar',
+    jump: 'Ga direct naar'
   },
   caseStudy: {
     back: 'Alle projecten',
@@ -178,7 +184,7 @@ export const ui: UI = {
     mail: 'Stuur een e-mail',
     cv: 'Bekijk CV',
     writing: 'Lees mijn artikelen',
-    devcity: 'Open DevCity (3D)',
+    openApp: 'Open {name}',
     party: 'Start party mode',
     navigate: 'navigeer',
     select: 'kies',
