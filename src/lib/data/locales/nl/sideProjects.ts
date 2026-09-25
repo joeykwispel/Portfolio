@@ -12,8 +12,10 @@ export const sideProjects: Record<string, SideProjectText> = {
     description:
       'De site waar je nu op bent. Een statische SvelteKit-site in het Nederlands en Engels, waarin elke skillduur, grafiek en statistiek wordt berekend uit de data van mijn rollen. Elke pull request doorloopt typechecks, unittests, end-to-end tests, toegankelijkheidsscans en Lighthouse-budgetten voordat hij live mag.'
   },
-  'dev-puzzle': {
-    tagline: 'Een dagelijkse puzzel voor developers',
-    description: 'Elke dag een kleine programmeerpuzzel. Werk in uitvoering.'
+  codeguessr: {
+    tagline: 'Dagelijkse Wordle-puzzel voor developers',
+    description:
+      'Raad het framework, de taal, tool of het protocol van de dag aan de hand van zes hints, te beginnen met de vaagste. Houd je reeks vast, deel je resultaat en speel elke eerdere puzzel in het archief. Werkt offline en zonder account.',
+    links: { today: 'Puzzel van vandaag', archive: 'Archief' }
   }
 };

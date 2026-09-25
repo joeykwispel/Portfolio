@@ -11,6 +11,8 @@
   const featured = projects.filter((p) => caseStudyFor(p.id));
   const rest = projects.filter((p) => !caseStudyFor(p.id));
   const STACK_SHOWN = 8;
+  /** File name in each side project card's window bar, after the language it is written in. */
+  const FILE_EXT: Record<string, string> = { devcity: '.tsx', codeguessr: '.ts', portfolio: '.svelte' };
 </script>
 
 {#snippet card(p: ProjectBase, i: number, big: boolean)}
@@ -54,10 +56,10 @@
 {#snippet side(p: SideProject, i: number)}
   {@const txt = c.sideProjects[p.id]}
   {@const isHere = p.id === 'portfolio'}
-  <li use:reveal={{ delay: (i % 2) * 90 }}>
+  <li use:reveal={{ delay: (i % 3) * 90 }}>
     <article class="card glass ring big own" use:tilt={3}>
       <div class="chrome mono" aria-hidden="true">
-        <span class="dots"><i></i><i></i><i></i></span><span class="file">~/side/<b>{p.id}</b>{p.id === 'devcity' ? '.tsx' : '.svelte'}</span>
+        <span class="dots"><i></i><i></i><i></i></span><span class="file">~/side/<b>{p.id}</b>{FILE_EXT[p.id] ?? '.ts'}</span>
       </div>
       <div class="row">
         <span class="tag side-tag">{c.ui.projects.sideTag}</span>
@@ -105,7 +107,7 @@
       <h3 class="group mono">{c.ui.projects.own}</h3>
       <p>{c.ui.projects.ownIntro}</p>
     </div>
-    <ul class="grid featured">
+    <ul class="grid">
       {#each liveSideProjects as p, i (p.id)}{@render side(p, i)}{/each}
     </ul>
 

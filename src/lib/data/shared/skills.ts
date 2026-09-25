@@ -10,6 +10,7 @@ export const skills: SkillBase[] = [
   ...group('frontend', [
     'Angular',
     'Angular Material',
+    'Angular CDK',
     'React',
     'Vue.js',
     'Svelte',
@@ -36,6 +37,7 @@ export const skills: SkillBase[] = [
     'React Three Fiber',
     'TanStack Query',
     'Zustand',
+    'PWA',
     'Chart.js',
     'Twig'
   ]),
@@ -50,6 +52,8 @@ export const skills: SkillBase[] = [
     'Hono',
     'Pydantic',
     'Zod',
+    'Supabase',
+    'OAuth',
     'Prisma',
     'SQL',
     'MySQL',
@@ -91,6 +95,7 @@ export const skills: SkillBase[] = [
     'Cypress',
     'Cucumber',
     'React Testing Library',
+    'Angular Testing Library',
     'Stryker',
     'Storybook',
     'axe-core',

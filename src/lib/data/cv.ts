@@ -48,11 +48,12 @@ export const cv: Record<'en' | 'nl', Cv> = {
       {
         label: 'Front-End',
         items:
-          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Svelte, SvelteKit, Three.js, React Three Fiber, TanStack Query, Zustand'
+          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Svelte, SvelteKit, Three.js, React Three Fiber, TanStack Query, Zustand, Angular CDK, PWA'
       },
       {
         label: 'Back-End',
-        items: 'PHP, Laravel, Symfony, Zend, NestJS, Python, Hono, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, JSON, YAML, XML, XPath, Zod'
+        items:
+          'PHP, Laravel, Symfony, Zend, NestJS, Python, Hono, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, JSON, YAML, XML, XPath, Zod, Supabase, OAuth'
       },
       {
         label: 'DevOps & CI/CD',
@@ -60,7 +61,7 @@ export const cv: Record<'en' | 'nl', Cv> = {
       },
       {
         label: 'Testing',
-        items: 'Playwright, Jest, Vitest, Cypress, React Testing Library, Stryker, Storybook, axe-core, Lighthouse CI'
+        items: 'Playwright, Jest, Vitest, Cypress, React Testing Library, Angular Testing Library, Stryker, Storybook, axe-core, Lighthouse CI'
       },
       {
         label: 'Platforms & Tools',
@@ -225,6 +226,20 @@ export const cv: Record<'en' | 'nl', Cv> = {
           'Next.js, React, TypeScript, Three.js, React Three Fiber, D3.js, Tailwind CSS, Shadcn, TanStack Query, Zustand, Zod, I18N, Hono, Cloudflare Workers, Turborepo, pnpm, Vitest, Playwright, axe-core, Storybook, ESLint, Prettier, GitHub Actions, GitHub Pages'
       },
       {
+        client: 'Codeguessr - codeguessr.joeyoosenbrug.nl',
+        role: 'Creator',
+        period: 'September 2026 – Present',
+        summary:
+          'A daily Wordle-style puzzle for developers: guess the framework, language, tool or protocol of the day from six clues. Players keep a streak, share their result as an emoji grid and can replay every past puzzle.',
+        bullets: [
+          'Built with Angular 22 using standalone components, signals and zoneless change detection, prerendered to static HTML and installable as an offline-capable PWA.',
+          'Stores puzzles and optional synced stats in Supabase (PostgreSQL) with Google sign-in, protected by Row Level Security that is tested in CI.',
+          'Every pull request runs unit tests, end-to-end and axe accessibility tests on desktop and mobile, and Lighthouse budgets; English and Dutch routes.'
+        ],
+        stack:
+          'Angular, Angular CDK, TypeScript, RxJS, PWA, I18N, Supabase, PostgreSQL, OAuth, Vitest, Angular Testing Library, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
+      },
+      {
         client: 'Portfolio - joeyoosenbrug.nl',
         role: 'Creator',
         period: 'September 2026 – Present',
@@ -273,12 +288,12 @@ export const cv: Record<'en' | 'nl', Cv> = {
       {
         label: 'Front-end',
         items:
-          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Shadcn, I18N, Svelte, SvelteKit, Three.js, React Three Fiber, TanStack Query, Zustand'
+          'Angular, Angular Material, React, Vue.js, Next.js, Nuxt, Ionic Framework, TypeScript, JavaScript (ES6), RxJS, XML, Web Components, jQuery, HTML5, Semantic HTML5, CSS3, SASS, SCSS, Styled Components, Tailwind CSS, Shadcn, I18N, Svelte, SvelteKit, Three.js, React Three Fiber, TanStack Query, Zustand, Angular CDK, PWA'
       },
       {
         label: 'Back-end',
         items:
-          'PHP, Laravel, Symfony, Zend, NestJS, Python, FastAPI, Hono, Pydantic, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, OpenAPI, Swagger, JSON, YAML, XML, XPath, JWT, Zod'
+          'PHP, Laravel, Symfony, Zend, NestJS, Python, FastAPI, Hono, Pydantic, Prisma, SQL, MySQL, PostgreSQL, SQLite, RESTful APIs, OpenAPI, Swagger, JSON, YAML, XML, XPath, JWT, Zod, Supabase, OAuth'
       },
       {
         label: 'DevOps & CI/CD',
@@ -287,7 +302,8 @@ export const cv: Record<'en' | 'nl', Cv> = {
       },
       {
         label: 'Testing',
-        items: 'Playwright, Jest, Vitest, Pytest, Cypress, React Testing Library, Stryker, Storybook, ast-grep, axe-core, Lighthouse CI'
+        items:
+          'Playwright, Jest, Vitest, Pytest, Cypress, React Testing Library, Angular Testing Library, Stryker, Storybook, ast-grep, axe-core, Lighthouse CI'
       },
       {
         label: 'Platforms & Tools',
@@ -450,6 +466,20 @@ export const cv: Record<'en' | 'nl', Cv> = {
         ],
         stack:
           'Next.js, React, TypeScript, Three.js, React Three Fiber, D3.js, Tailwind CSS, Shadcn, TanStack Query, Zustand, Zod, I18N, Hono, Cloudflare Workers, Turborepo, pnpm, Vitest, Playwright, axe-core, Storybook, ESLint, Prettier, GitHub Actions, GitHub Pages'
+      },
+      {
+        client: 'Codeguessr - codeguessr.joeyoosenbrug.nl',
+        role: 'Maker',
+        period: 'september 2026 – heden',
+        summary:
+          'Een dagelijkse Wordle-achtige puzzel voor developers: raad het framework, de taal, tool of het protocol van de dag aan de hand van zes hints. Spelers houden een reeks bij, delen hun resultaat als emojiraster en kunnen elke eerdere puzzel opnieuw spelen.',
+        bullets: [
+          'Gebouwd met Angular 22 met standalone components, signals en zoneless change detection, geprerenderd naar statische HTML en te installeren als offline werkende PWA.',
+          'Slaat puzzels en optioneel gesynchroniseerde statistieken op in Supabase (PostgreSQL) met Google-login, beveiligd met Row Level Security die in CI wordt getest.',
+          'Elke pull request doorloopt unittests, end-to-end- en axe-toegankelijkheidstests op desktop en mobiel, en Lighthouse-budgetten; Nederlandse en Engelse routes.'
+        ],
+        stack:
+          'Angular, Angular CDK, TypeScript, RxJS, PWA, I18N, Supabase, PostgreSQL, OAuth, Vitest, Angular Testing Library, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
       },
       {
         client: 'Portfolio - joeyoosenbrug.nl',

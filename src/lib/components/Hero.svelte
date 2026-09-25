@@ -363,7 +363,7 @@
   .tagline {
     color: var(--muted);
     font-size: clamp(0.95rem, 1.5vw, 1.05rem);
-    max-width: 64ch;
+    max-width: 84ch;
     text-wrap: balance;
   }
 
@@ -390,7 +390,7 @@
   }
   /* side quests: apps on their own subdomain */
   .quests {
-    width: min(640px, 100%);
+    width: min(760px, 100%);
     display: grid;
     gap: 0.45rem;
   }
@@ -415,8 +415,7 @@
   }
   .tiles {
     display: grid;
-    /* DevCity gets the wider column so its district links fit on one row */
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.6rem;
     text-align: left;
   }
@@ -527,7 +526,7 @@
     margin-top: 0.2rem;
   }
   .district {
-    padding: 0.1rem 0.5rem;
+    padding: 0.1rem 0.45rem;
     border: 1px solid var(--border);
     border-radius: 999px;
     font-size: 0.68rem;
