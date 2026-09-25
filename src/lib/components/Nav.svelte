@@ -137,7 +137,6 @@
   .nav.scrolled {
     background: color-mix(in srgb, var(--bg) 78%, transparent);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border-color: var(--border);
   }
   .progress {

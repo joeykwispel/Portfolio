@@ -167,7 +167,6 @@
     z-index: 50;
     background: color-mix(in srgb, var(--bg) 80%, transparent);
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
   }
   .bar {
