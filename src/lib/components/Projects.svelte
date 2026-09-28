@@ -12,7 +12,7 @@
   const rest = projects.filter((p) => !caseStudyFor(p.id));
   const STACK_SHOWN = 8;
   /** File name in each side project card's window bar, after the language it is written in. */
-  const FILE_EXT: Record<string, string> = { devcity: '.tsx', codeguessr: '.ts', portfolio: '.svelte' };
+  const FILE_EXT: Record<string, string> = { devcity: '.tsx', codeguessr: '.ts', arcade: '.svelte', portfolio: '.svelte' };
 </script>
 
 {#snippet card(p: ProjectBase, i: number, big: boolean)}

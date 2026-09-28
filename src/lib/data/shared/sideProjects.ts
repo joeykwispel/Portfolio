@@ -84,6 +84,35 @@ export const sideProjects: SideProject[] = [
     ]
   },
   {
+    id: 'arcade',
+    name: 'Arcade',
+    url: 'https://arcade.joeyoosenbrug.nl',
+    repo: 'https://github.com/joeykwispel/arcade',
+    status: 'live',
+    localeRoutes: 'dutch-prefix',
+    start: '2026-09',
+    stack: [
+      'Svelte',
+      'SvelteKit',
+      'TypeScript',
+      'JavaScript (ES6)',
+      'HTML5',
+      'I18N',
+      'Vite',
+      'Vitest',
+      'Playwright',
+      'axe-core',
+      'ESLint',
+      'Prettier',
+      'GitHub Actions',
+      'GitHub Pages'
+    ],
+    links: [
+      { id: 'games', path: '' },
+      { id: 'duck', path: 'play/duck/' }
+    ]
+  },
+  {
     id: 'portfolio',
     name: 'joeyoosenbrug.nl',
     url: 'https://joeyoosenbrug.nl',

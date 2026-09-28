@@ -17,5 +17,11 @@ export const sideProjects: Record<string, SideProjectText> = {
     description:
       'Raad het framework, de taal, tool of het protocol van de dag aan de hand van zes hints, te beginnen met de vaagste. Houd je reeks vast, deel je resultaat en speel elke eerdere puzzel in het archief. Werkt offline en zonder account.',
     links: { today: 'Puzzel van vandaag', archive: 'Archief' }
+  },
+  arcade: {
+    tagline: 'Browsergames, elk in een andere stack',
+    description:
+      'Een verzameling kleine browsergames, elk gebouwd met een andere frontend-stack om te voelen hoe ze zich verhouden. De eerste is Rubber Duck Run, het offline dinospel voor developers: spring over bugs en merge conflicts, duik onder meeting-uitnodigingen. Speelbaar met toetsen of touch.',
+    links: { games: 'Alle spellen', duck: 'Rubber Duck Run' }
   }
 };

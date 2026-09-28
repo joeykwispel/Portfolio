@@ -478,13 +478,19 @@
     border-bottom: 1px solid var(--border);
     background: var(--surface);
   }
+  /* On narrow screens the directory is cut short, never the file name. */
   .path {
+    display: flex;
+    min-width: 0;
+    white-space: nowrap;
+  }
+  .path .dir {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
   .path strong {
+    flex: none;
     color: var(--text);
   }
   .fstat {

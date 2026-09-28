@@ -152,3 +152,45 @@ test('back link from a post returns to the writing section on the home page', as
   await expect(page.locator('#writing h2')).toBeInViewport();
   await expect(page.locator('#hero')).toBeAttached();
 });
+
+test('hero links to every side project', async ({ page }) => {
+  await page.goto('/');
+  for (const host of ['devcity', 'codeguessr', 'arcade']) {
+    await expect(page.locator(`#hero a.tile-link[href^="https://${host}.joeyoosenbrug.nl/"]`)).toBeVisible();
+  }
+});
+
+for (const path of ['/', '/nl/', '/cv/']) {
+  test(`nothing is cut off at the side on ${path}`, async ({ page, isMobile }) => {
+    test.skip(!isMobile, 'phone layout');
+    await page.goto(path);
+    await loadAll(page);
+    // body has overflow-x: hidden, so a too-wide element does not scroll the page; it is silently clipped.
+    // Look for elements that stick out of the viewport or of a clipping parent. Scrollers, marquees and decoration are fine.
+    const clipped = await page.evaluate(() => {
+      const vw = document.documentElement.clientWidth;
+      const found: string[] = [];
+      for (const el of document.querySelectorAll('body *')) {
+        if (el.closest('[aria-hidden="true"], svg, canvas, .sr-only')) continue;
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) continue;
+        let left = 0;
+        let right = vw;
+        let scroller = false;
+        for (let a = el.parentElement; a && a !== document.body; a = a.parentElement) {
+          const o = getComputedStyle(a).overflowX;
+          if (o === 'auto' || o === 'scroll') scroller = true;
+          if (o !== 'visible') {
+            const b = a.getBoundingClientRect();
+            left = Math.max(left, b.left);
+            right = Math.min(right, b.right);
+            break;
+          }
+        }
+        if (!scroller && (r.left < left - 2 || r.right > right + 2)) found.push(`${el.tagName} "${el.textContent?.trim().slice(0, 40)}"`);
+      }
+      return found;
+    });
+    expect(clipped).toEqual([]);
+  });
+}

@@ -111,7 +111,7 @@
     <span class="grow"></span>
     <span>Ln {cursor.ln + 1}, Col {cursor.col + 1}</span>
     <span>UTF-8</span>
-    <span class="live"><i></i>{status}</span>
+    <span class="live"><i></i><span class="live-text">{status}</span></span>
   </div>
 </div>
 
@@ -249,9 +249,15 @@
     display: flex;
     align-items: center;
     gap: 0.35rem;
+    min-width: 0;
     color: var(--syn-num);
   }
+  .live-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .live i {
+    flex: none;
     width: 7px;
     height: 7px;
     border-radius: 50%;
