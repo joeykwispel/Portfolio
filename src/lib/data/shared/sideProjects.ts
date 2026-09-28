@@ -97,6 +97,8 @@ export const sideProjects: SideProject[] = [
       'TypeScript',
       'JavaScript (ES6)',
       'HTML5',
+      'Rust',
+      'WebAssembly',
       'I18N',
       'Vite',
       'Vitest',
@@ -108,8 +110,8 @@ export const sideProjects: SideProject[] = [
       'GitHub Pages'
     ],
     links: [
-      { id: 'games', path: '' },
-      { id: 'duck', path: 'play/duck/' }
+      { id: 'duck', path: 'play/duck/' },
+      { id: 'bug-bash', path: 'play/bug-bash/' }
     ]
   },
   {
