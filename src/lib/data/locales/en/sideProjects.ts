@@ -17,5 +17,11 @@ export const sideProjects: Record<string, SideProjectText> = {
     description:
       'Guess the framework, language, tool or protocol of the day from six clues, starting with the vaguest. Keep your streak, share your result grid, and play every past puzzle in the archive. Works offline and without an account.',
     links: { today: "Today's puzzle", archive: 'Archive' }
+  },
+  arcade: {
+    tagline: 'Browser games, each in a different stack',
+    description:
+      'A hub of small browser games, each built with a different frontend stack to feel how they compare. The first is Rubber Duck Run, the offline dino game for developers: jump the bugs and merge conflicts, duck under the meeting invites. Plays with keys or touch.',
+    links: { games: 'All games', duck: 'Rubber Duck Run' }
   }
 };

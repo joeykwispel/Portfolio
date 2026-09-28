@@ -88,6 +88,27 @@
                       style="--i:{i}"
                     />{/each}</svg
                 >
+              {:else if p.id === 'arcade'}
+                <svg
+                  class="pad"
+                  viewBox="0 0 24 24"
+                  width="30"
+                  height="30"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M7 7h10a5 5 0 0 1 4.9 6l-.6 3a2.6 2.6 0 0 1-4.6 1.1L15 15H9l-1.7 2.1a2.6 2.6 0 0 1-4.6-1.1l-.6-3A5 5 0 0 1 7 7zM7 10v3M5.5 11.5h3"
+                  /><circle class="btn-a" cx="16" cy="10.5" r=".6" fill="currentColor" /><circle
+                    class="btn-b"
+                    cx="18"
+                    cy="12.5"
+                    r=".6"
+                    fill="currentColor"
+                  /></svg
+                >
               {:else}
                 <svg class="piece" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
                   ><path d="M4 7h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H4v-4a2 2 0 1 0 0-4z" /></svg
@@ -136,6 +157,8 @@
     position: relative;
     min-height: 100svh;
     display: grid;
+    /* minmax(0, …) columns: without them the widest line (the role, the editor) sets the width and the hero spills off phones */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: 1fr auto;
     padding-top: calc(var(--nav-h) + clamp(0.75rem, 3vh, 3rem));
     overflow: hidden;
@@ -220,6 +243,7 @@
   .inner {
     grid-row: 1;
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     justify-items: center;
     /* centered in the free space, weighted towards the top by the larger bottom padding */
     align-content: safe center;
@@ -390,7 +414,7 @@
   }
   /* side quests: apps on their own subdomain */
   .quests {
-    width: min(760px, 100%);
+    width: min(1040px, 100%);
     display: grid;
     gap: 0.45rem;
   }
@@ -415,7 +439,7 @@
   }
   .tiles {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
     gap: 0.6rem;
     text-align: left;
   }
@@ -483,6 +507,23 @@
     }
     95% {
       transform: rotate(-5deg);
+    }
+  }
+  .pad .btn-a {
+    animation: press 2.4s steps(1) infinite;
+  }
+  .pad .btn-b {
+    animation: press 2.4s steps(1) infinite 0.3s;
+  }
+  @keyframes press {
+    0%,
+    70%,
+    100% {
+      opacity: 1;
+    }
+    75%,
+    85% {
+      opacity: 0.2;
     }
   }
   .tile-body {
@@ -562,11 +603,6 @@
     color: var(--accent-2-text);
     vertical-align: middle;
   }
-  @media (max-width: 640px) {
-    .tiles {
-      grid-template-columns: 1fr;
-    }
-  }
   /* Short screens (laptops): tighten spacing so the skills slider at the bottom stays in view. */
   @media (min-width: 700px) and (max-height: 820px) {
     .hero {
@@ -612,6 +648,7 @@
   @media (prefers-reduced-motion: reduce) {
     .tile,
     .piece,
+    .pad circle,
     .tile:hover .bld {
       animation: none;
       transition: none;
