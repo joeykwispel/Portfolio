@@ -74,6 +74,7 @@ describe('data integrity', () => {
     expect(sideProjectHref(app('codeguessr'), 'nl', 'archive/')).toBe('https://codeguessr.joeyoosenbrug.nl/nl/archive/');
     expect(sideProjectHref(app('arcade'), 'nl', 'play/duck/')).toBe('https://arcade.joeyoosenbrug.nl/nl/play/duck/');
     expect(sideProjectHref(app('arcade'), 'en', 'play/bug-bash/')).toBe('https://arcade.joeyoosenbrug.nl/play/bug-bash/');
+    expect(sideProjectHref(app('arcade'), 'nl', 'play/deploy-tycoon/')).toBe('https://arcade.joeyoosenbrug.nl/nl/play/deploy-tycoon/');
     expect(sideProjectHref(app('portfolio'), 'nl')).toBe('https://joeyoosenbrug.nl/');
   });
 

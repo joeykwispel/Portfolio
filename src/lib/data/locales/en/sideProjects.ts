@@ -21,7 +21,14 @@ export const sideProjects: Record<string, SideProjectText> = {
   arcade: {
     tagline: 'Browser games, each in a different stack',
     description:
-      'A hub of small browser games, each built with a different stack to feel how they compare. Rubber Duck Run is the offline dino game for developers in vanilla JavaScript and Canvas: jump the bugs, duck under the meeting invites. Bug Bash is a tower defense in Rust compiled to WebAssembly: install linters, unit tests and rubber ducks to squash bugs before they reach production.',
-    links: { duck: 'Rubber Duck Run', 'bug-bash': 'Bug Bash' }
+      'A hub of small browser games for developers, each built with a different stack to feel how they compare. Jump bugs in a dino runner (vanilla JavaScript), defend production in a tower defense (Rust + WebAssembly), untangle commit graphs with real git commands (React), survive the workday (Kotlin/JS), fly through a 3D tunnel of code (ReScript + Three.js) and grow a garage startup into an IPO (Elm).',
+    links: {
+      duck: 'Rubber Duck Run',
+      'bug-bash': 'Bug Bash',
+      'git-gud': 'Git Gud',
+      'standup-survivor': 'Standup Survivor',
+      'infinite-scroll': 'Infinite Scroll',
+      'deploy-tycoon': 'Deploy Tycoon'
+    }
   }
 };

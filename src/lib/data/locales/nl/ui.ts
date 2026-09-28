@@ -30,6 +30,7 @@ export const ui: UI = {
     apps: 'zijmissies',
     appsHint: 'Voor de lol gebouwd. Toe maar, klik er eentje.',
     soon: 'binnenkort',
+    more: 'meer',
     now: 'op project',
     from: 'vanaf'
   },
