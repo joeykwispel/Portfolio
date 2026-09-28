@@ -91,16 +91,23 @@ export const sideProjects: SideProject[] = [
     status: 'live',
     localeRoutes: 'dutch-prefix',
     start: '2026-09',
+    // Every game is built with a different stack, so the languages come first on the card.
     stack: [
       'Svelte',
-      'SvelteKit',
-      'TypeScript',
-      'JavaScript (ES6)',
-      'HTML5',
+      'React',
       'Rust',
       'WebAssembly',
+      'Kotlin',
+      'Elm',
+      'ReScript',
+      'Three.js',
+      'TypeScript',
+      'JavaScript (ES6)',
+      'SvelteKit',
+      'HTML5',
       'I18N',
       'Vite',
+      'Gradle',
       'Vitest',
       'Playwright',
       'axe-core',
@@ -111,8 +118,13 @@ export const sideProjects: SideProject[] = [
     ],
     links: [
       { id: 'duck', path: 'play/duck/' },
-      { id: 'bug-bash', path: 'play/bug-bash/' }
-    ]
+      { id: 'bug-bash', path: 'play/bug-bash/' },
+      { id: 'git-gud', path: 'play/git-gud/' },
+      { id: 'standup-survivor', path: 'play/standup-survivor/' },
+      { id: 'infinite-scroll', path: 'play/infinite-scroll/' },
+      { id: 'deploy-tycoon', path: 'play/deploy-tycoon/' }
+    ],
+    heroLinks: 2
   },
   {
     id: 'portfolio',

@@ -29,6 +29,7 @@ export const ui = {
     apps: 'side quests',
     appsHint: 'Things I build for fun. Go on, poke one.',
     soon: 'coming soon',
+    more: 'more',
     now: 'on project',
     from: 'from'
   },

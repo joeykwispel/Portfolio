@@ -125,8 +125,10 @@
               {/if}
               <span class="tile-text">{txt.tagline}</span>
               {#if p.status === 'live' && p.links?.length}
+                {@const shown = p.links.slice(0, p.heroLinks ?? p.links.length)}
+                {@const hidden = p.links.length - shown.length}
                 <span class="districts">
-                  {#each p.links as l (l.id)}
+                  {#each shown as l (l.id)}
                     <a
                       class="district mono"
                       href={sideProjectHref(p, app.locale, l.path)}
@@ -135,6 +137,15 @@
                       aria-label="{p.name}: {txt.links?.[l.id]}">{txt.links?.[l.id]}</a
                     >
                   {/each}
+                  {#if hidden > 0}
+                    <a
+                      class="district mono"
+                      href={sideProjectHref(p, app.locale)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="{p.name}: {hidden} {c.ui.hero.more}">+{hidden}</a
+                    >
+                  {/if}
                 </span>
               {/if}
             </span>
