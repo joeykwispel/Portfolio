@@ -38,6 +38,7 @@ export const skills: SkillBase[] = [
     'TanStack Query',
     'Zustand',
     'PWA',
+    'WebAssembly',
     'Chart.js',
     'Twig'
   ]),
@@ -48,6 +49,7 @@ export const skills: SkillBase[] = [
     'Zend',
     'NestJS',
     'Python',
+    'Rust',
     'FastAPI',
     'Hono',
     'Pydantic',
