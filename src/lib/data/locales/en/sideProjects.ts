@@ -21,14 +21,21 @@ export const sideProjects: Record<string, SideProjectText> = {
   arcade: {
     tagline: 'Browser games, each in a different stack',
     description:
-      'A hub of small browser games for developers, each built with a different stack to feel how they compare. Jump bugs in a dino runner (vanilla JavaScript), defend production in a tower defense (Rust + WebAssembly), untangle commit graphs with real git commands (React), survive the workday (Kotlin/JS), fly through a 3D tunnel of code (ReScript + Three.js) and grow a garage startup into an IPO (Elm).',
+      'A hub of browser games for developers, each built with a different stack to feel how they compare: vanilla JavaScript, Rust + WebAssembly, React, Kotlin/JS, ReScript + Three.js, Elm, Lua, C++ + Box2D, Gleam, Dart + Flutter, Python in the browser, Godot, and one with no JavaScript at all. Defend production from bugs, untangle commit graphs with real git commands, stack npm packages until left-pad disappears, swipe through code reviews, rm your way through a filesystem dungeon or golf through web pages.',
     links: {
       duck: 'Rubber Duck Run',
       'bug-bash': 'Bug Bash',
       'git-gud': 'Git Gud',
       'standup-survivor': 'Standup Survivor',
       'infinite-scroll': 'Infinite Scroll',
-      'deploy-tycoon': 'Deploy Tycoon'
+      'deploy-tycoon': 'Deploy Tycoon',
+      'semicolon-snake': 'Semicolon Snake',
+      'dependency-hell': 'Dependency Hell',
+      'dev-ware': 'Dev-Ware',
+      'cookie-consent': 'Cookie Consent Speedrun',
+      'code-review-tinder': 'Code Review Tinder',
+      'rm-rf-dungeon': 'rm -rf dungeon',
+      'localhost-golf': 'Localhost Golf'
     }
   }
 };
