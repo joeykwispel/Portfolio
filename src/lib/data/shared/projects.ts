@@ -3,6 +3,7 @@ import type { ProjectBase } from '../types';
 /** Projects come from the CV's client work. `link: null` renders a marked placeholder.
  * Vice links to their Instagram, where the content built with the platform was published. */
 export const projects: ProjectBase[] = [
+  { id: 'belastingdienst', name: 'Belastingdienst', roleId: 'belastingdienst', tags: ['XML', 'Agile', 'Scrum'], link: 'https://www.belastingdienst.nl/' },
   {
     id: 'pqnavigator',
     name: 'PQNavigator',

@@ -6,11 +6,20 @@ import type { RoleBase } from '../types';
  */
 export const roles: RoleBase[] = [
   {
+    id: 'belastingdienst',
+    company: 'Belastingdienst',
+    kind: 'work',
+    start: '2026-10',
+    end: null,
+    via: 'Competa IT',
+    stack: ['XML', 'Agile', 'Scrum']
+  },
+  {
     id: 'pqnavigator',
     company: 'PQNavigator (RVO)',
     kind: 'work',
     start: '2026-07',
-    end: null,
+    end: '2026-09',
     via: 'Competa IT',
     stack: [
       'Next.js',

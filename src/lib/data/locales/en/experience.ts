@@ -1,6 +1,11 @@
 import type { RoleTextMap } from '../../types';
 
 export const experience: RoleTextMap = {
+  belastingdienst: {
+    title: 'Senior Front-end Developer & Document Builder',
+    summary: 'Works at the Dutch Tax Administration as a document builder, working with XML within an Agile Scrum team.',
+    bullets: []
+  },
   pqnavigator: {
     title: 'Senior Front-end & Fullstack Developer',
     summary:
