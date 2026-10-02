@@ -37,5 +37,17 @@ export const sideProjects: Record<string, SideProjectText> = {
       'rm-rf-dungeon': 'rm -rf dungeon',
       'localhost-golf': 'Localhost Golf'
     }
+  },
+  tools: {
+    tagline: 'Developertools die in je browser draaien',
+    description:
+      'Een dashboard met de kleine tools die je als developer steeds weer nodig hebt, zelf gebouwd, plus een selectie links naar de beste tools elders. Elke tool draait in de browser, dus wat je erin plakt wordt nergens naartoe gestuurd. De regex-tester is de eerste; de rest staat als binnenkort in de lijst. Geef je favorieten een ster om ze vast te zetten, en log in met Google om ze tussen apparaten te synchroniseren.',
+    links: { regex: 'Regex-tester' }
+  },
+  designkit: {
+    tagline: 'Het design system achter deze sites',
+    description:
+      'Het design system van joeyoosenbrug.nl en de subdomeinen, gepubliceerd als npm-package: tokens voor beide thema’s, basisstijlen, componenten en de gedeelde header, voor gewone HTML, Svelte, React en Tailwind. Elke tokenwaarde staat op één plek en de CSS, JSON en het Tailwind-thema worden daaruit gegenereerd. De documentatiesite is gebouwd met het package zelf, met live voorbeelden en richtlijnen.',
+    links: { tokens: 'Tokens', components: 'Componenten', header: 'Header', guidelines: 'Richtlijnen', changelog: 'Changelog' }
   }
 };

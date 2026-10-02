@@ -37,5 +37,17 @@ export const sideProjects: Record<string, SideProjectText> = {
       'rm-rf-dungeon': 'rm -rf dungeon',
       'localhost-golf': 'Localhost Golf'
     }
+  },
+  tools: {
+    tagline: 'Developer tools that run in your browser',
+    description:
+      'A dashboard of the small tools a developer keeps reaching for, built in-house, plus hand-picked links to the best ones elsewhere. Every tool runs in the browser, so what you paste into it is never sent anywhere. The regex tester is the first one; the rest are listed as coming soon. Star your favourites to pin them, and sign in with Google to sync them across devices.',
+    links: { regex: 'Regex tester' }
+  },
+  designkit: {
+    tagline: 'The design system behind these sites',
+    description:
+      'The design system of joeyoosenbrug.nl and its subdomains, published as an npm package: tokens for both themes, base styles, components and the shared header, for plain HTML, Svelte, React and Tailwind. Every token value is typed once and the CSS, JSON and Tailwind theme are generated from it. The documentation site is built with the package itself, with live examples and guidelines.',
+    links: { tokens: 'Tokens', components: 'Components', header: 'Header', guidelines: 'Guidelines', changelog: 'Changelog' }
   }
 };

@@ -155,7 +155,7 @@ test('back link from a post returns to the writing section on the home page', as
 
 test('hero links to every side project', async ({ page }) => {
   await page.goto('/');
-  for (const host of ['devcity', 'codeguessr', 'arcade']) {
+  for (const host of ['devcity', 'codeguessr', 'arcade', 'tools', 'designkit']) {
     await expect(page.locator(`#hero a.tile-link[href^="https://${host}.joeyoosenbrug.nl/"]`)).toBeVisible();
   }
 });

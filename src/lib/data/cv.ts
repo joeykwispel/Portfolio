@@ -248,6 +248,34 @@ export const cv: Record<'en' | 'nl', Cv> = {
           'Angular, Angular CDK, TypeScript, RxJS, PWA, I18N, Supabase, PostgreSQL, OAuth, Vitest, Angular Testing Library, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
       },
       {
+        client: 'Tools - tools.joeyoosenbrug.nl',
+        role: 'Creator',
+        period: 'October 2026 – Present',
+        summary:
+          'A dashboard of developer tools that run entirely in the browser, so nothing a user pastes into a tool is sent to a server. The regex tester is the first tool; the others are listed as coming soon.',
+        bullets: [
+          'Built as a static SvelteKit site in which one registry drives the tool cards, routes, translations and tests.',
+          'Locked down with a Content Security Policy that only allows the page itself and the Supabase project behind the optional sign-in.',
+          'Favourites are kept in the browser and sync across devices after Google sign-in, protected by Row Level Security that is tested in CI.'
+        ],
+        stack:
+          'Svelte, SvelteKit, TypeScript, Vite, I18N, Supabase, PostgreSQL, OAuth, Vitest, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
+      },
+      {
+        client: 'Design Kit - designkit.joeyoosenbrug.nl',
+        role: 'Creator',
+        period: 'October 2026 – Present',
+        summary:
+          'The design system of joeyoosenbrug.nl and its subdomains, published as the npm package @joeykwispel/design-kit: tokens for both themes, base styles, components and the shared header.',
+        bullets: [
+          'Every token value is typed once in TypeScript; the build generates the CSS, the JSON and the Tailwind 4 theme from it.',
+          'Ships the shared header as plain HTML, a Svelte 5 component and a React component, so apps in different frameworks look the same.',
+          'Documented on a bilingual site built with the package itself, and released to npm from GitHub Actions with provenance.'
+        ],
+        stack:
+          'TypeScript, CSS, Svelte, React, Tailwind CSS, SvelteKit, npm, Vite, I18N, Vitest, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, WCAG 2.2, GitHub Actions, GitHub Pages'
+      },
+      {
         client: 'Portfolio - joeyoosenbrug.nl',
         role: 'Creator',
         period: 'September 2026 – Present',
@@ -496,6 +524,34 @@ export const cv: Record<'en' | 'nl', Cv> = {
         ],
         stack:
           'Angular, Angular CDK, TypeScript, RxJS, PWA, I18N, Supabase, PostgreSQL, OAuth, Vitest, Angular Testing Library, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
+      },
+      {
+        client: 'Tools - tools.joeyoosenbrug.nl',
+        role: 'Maker',
+        period: 'oktober 2026 – heden',
+        summary:
+          'Een dashboard met developertools die volledig in de browser draaien, zodat niets wat een gebruiker in een tool plakt naar een server gaat. De regex-tester is de eerste tool; de andere staan als binnenkort in de lijst.',
+        bullets: [
+          'Gebouwd als statische SvelteKit-site waarin één registry de toolkaarten, routes, vertalingen en tests aanstuurt.',
+          'Afgeschermd met een Content Security Policy die alleen de pagina zelf en het Supabase-project achter de optionele login toestaat.',
+          'Favorieten staan in de browser en synchroniseren tussen apparaten na inloggen met Google, beveiligd met Row Level Security die in CI wordt getest.'
+        ],
+        stack:
+          'Svelte, SvelteKit, TypeScript, Vite, I18N, Supabase, PostgreSQL, OAuth, Vitest, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, SEO, WCAG 2.2, GitHub Actions, GitHub Pages'
+      },
+      {
+        client: 'Design Kit - designkit.joeyoosenbrug.nl',
+        role: 'Maker',
+        period: 'oktober 2026 – heden',
+        summary:
+          'Het design system van joeyoosenbrug.nl en de subdomeinen, gepubliceerd als het npm-package @joeykwispel/design-kit: tokens voor beide thema’s, basisstijlen, componenten en de gedeelde header.',
+        bullets: [
+          'Elke tokenwaarde staat één keer in TypeScript; de build genereert daaruit de CSS, de JSON en het Tailwind 4-thema.',
+          'Levert de gedeelde header als gewone HTML, als Svelte 5-component en als React-component, zodat apps in verschillende frameworks er hetzelfde uitzien.',
+          'Gedocumenteerd op een tweetalige site die met het package zelf is gebouwd, en vanuit GitHub Actions met provenance naar npm gepubliceerd.'
+        ],
+        stack:
+          'TypeScript, CSS, Svelte, React, Tailwind CSS, SvelteKit, npm, Vite, I18N, Vitest, Playwright, axe-core, Lighthouse CI, ESLint, Prettier, WCAG 2.2, GitHub Actions, GitHub Pages'
       },
       {
         client: 'Portfolio - joeyoosenbrug.nl',
