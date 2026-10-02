@@ -3,7 +3,7 @@ import type { ProjectText } from '../../types';
 export const projects: Record<string, ProjectText> = {
   belastingdienst: {
     sector: 'Public sector',
-    description: 'Front-end development and document building with XML for the Dutch Tax Administration, within an Agile Scrum team.'
+    description: 'Document building with XML for the Dutch Tax Administration, within an Agile Scrum team.'
   },
   pqnavigator: {
     sector: 'Public sector',
