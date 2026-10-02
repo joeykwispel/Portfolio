@@ -109,6 +109,34 @@
                     fill="currentColor"
                   /></svg
                 >
+              {:else if p.id === 'tools'}
+                <svg
+                  class="wrench"
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path
+                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
+                  /></svg
+                >
+              {:else if p.id === 'designkit'}
+                <svg
+                  class="layers"
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path class="l-top" d="M12 2 2 7l10 5 10-5z" /><path class="l-mid" d="m2 12 10 5 10-5" /><path class="l-low" d="m2 17 10 5 10-5" /></svg
+                >
               {:else}
                 <svg class="piece" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"
                   ><path d="M4 7h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H4v-4a2 2 0 1 0 0-4z" /></svg
@@ -425,7 +453,7 @@
   }
   /* side quests: apps on their own subdomain */
   .quests {
-    width: min(1040px, 100%);
+    width: 100%;
     display: grid;
     gap: 0.45rem;
   }
@@ -450,7 +478,7 @@
   }
   .tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(12.5rem, 100%), 1fr));
     gap: 0.6rem;
     text-align: left;
   }
@@ -536,6 +564,21 @@
     85% {
       opacity: 0.2;
     }
+  }
+  .wrench {
+    transition: transform 0.4s var(--ease);
+  }
+  .tile:hover .wrench {
+    transform: rotate(-35deg);
+  }
+  .layers path {
+    transition: transform 0.3s var(--ease);
+  }
+  .tile:hover .l-top {
+    transform: translateY(-1.5px);
+  }
+  .tile:hover .l-low {
+    transform: translateY(1.5px);
   }
   .tile-body {
     display: grid;
@@ -659,6 +702,8 @@
   @media (prefers-reduced-motion: reduce) {
     .tile,
     .piece,
+    .wrench,
+    .layers path,
     .pad circle,
     .tile:hover .bld {
       animation: none;

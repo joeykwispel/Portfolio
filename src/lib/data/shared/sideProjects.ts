@@ -46,7 +46,8 @@ export const sideProjects: SideProject[] = [
       { id: 'career', path: 'career/' },
       { id: 'repos', path: 'repos/' },
       { id: 'any-repo', path: 'any-repo/' }
-    ]
+    ],
+    heroLinks: 2
   },
   {
     id: 'codeguessr',
@@ -139,6 +140,73 @@ export const sideProjects: SideProject[] = [
       { id: 'code-review-tinder', path: 'play/code-review-tinder/' },
       { id: 'rm-rf-dungeon', path: 'play/rm-rf-dungeon/' },
       { id: 'localhost-golf', path: 'play/localhost-golf/' }
+    ],
+    heroLinks: 2
+  },
+  {
+    id: 'tools',
+    name: 'Tools',
+    url: 'https://tools.joeyoosenbrug.nl',
+    repo: 'https://github.com/joeykwispel/Tools',
+    status: 'live',
+    localeRoutes: 'dutch-prefix',
+    start: '2026-10',
+    stack: [
+      'Svelte',
+      'SvelteKit',
+      'TypeScript',
+      'Vite',
+      'I18N',
+      'Supabase',
+      'PostgreSQL',
+      'OAuth',
+      'Vitest',
+      'Playwright',
+      'axe-core',
+      'Lighthouse CI',
+      'ESLint',
+      'Prettier',
+      'SEO',
+      'WCAG 2.2',
+      'GitHub Actions',
+      'GitHub Pages'
+    ],
+    links: [{ id: 'regex', path: 'regex/' }]
+  },
+  {
+    id: 'designkit',
+    name: 'Design Kit',
+    url: 'https://designkit.joeyoosenbrug.nl',
+    repo: 'https://github.com/joeykwispel/designkit',
+    status: 'live',
+    localeRoutes: 'dutch-prefix',
+    start: '2026-10',
+    stack: [
+      'TypeScript',
+      'CSS3',
+      'Svelte',
+      'React',
+      'Tailwind CSS',
+      'SvelteKit',
+      'NPM',
+      'Vite',
+      'I18N',
+      'Vitest',
+      'Playwright',
+      'axe-core',
+      'Lighthouse CI',
+      'ESLint',
+      'Prettier',
+      'WCAG 2.2',
+      'GitHub Actions',
+      'GitHub Pages'
+    ],
+    links: [
+      { id: 'tokens', path: 'tokens/' },
+      { id: 'components', path: 'components/' },
+      { id: 'header', path: 'header/' },
+      { id: 'guidelines', path: 'guidelines/' },
+      { id: 'changelog', path: 'changelog/' }
     ],
     heroLinks: 2
   },
