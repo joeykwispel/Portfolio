@@ -76,8 +76,7 @@ export const cv: Record<'en' | 'nl', Cv> = {
     projects: [
       {
         client: 'Belastingdienst (via Competa IT)',
-        summary:
-          'Joey works at the Dutch Tax Administration as a Document Builder, working with XML within an Agile Scrum team.',
+        summary: 'Joey works at the Dutch Tax Administration as a Document Builder, working with XML within an Agile Scrum team.',
         bullets: [],
         role: 'Senior Front-end Developer | Document Builder',
         period: 'October 2026 – Present',
