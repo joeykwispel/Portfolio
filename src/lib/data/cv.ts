@@ -75,6 +75,15 @@ export const cv: Record<'en' | 'nl', Cv> = {
     ],
     projects: [
       {
+        client: 'Belastingdienst (via Competa IT)',
+        summary:
+          'Joey works at the Dutch Tax Administration as a Senior Front-end Developer and Document Builder, working with XML within an Agile Scrum team.',
+        bullets: [],
+        role: 'Senior Front-end Developer | Document Builder',
+        period: 'October 2026 – Present',
+        stack: 'XML, Agile, Scrum'
+      },
+      {
         client: 'PQNavigator - Rijksdienst voor Ondernemend Nederland (RVO) (via Competa IT)',
         summary:
           'As a Senior Front-end and Fullstack Developer, Joey contributes to the development of PQNavigator, a static-analysis platform that scans source repositories to build a cryptographic inventory and assess post-quantum readiness. His work focuses on the user-facing application, end-to-end application flows, server-side integration and the infrastructure required to run and deploy the platform reliably.',
@@ -91,7 +100,7 @@ export const cv: Record<'en' | 'nl', Cv> = {
           'Contributes to the delivery and validation of PQNavigator for Dutch public-sector organisations, including MinBZK, MinBuZa, MinVWS and VNG.'
         ],
         role: 'Senior Front-end Developer | Fullstack Developer',
-        period: 'July 2026 – Present',
+        period: 'July 2026 – September 2026',
         stack:
           'Next.js, React, TypeScript, JavaScript (ES6), HTML5, CSS3, Tailwind CSS, Shadcn, I18N, Vite, NestJS, Python, FastAPI, Pydantic, REST APIs, OpenAPI, Swagger, JSON, PostgreSQL, Prisma, JWT, ast-grep, Vitest, Jest, Pytest, ESLint, Turborepo, pnpm, Shell, Docker, Kubernetes, Proxmox, GitHub Actions, Git, WCAG 2.2, Stakeholder Management, Agile, Scrum'
       },
@@ -317,6 +326,14 @@ export const cv: Record<'en' | 'nl', Cv> = {
     ],
     projects: [
       {
+        client: 'Belastingdienst (via Competa IT)',
+        summary: 'Joey werkt bij de Belastingdienst als Senior Front-end Developer en Documentbouwer, met XML binnen een Agile Scrum-team.',
+        bullets: [],
+        role: 'Senior Front-end Developer & Documentbouwer',
+        period: 'oktober 2026 – heden',
+        stack: 'XML, Agile, Scrum'
+      },
+      {
         client: 'PQNavigator - Rijksdienst voor Ondernemend Nederland (RVO) (via Competa IT)',
         summary:
           'Als Senior Front-end & Fullstack Developer draagt Joey bij aan de ontwikkeling van PQNavigator, een static-analysis platform dat source repositories scant om een cryptografische inventaris op te bouwen en de gereedheid voor post-quantum cryptografie te beoordelen. Zijn werkzaamheden richten zich op de gebruikersapplicatie, end-to-end applicatieflows, server-side integraties en de infrastructuur die nodig is om het platform betrouwbaar te draaien en uit te rollen.',
@@ -333,7 +350,7 @@ export const cv: Record<'en' | 'nl', Cv> = {
           'Draagt bij aan de oplevering en validatie van PQNavigator voor Nederlandse overheidsorganisaties, waaronder VNG en de ministeries van BZK, BuZa en VWS, met het PQC-migratie handboek als beoordelingskader.'
         ],
         role: 'Senior Front-end & Fullstack Developer',
-        period: 'juli 2026 – heden',
+        period: 'juli 2026 – september 2026',
         stack:
           'Next.js, React, TypeScript, JavaScript (ES6), HTML5, CSS3, Tailwind CSS, Shadcn, I18N, Vite, NestJS, Python, FastAPI, Pydantic, REST APIs, OpenAPI, Swagger, JSON, PostgreSQL, Prisma, JWT, ast-grep, Vitest, Jest, Pytest, ESLint, Turborepo, pnpm, Shell, Docker, Kubernetes, Proxmox, GitHub Actions, Git, WCAG 2.2, Stakeholder Management, Agile, Scrum'
       },

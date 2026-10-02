@@ -1,6 +1,10 @@
 import type { ProjectText } from '../../types';
 
 export const projects: Record<string, ProjectText> = {
+  belastingdienst: {
+    sector: 'Publieke sector',
+    description: 'Front-end development en documentbouw met XML voor de Belastingdienst, binnen een Agile Scrum-team.'
+  },
   pqnavigator: {
     sector: 'Publieke sector',
     description:
