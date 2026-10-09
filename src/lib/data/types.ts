@@ -70,8 +70,6 @@ export interface SideProject {
   stack: string[];
   /** Deep links into the app, relative to its (locale) root. Labels live in the locale text. */
   links?: { id: string; path: string }[];
-  /** How many links the hero tile shows; the rest sit behind a "+N" chip to the app. Default: all. */
-  heroLinks?: number;
   /** How many links the project card shows; 0 hides the list. Default: all. */
   cardLinks?: number;
 }

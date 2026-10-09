@@ -1,7 +1,7 @@
 import type { Locale, SideProject } from '../types';
 
 /**
- * My own products, shown first under Projects and as quick links in the hero.
+ * My own products, shown first under Projects and as tiles in the hero.
  * Unlike client projects they have no role, so they don't add to "years in projects";
  * their stack still shows up in the Skills section and on the CV.
  * A 'wip' project is listed as coming soon and not linked.
@@ -46,8 +46,7 @@ export const sideProjects: SideProject[] = [
       { id: 'career', path: 'career/' },
       { id: 'repos', path: 'repos/' },
       { id: 'any-repo', path: 'any-repo/' }
-    ],
-    heroLinks: 2
+    ]
   },
   {
     id: 'codeguessr',
@@ -141,7 +140,6 @@ export const sideProjects: SideProject[] = [
       { id: 'rm-rf-dungeon', path: 'play/rm-rf-dungeon/' },
       { id: 'localhost-golf', path: 'play/localhost-golf/' }
     ],
-    heroLinks: 2,
     // Thirteen games make the card far taller than its neighbours; the app itself is the list.
     cardLinks: 0
   },
@@ -209,8 +207,7 @@ export const sideProjects: SideProject[] = [
       { id: 'header', path: 'header/' },
       { id: 'guidelines', path: 'guidelines/' },
       { id: 'changelog', path: 'changelog/' }
-    ],
-    heroLinks: 2
+    ]
   },
   {
     id: 'portfolio',
