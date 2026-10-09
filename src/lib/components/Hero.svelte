@@ -152,30 +152,6 @@
                 <strong>{p.name} <span class="soon mono">{c.ui.hero.soon}</span></strong>
               {/if}
               <span class="tile-text">{txt.tagline}</span>
-              {#if p.status === 'live' && p.links?.length}
-                {@const shown = p.links.slice(0, p.heroLinks ?? p.links.length)}
-                {@const hidden = p.links.length - shown.length}
-                <span class="districts">
-                  {#each shown as l (l.id)}
-                    <a
-                      class="district mono"
-                      href={sideProjectHref(p, app.locale, l.path)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="{p.name}: {txt.links?.[l.id]}">{txt.links?.[l.id]}</a
-                    >
-                  {/each}
-                  {#if hidden > 0}
-                    <a
-                      class="district mono"
-                      href={sideProjectHref(p, app.locale)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="{p.name}: {hidden} {c.ui.hero.more}">+{hidden}</a
-                    >
-                  {/if}
-                </span>
-              {/if}
             </span>
           </li>
         {/each}
@@ -592,7 +568,7 @@
     color: var(--text);
     text-decoration: none;
   }
-  /* The whole tile is the link to the app; the district links sit on top of it. */
+  /* The whole tile is the link to the app. */
   .tile-link::after {
     content: '';
     position: absolute;
@@ -611,31 +587,6 @@
     color: var(--muted);
     font-size: 0.8rem;
     line-height: 1.35;
-  }
-  .districts {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    margin-top: 0.2rem;
-  }
-  .district {
-    padding: 0.1rem 0.45rem;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    font-size: 0.68rem;
-    color: var(--muted);
-    text-decoration: none;
-    transition:
-      color 0.2s,
-      border-color 0.2s,
-      background 0.2s;
-  }
-  .district:hover {
-    color: var(--accent-text);
-    border-color: var(--accent);
-    background: var(--surface-2);
   }
   .wip {
     border-style: dashed;
