@@ -115,10 +115,46 @@ test('CV page works in both languages', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test('unknown pages show the 404 page', async ({ page }) => {
+test('unknown pages show the 418 teapot page', async ({ page }) => {
+  // A static host still answers 404; the page itself turns every error into a 418.
   const res = await page.goto('/does-not-exist/');
   expect(res?.status()).toBe(404);
-  await expect(page.getByText(/coffee not found/i).first()).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('418');
+  await expect(page).toHaveTitle(/teapot/i);
+  await expect(page.getByText(/was: 404/)).toBeVisible();
+  const quote = page.locator('blockquote');
+  const first = await quote.textContent();
+  await page.getByRole('button', { name: /another cup/i }).click();
+  await expect(quote).not.toHaveText(first!);
+  await page.getByRole('link', { name: /back home/i }).click();
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Joey');
+});
+
+test('the coffee joke leads to the teapot, and back again', async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto('/');
+  await page.getByRole('link', { name: /visit the teapot/i }).click();
+  await expect(page).toHaveURL(/\/418\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('418');
+  await page.getByRole('link', { name: /go back/i }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Joey');
+  await page.goto('/nl/418/');
+  await expect(page.locator('html')).toHaveAttribute('lang', 'nl');
+  await expect(page).toHaveTitle(/theepot/i);
+  // The terminal prompt takes commands; "cd ../" and "cd ~" go home like the button does.
+  const prompt = page.getByRole('textbox', { name: /terminalcommando/i });
+  await prompt.fill('brew coffee');
+  await prompt.press('Enter');
+  await expect(page.getByRole('log')).toContainText(/ik zet alleen thee/i);
+  await prompt.fill('cd ../');
+  await prompt.press('Enter');
+  await expect(page).toHaveURL(/\/nl\/$/);
+  await page.goBack();
+  await page.getByRole('textbox', { name: /terminalcommando/i }).fill('cd ~');
+  await page.getByRole('textbox', { name: /terminalcommando/i }).press('Enter');
+  await expect(page).toHaveURL(/\/nl\/$/);
+  expect(errors).toEqual([]);
 });
 
 test('sitemap lists both languages', async ({ request }) => {

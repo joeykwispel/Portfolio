@@ -198,6 +198,53 @@ export const ui = {
     file: 'curriculum-vitae.tsx',
     docTitle: 'Joey Oosenbrug - CV'
   },
+  teapot: {
+    title: "418 | I'm a teapot",
+    name: "I'm a teapot",
+    explain: 'You asked a teapot for coffee. Around here every error is a 418.',
+    original: {
+      404: "404 (we don't talk about it)",
+      500: '500 (the kettle did it)',
+      other: '(spilled, mopped up)',
+      none: "418 (no, really, it's a teapot)"
+    },
+    notFound: "coffee not found (418: I'm a teapot)",
+    page: 'Page',
+    was: 'was',
+    term: {
+      label: 'Terminal command',
+      hint: 'the terminal works: type "cd ~" or "cd ../" and press Enter to go home. Or try "help".',
+      help: 'cd ~ | cd ../ | cd - | brew coffee | tea | ls | pwd | sudo | clear',
+      coffee: "418: I'm a teapot. I only do tea. Try: tea",
+      sudo: 'Nice try. This teapot is not in the sudoers file. This incident will be steeped.',
+      unknown: 'command not found (try: help)'
+    },
+    back: 'go back',
+    home: 'back home',
+    refill: 'another cup',
+    quoteLabel: 'Teapot wisdom',
+    link: 'Coffee not found? Visit the teapot (418)',
+    quips: [
+      "I'm a teapot. I was never going to brew your coffee.",
+      'RFC 2324, section 2.3.2: brewing coffee with a teapot results in a 418. Rules are rules.',
+      'Short and stout. Here is my handle, here is my stack trace.',
+      '404 was taken, so I put the kettle on.',
+      'Keep calm and steep on.',
+      'Coffee is bean soup. Tea is leaf soup. This page is error soup.',
+      'Decaf is a null pointer in a mug.',
+      '500? Never heard of it. Have a biscuit.',
+      'This server runs on tea. The developer runs on coffee. Nobody is happy.',
+      'Have you tried turning the kettle off and on again?',
+      "It's not a bug, it's a brew.",
+      'May your coffee be stronger than your regex.',
+      'The page you are looking for is in another pot.',
+      'Espresso yourself. Elsewhere.',
+      'A yawn is a silent scream for coffee. This is a loud one.',
+      'Tip me over and pour me out. Please do not deploy me on a Friday.',
+      'Life happens. Coffee helps. Teapots refuse.',
+      'git commit -m "replace coffee machine with teapot" // who approved this?'
+    ]
+  },
   quips: {
     about: "if (coffee.isEmpty()) throw new Error('404: coffee not found');",
     insights: '// charts: 100% real data, 0% Excel',

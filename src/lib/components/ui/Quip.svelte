@@ -2,8 +2,8 @@
   import { onMount } from 'svelte';
   import { app } from '$lib/app.svelte';
 
-  /** A one-line code joke between sections; types itself out when scrolled into view. */
-  let { text }: { text: string } = $props();
+  /** A one-line code joke between sections; types itself out when scrolled into view. With `href` the joke is a link. */
+  let { text, href, label }: { text: string; href?: string; /** Accessible name of the link */ label?: string } = $props();
 
   let el: HTMLDivElement;
   let n = $state(-1);
@@ -47,15 +47,15 @@
   });
 </script>
 
-<div class="quip container" bind:this={el} aria-hidden="true">
+<div class="quip container" bind:this={el} aria-hidden={href ? undefined : 'true'}>
   <span class="line"></span>
   <!-- Invisible full text reserves the space; the typed text (and caret) is drawn over it and wraps on narrow screens. -->
-  <code class="mono"
+  <svelte:element this={href ? 'a' : 'code'} class="pill mono" {href} aria-label={href ? label : undefined} title={href ? label : undefined}
     ><span class="gt">&gt;</span><span class="box"
       ><span class="ghost">{text}<span class="caret"></span></span><span class="typed"
         >{#each tokens as tok, i (i)}{#if tok.c}<span class={tok.c}>{tok.t}</span>{:else}{tok.t}{/if}{/each}<span class="caret"></span></span
       ></span
-    ></code
+    ></svelte:element
   >
   <span class="line"></span>
 </div>
@@ -75,7 +75,7 @@
   .line:last-child {
     background: linear-gradient(90deg, var(--border), transparent);
   }
-  code {
+  .pill {
     font-size: 0.76rem;
     color: var(--muted);
     padding: 0.35rem 0.8rem;
@@ -86,6 +86,16 @@
     align-items: baseline;
     min-width: 0;
     max-width: calc(100% - 2rem);
+  }
+  a.pill {
+    text-decoration: none;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+  }
+  a.pill:hover {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
   }
   .gt {
     color: var(--accent-text);
@@ -108,7 +118,7 @@
     width: 0.45em;
     height: 0.95em;
   }
-  code :global(.com) {
+  .pill :global(.com) {
     font-style: italic;
   }
   @media (max-width: 560px) {
@@ -119,7 +129,7 @@
       justify-content: center;
     }
     /* A pill looks odd once the joke wraps onto a second line. */
-    code {
+    .pill {
       max-width: 100%;
       border-radius: var(--radius-sm);
     }

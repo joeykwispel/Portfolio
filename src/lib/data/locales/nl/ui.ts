@@ -199,6 +199,53 @@ export const ui: UI = {
     file: 'curriculum-vitae.tsx',
     docTitle: 'Joey Oosenbrug - CV'
   },
+  teapot: {
+    title: '418 | Ik ben een theepot',
+    name: "I'm a teapot",
+    explain: 'Je vroeg een theepot om koffie. Hier is elke fout een 418.',
+    original: {
+      404: '404 (daar praten we niet over)',
+      500: '500 (de waterkoker deed het)',
+      other: '(gemorst, opgedweild)',
+      none: '418 (nee echt, het is een theepot)'
+    },
+    notFound: "koffie niet gevonden (418: I'm a teapot)",
+    page: 'Pagina',
+    was: 'was',
+    term: {
+      label: 'Terminalcommando',
+      hint: 'de terminal werkt: typ "cd ~" of "cd ../" en druk op Enter om naar home te gaan. Of probeer "help".',
+      help: 'cd ~ | cd ../ | cd - | brew coffee | thee | ls | pwd | sudo | clear',
+      coffee: "418: I'm a teapot. Ik zet alleen thee. Probeer: thee",
+      sudo: 'Leuk geprobeerd. Deze theepot staat niet in het sudoers-bestand. Dit incident laten we even trekken.',
+      unknown: 'commando niet gevonden (probeer: help)'
+    },
+    back: 'ga terug',
+    home: 'terug naar home',
+    refill: 'nog een kopje',
+    quoteLabel: 'Theepotwijsheid',
+    link: 'Koffie niet gevonden? Bezoek de theepot (418)',
+    quips: [
+      'Ik ben een theepot. Ik ging jouw koffie echt nooit zetten.',
+      'RFC 2324, sectie 2.3.2: koffie zetten met een theepot levert een 418 op. Regels zijn regels.',
+      'Klein en dik. Hier is mijn oor, hier is mijn stacktrace.',
+      '404 was al bezet, dus ik heb de waterkoker aangezet.',
+      'Rustig blijven en laten trekken.',
+      'Koffie is bonensoep. Thee is bladsoep. Deze pagina is foutensoep.',
+      'Decaf is een null pointer in een mok.',
+      '500? Nooit van gehoord. Neem een koekje.',
+      'Deze server draait op thee. De developer draait op koffie. Niemand is blij.',
+      'Heb je de waterkoker al uit en weer aan gezet?',
+      'Het is geen bug, het is een brouwsel.',
+      'Moge je koffie sterker zijn dan je regex.',
+      'De pagina die je zoekt zit in een andere pot.',
+      'Eén kopje thee en je mag gaan. Gezellig hè?',
+      'Een geeuw is een stille schreeuw om koffie. Dit is een luide.',
+      'Schenk me gerust leeg, maar deploy me niet op vrijdag.',
+      'Het leven gebeurt. Koffie helpt. Theepotten weigeren.',
+      'git commit -m "koffiemachine vervangen door theepot" // wie heeft dit goedgekeurd?'
+    ]
+  },
   quips: {
     about: "if (koffie.isLeeg()) throw new Error('404: koffie niet gevonden');",
     insights: '// grafieken: 100% echte data, 0% Excel',
