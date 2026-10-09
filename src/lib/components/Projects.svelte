@@ -55,6 +55,7 @@
 
 {#snippet side(p: SideProject, i: number)}
   {@const txt = c.sideProjects[p.id]}
+  {@const links = p.links?.slice(0, p.cardLinks ?? p.links.length) ?? []}
   {@const isHere = p.id === 'portfolio'}
   <li use:reveal={{ delay: (i % 3) * 90 }}>
     <article class="card glass ring big own" use:tilt={3}>
@@ -71,10 +72,10 @@
         {#each p.stack.slice(0, STACK_SHOWN) as t (t)}<li class="tag">{c.skillLabels[t] ?? t}</li>{/each}
         {#if p.stack.length > STACK_SHOWN}<li class="tag more">+{p.stack.length - STACK_SHOWN}</li>{/if}
       </ul>
-      {#if p.links?.length}
+      {#if links.length}
         <p class="by">{c.ui.projects.jump}</p>
         <ul class="layers">
-          {#each p.links as l (l.id)}
+          {#each links as l (l.id)}
             <li>
               <a class="layer mono" href={sideProjectHref(p, app.locale, l.path)} target="_blank" rel="noopener noreferrer"
                 >{txt.links?.[l.id]} <span aria-hidden="true">↗</span></a

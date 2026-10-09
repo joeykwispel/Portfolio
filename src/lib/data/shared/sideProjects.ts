@@ -141,7 +141,9 @@ export const sideProjects: SideProject[] = [
       { id: 'rm-rf-dungeon', path: 'play/rm-rf-dungeon/' },
       { id: 'localhost-golf', path: 'play/localhost-golf/' }
     ],
-    heroLinks: 2
+    heroLinks: 2,
+    // Thirteen games make the card far taller than its neighbours; the app itself is the list.
+    cardLinks: 0
   },
   {
     id: 'tools',

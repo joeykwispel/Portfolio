@@ -242,6 +242,8 @@
     font-size: 0.78rem;
     line-height: 1.7;
     cursor: text;
+    /* JetBrains Mono draws "../" as a single glyph that reads as " ./"; a terminal should show what was typed. */
+    font-variant-ligatures: none;
   }
   pre {
     margin: 0;
@@ -265,6 +267,8 @@
     line-height: inherit;
     caret-color: var(--accent);
     caret-shape: block;
+    /* form controls do not inherit this from .screen */
+    font-variant-ligatures: none;
   }
   .prompt input::placeholder {
     color: var(--syn-com);
@@ -278,6 +282,7 @@
   }
   .hint {
     font-size: 0.72rem;
+    font-variant-ligatures: none;
   }
   .dir {
     color: var(--accent-2-text);
