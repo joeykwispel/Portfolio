@@ -22,7 +22,8 @@ async function loadAll(page: Page) {
 // Every page in the built sitemap: home, CV, case studies and posts, in both languages.
 // Build with VITE_SHOW_DRAFTS=1 to include drafts.
 const sitemap = readFileSync(new URL('../build/sitemap.xml', import.meta.url), 'utf8');
-const pages = [...sitemap.matchAll(/<loc>https?:\/\/[^/]+([^<]*)<\/loc>/g)].map((m) => m[1]);
+// The teapot (418) page is noindex, so it is not in the sitemap; test it anyway.
+const pages = [...[...sitemap.matchAll(/<loc>https?:\/\/[^/]+([^<]*)<\/loc>/g)].map((m) => m[1]), '/418/', '/nl/418/'];
 
 // axe on the full home page is slow
 test.describe.configure({ timeout: 90_000 });

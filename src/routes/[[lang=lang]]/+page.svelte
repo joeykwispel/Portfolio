@@ -49,7 +49,7 @@
 <main id="main">
   <Hero />
   <About />
-  <Quip text={ui.quips.about} />
+  <Quip text={ui.quips.about} href={app.href('/418/')} label={ui.teapot.link} />
   <Lazy id="skills" minHeight="700px" loader={() => import('$lib/components/Skills.svelte')} />
   <Lazy id="insights" minHeight="900px" loader={() => import('$lib/components/Charts.svelte')} />
   <Quip text={ui.quips.insights} />
